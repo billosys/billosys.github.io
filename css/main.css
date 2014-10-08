@@ -19,6 +19,7 @@ h1, h2, h3, h4, h5, h6 {
 	min-height: 50px;
 	padding: 20px 0;
 	border: 0;
+	border-bottom: solid 2px #92845e;
 }
 .site-navbar a {
 	color: #92845e;
@@ -313,7 +314,7 @@ h1, h2, h3, h4, h5, h6 {
 #contact {
 	background-color: #211403;
 	color: #92845e;
-	border-top: solid 2px black;
+	border-top: solid 2px #92845e;
 }
 
 #contact .fa {
@@ -356,7 +357,7 @@ footer {
 	padding-bottom: 100px;
 	font-weight: 300;
 	color: #92845e;
-	border-top: solid 2px black;
+	border-top: solid 2px #92845e;
 }
 footer a {
 	font-weight: 400;
