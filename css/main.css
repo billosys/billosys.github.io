@@ -359,6 +359,22 @@ footer a {
 	text-shadow: 0;
 	text-decoration: underline;
 }
+
+.underline {
+	text-decoration: underline;
+}
+
+.ltd-co-initial {
+	font-size: 90%;
+}
+
+.ltd-co {
+	position: relative;
+	top: -0.5em;
+	text-transform: uppercase;
+	font-size: 50%;
+}
+
 .scroll-to-top a {
 	color: #fff;
 	display: block;
