@@ -8,9 +8,14 @@ body {
 	font-family: crimson-text-roman, serif;
 }
 
+h1, h2, h3, h4, h5, h6 {
+	font-family: pt-sans-narrow-bold;
+}
+
 /* Navbar */
 .site-navbar {
-	background: #2e373c;
+	font-family: pt-sans-narrow-bold;
+	background: #1a0f00;
 	min-height: 50px;
 	padding: 20px 0;
 	border: 0;
@@ -340,7 +345,7 @@ textarea {
 
 /* footer */
 footer {
-	background: #1b2124;
+	background: #1a0f00;
 	padding-top: 30px;
 	text-align: center;
 	font-size: 15px;
