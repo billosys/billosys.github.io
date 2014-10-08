@@ -1,6 +1,3 @@
-@import url("../fonts/ptsansnarrow_bold/stylesheet.css");
-@import url("../fonts/crimsontext_roman/stylesheet.css");
-
 html {
 	overflow-x: hidden;
 }
@@ -23,7 +20,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .site-navbar a {
 	color: #92845e;
-	text-transform: uppercase;
+	border-radius: 7px;
 }
 .site-navbar .current {
 	background: #432907;
@@ -53,7 +50,7 @@ h1, h2, h3, h4, h5, h6 {
 	margin-top: 90px;
 }
 
-/* carousel */
+/* section 1 */
 .carousel-caption {
 	bottom: 100px;
 }
@@ -83,28 +80,31 @@ h1, h2, h3, h4, h5, h6 {
 	left: 30px;
 }
 
-/* about */
-#about,
-#services,
-#portfolio,
-#team,
+/* all sections */
+#section-2,
+#section-3,
+#section-4,
+#section-5,
 #blog,
-#contact {
+#section-6 {
 	padding-top: 60px;
 	padding-bottom: 80px;
 }
-#about h3,
-#services h3,
-#portfolio h3,
-#team h3,
-#blog h3,
-#contact h3 {
+#section-2 h3,
+#section-3 h3,
+#section-4 h3,
+#section-5 h3,
+#section-6 h3 {
 	font-size: 4em;
-	text-transform: uppercase;
 	font-weight: bold;
 	margin-bottom: 35px;
 }
-#about p {
+
+/* section 2 */
+#section-2 {
+	border-top: solid 2px #92845e;
+}
+#section-2 p {
 	font-size: 1.3em;
 	font-weight: 300;
 	color: #444;
@@ -134,19 +134,20 @@ h1, h2, h3, h4, h5, h6 {
 	color: #017eb4;
 }
 
-/* Services */
-#services {
-	background: #bf544e;
+/* section 3 */
+#section-3 {
+	background: #2cc97d;
 	color: #fff;
+	border-top: solid 2px #92845e;
 }
-#services h3 {
+#section-3 h3 {
 	margin-bottom: 40px;
 }
-#services p {
+#section-3 p {
 	text-align: center;
 	font-size: 1.1em;
 }
-#services span {
+#section-3 span {
 	width: 200px;
 	height: 200px;
 	display: inline-block;
@@ -154,41 +155,42 @@ h1, h2, h3, h4, h5, h6 {
 	border-radius: 50%;
 	margin-bottom: 20px;
 }
-#services span i {
+#section-3 span i {
 	font-size: 5em;
 	padding: 65px 50px;
 }
-#services span i.fa-mobile {
+#section-3 span i.fa-mobile {
 	font-size: 7.5em;
 	padding: 50px 50px;
 }
-#services span i.fa-thumbs-up {
+#section-3 span i.fa-thumbs-up {
 	padding: 60px 50px;
 }
-#services h4 {
+#section-3 h4 {
 	font-size: 1.6em;
 	font-weight: bold;
 	text-transform: uppercase;
 	text-align: center;
 }
 
-/* portfolio */
-#portfolio {
+/* section 4 */
+#section-4 {
 	background: #273035;
 	color: #fff;
+	border-top: solid 2px #92845e;
 }
-#portfolio img {
+#section-4 img {
 	width: 100%;
 	margin-bottom: 20px;
 	height: auto;
 }
-#portfolio h4 {
+#section-4 h4 {
 	font-size: 1.6em;
 	font-weight: bold;
 	text-transform: uppercase;
 	margin-bottom: 0;
 }
-#portfolio span {
+#section-4 span {
 	background: #1b93c7;
 	border-radius: 50px;
 	padding: 25px 13px;
@@ -203,35 +205,38 @@ h1, h2, h3, h4, h5, h6 {
 	width: 84px;
 	height: 84px;
 }
-#portfolio .imgport {
+#section-4 .imgport {
 	position: relative;
 }
-#portfolio .imgport:hover {
+#section-4 .imgport:hover {
 	cursor: pointer;
 	opacity: 0.9;
 }
-#portfolio .imgport:hover span {
+#section-4 .imgport:hover span {
 	display: block;
 }
 
-/* Team */
-#team {
+/* section 5 */
+#section-5 {
+	background-color: #4a76ff;
+	color: #fff;
+	border-top: solid 2px #92845e;
 }
-#team h4 {
+#section-5 h4 {
 	font-size: 1.6em;
 	font-weight: bold;
 	text-transform: uppercase;
 	margin-bottom: 0;
 	text-align: center;
 }
-#team p {
+#section-5 p {
 	text-align: center;
 }
-#team img {
+#section-5 img {
 	width: 100%;
 	margin-bottom: 20px;
 }
-#team ul {
+#section-5 ul {
 	position: absolute;
 	top: 60%;
 	left: 16%;
@@ -243,61 +248,30 @@ h1, h2, h3, h4, h5, h6 {
 	padding: 0;
 	margin: 0;
 }
-#team ul li {
+#section-5 ul li {
 	display: inline-block;
 	background: #1b93c7;
 	padding: 0 10px;
 }
-#team ul li a {
+#section-5 ul li a {
 	color: #fff;
 	font-size: 1.8em;
 }
-#team ul li:hover {
+#section-5 ul li:hover {
 	background: #273035;
 }
-#team .imgteam {
+#section-5 .imgteam {
 	position: relative;
 }
-#team .imgteam:hover {
+#section-5 .imgteam:hover {
 	cursor: pointer;
 	opacity: 0.9;
 }
-#team .imgteam:hover ul {
+#section-5 .imgteam:hover ul {
 	display: block;
 }
 
-/* Blog */
-#blog {
-	background: #1b2124;
-	color: #fff;
-}
-#blog a {
-	color: #fff;
-}
-#blog h4 {
-	font-size: 2.5em;
-	text-transform: uppercase;
-}
-#blog ul {
-	padding: 0;
-}
-#blog li {
-	list-style: none;
-	margin-bottom: 30px;
-	padding: 0;
-}
-#blog h5 {
-	font-size: 1.4em;
-	text-transform: uppercase;
-}
-#blog p {
-	font-size: 1.1em;
-}
-.singleblog {
-	background: #273035 !important;
-}
-
-/* Contact */
+/* section 6 */
 .fluid-wrapper {
 	position: relative;
 	height: 350px;
@@ -311,13 +285,13 @@ h1, h2, h3, h4, h5, h6 {
 	height: 100%;
 	border: none;
 }
-#contact {
+#section-6 {
 	background-color: #211403;
 	color: #92845e;
 	border-top: solid 2px #92845e;
 }
 
-#contact .fa {
+#section-6 .fa {
 	font-size: 1.2em;
 }
 .mail {
@@ -481,12 +455,12 @@ button.close {
 	}
 }
 @media (max-width:767px) {
-	#about h3,
-	#services h3,
-	#portfolio h3,
-	#team h3,
+	#section-2 h3,
+	#section-3 h3,
+	#section-4 h3,
+	#section-5 h3,
 	#blog h3,
-	#contact h3 {
+	#section-6 h3 {
 		font-size: 3em;
 	}
 	.frm .col-md-6,
