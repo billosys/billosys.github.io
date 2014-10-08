@@ -1,9 +1,8 @@
-/* DEFAULT 1.2.0 - 2/2014 copyright (c) templatesuper.com | @templatesuper */
 html {
 	overflow-x: hidden;
 }
 body {
-	font-family: 'Open Sans', sans-serif;
+	font-family: serif;
 }
 
 /* Navbar */
@@ -16,7 +15,7 @@ body {
 .site-navbar a {
 	color: #fff;
 	text-transform: uppercase;
-	font-family: 'Open Sans', sans-serif;
+	font-family: serif;
 }
 .site-navbar .current {
 	background: #1b93c7;
@@ -93,13 +92,13 @@ body {
 #blog h3,
 #contact h3 {
 	font-size: 4em;
-	font-family: 'Montserrat', sans-serif;
+	font-family: serif;
 	text-transform: uppercase;
 	font-weight: bold;
 	margin-bottom: 35px;
 }
 #about p {
-	font-family: 'Open Sans', sans-serif;
+	font-family: serif;
 	font-size: 1.3em;
 	font-weight: 300;
 	color: #444;
@@ -139,7 +138,7 @@ body {
 }
 #services p {
 	text-align: center;
-	font-family: 'Open Sans', sans-serif;
+	font-family: serif;
 	font-size: 1.1em;
 }
 #services span {
@@ -166,7 +165,7 @@ body {
 	font-weight: bold;
 	text-transform: uppercase;
 	text-align: center;
-	font-family: 'Montserrat', sans-serif;
+	font-family: serif;
 }
 
 /* portfolio */
@@ -183,7 +182,7 @@ body {
 	font-size: 1.6em;
 	font-weight: bold;
 	text-transform: uppercase;
-	font-family: 'Montserrat', sans-serif;
+	font-family: serif;
 	margin-bottom: 0;
 }
 #portfolio span {
@@ -194,7 +193,7 @@ body {
 	top: 28%;
 	left: 40%;
 	display: none;
-	font-family: 'Open Sans', sans-serif;
+	font-family: serif;
 	font-size: 24px;
 	text-transform: uppercase;
 	font-weight: bold;
@@ -220,7 +219,7 @@ body {
 	font-size: 1.6em;
 	font-weight: bold;
 	text-transform: uppercase;
-	font-family: 'Montserrat', sans-serif;
+	font-family: serif;
 	margin-bottom: 0;
 	text-align: center;
 }
@@ -236,7 +235,7 @@ body {
 	top: 60%;
 	left: 16%;
 	display: none;
-	font-family: 'Open Sans', sans-serif;
+	font-family: serif;
 	font-size: 24px;
 	text-transform: uppercase;
 	font-weight: bold;
@@ -276,7 +275,7 @@ body {
 	color: #fff;
 }
 #blog h4 {
-	font-family: 'Montserrat', sans-serif;
+	font-family: serif;
 	font-size: 2.5em;
 	text-transform: uppercase;
 }
@@ -289,12 +288,12 @@ body {
 	padding: 0;
 }
 #blog h5 {
-	font-family: 'Montserrat', sans-serif;
+	font-family: serif;
 	font-size: 1.4em;
 	text-transform: uppercase;
 }
 #blog p {
-	font-family: 'Open Sans', sans-serif;
+	font-family: serif;
 	font-size: 1.1em;
 }
 .singleblog {
@@ -321,7 +320,7 @@ body {
 }
 .mail {
 	font-size: 1.3em;
-	font-family: 'Open Sans', sans-serif;
+	font-family: serif;
 	font-weight: 300;
 	color: #666;
 }
@@ -355,7 +354,7 @@ footer {
 	padding-top: 30px;
 	text-align: center;
 	font-size: 15px;
-	font-family: 'Open Sans', sans-serif;
+	font-family: serif;
 	padding-bottom: 100px;
 	font-weight: 300;
 	color: #fff;
@@ -425,7 +424,7 @@ button.close {
 #single .titlesingle {
 	font-weight: bold;
 	text-transform: uppercase;
-	font-family: 'Montserrat', sans-serif;
+	font-family: serif;
 	margin-bottom: 0;
 	text-align: center;
 	margin-bottom: 20px;
@@ -436,7 +435,7 @@ button.close {
 	font-size: 3em;
 }
 #single p {
-	font-family: 'Open Sans', sans-serif;
+	font-family: serif;
 	font-size: 1.3em;
 	font-weight: 300;
 	color: #444;
