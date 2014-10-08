@@ -21,29 +21,29 @@ h1, h2, h3, h4, h5, h6 {
 	border: 0;
 }
 .site-navbar a {
-	color: #fff;
+	color: #92845e;
 	text-transform: uppercase;
 }
 .site-navbar .current {
-	background: #1b93c7;
+	background: #432907;
 }
 .site-navbar li a.current:hover {
-	background: #1b93c7;
+	background: #432907;
 }
 .site-navbar li a:hover {
-	background: #1b93c7;
+	background: #432907;
 }
 .site-navbar li a:focus {
-	background: #1b93c7;
+	background: #432907;
 }
 .navbar-brand {
 	padding-top: 0;
 }
 .navbar-toggle .icon-bar {
-	background: #fff;
+	background: #92845e;
 }
 .navbar-toggle {
-	border: 1px solid #fff;
+	border: 1px solid #92845e;
 	border-radius: 0;
 }
 
@@ -310,14 +310,18 @@ h1, h2, h3, h4, h5, h6 {
 	height: 100%;
 	border: none;
 }
+#contact {
+	background-color: #211403;
+	color: #92845e;
+	border-top: solid 2px black;
+}
+
 #contact .fa {
 	font-size: 1.2em;
-	color: #8f8f8f;
 }
 .mail {
 	font-size: 1.3em;
 	font-weight: 300;
-	color: #666;
 }
 .frm input[type="text"],
 .frm input[type="email"] {
@@ -351,11 +355,12 @@ footer {
 	font-size: 15px;
 	padding-bottom: 100px;
 	font-weight: 300;
-	color: #fff;
+	color: #92845e;
+	border-top: solid 2px black;
 }
 footer a {
 	font-weight: 400;
-	color: #fff;
+	color: #7d7765;
 	text-shadow: 0;
 	text-decoration: underline;
 }
