@@ -1,10 +1,10 @@
 @font-face {
-    font-family: 'pt_sansitalic';
+    font-family: 'pt-sans-italic';
     src: url('PTS56F-webfont.eot');
     src: url('PTS56F-webfont.eot?#iefix') format('embedded-opentype'),
          url('PTS56F-webfont.woff') format('woff'),
          url('PTS56F-webfont.ttf') format('truetype'),
-         url('PTS56F-webfont.svg#pt_sansitalic') format('svg');
+         url('PTS56F-webfont.svg#pt-sans-italic') format('svg');
     font-weight: normal;
     font-style: normal;
 
