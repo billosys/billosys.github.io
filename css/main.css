@@ -1,8 +1,11 @@
+@import url("../fonts/ptsansnarrow_bold/stylesheet.css");
+@import url("../fonts/crimsontext_roman/stylesheet.css");
+
 html {
 	overflow-x: hidden;
 }
 body {
-	font-family: serif;
+	font-family: crimson-text-roman, serif;
 }
 
 /* Navbar */
@@ -15,7 +18,6 @@ body {
 .site-navbar a {
 	color: #fff;
 	text-transform: uppercase;
-	font-family: serif;
 }
 .site-navbar .current {
 	background: #1b93c7;
@@ -92,13 +94,11 @@ body {
 #blog h3,
 #contact h3 {
 	font-size: 4em;
-	font-family: serif;
 	text-transform: uppercase;
 	font-weight: bold;
 	margin-bottom: 35px;
 }
 #about p {
-	font-family: serif;
 	font-size: 1.3em;
 	font-weight: 300;
 	color: #444;
@@ -138,7 +138,6 @@ body {
 }
 #services p {
 	text-align: center;
-	font-family: serif;
 	font-size: 1.1em;
 }
 #services span {
@@ -165,7 +164,6 @@ body {
 	font-weight: bold;
 	text-transform: uppercase;
 	text-align: center;
-	font-family: serif;
 }
 
 /* portfolio */
@@ -182,7 +180,6 @@ body {
 	font-size: 1.6em;
 	font-weight: bold;
 	text-transform: uppercase;
-	font-family: serif;
 	margin-bottom: 0;
 }
 #portfolio span {
@@ -193,7 +190,6 @@ body {
 	top: 28%;
 	left: 40%;
 	display: none;
-	font-family: serif;
 	font-size: 24px;
 	text-transform: uppercase;
 	font-weight: bold;
@@ -219,7 +215,6 @@ body {
 	font-size: 1.6em;
 	font-weight: bold;
 	text-transform: uppercase;
-	font-family: serif;
 	margin-bottom: 0;
 	text-align: center;
 }
@@ -235,7 +230,6 @@ body {
 	top: 60%;
 	left: 16%;
 	display: none;
-	font-family: serif;
 	font-size: 24px;
 	text-transform: uppercase;
 	font-weight: bold;
@@ -275,7 +269,6 @@ body {
 	color: #fff;
 }
 #blog h4 {
-	font-family: serif;
 	font-size: 2.5em;
 	text-transform: uppercase;
 }
@@ -288,12 +281,10 @@ body {
 	padding: 0;
 }
 #blog h5 {
-	font-family: serif;
 	font-size: 1.4em;
 	text-transform: uppercase;
 }
 #blog p {
-	font-family: serif;
 	font-size: 1.1em;
 }
 .singleblog {
@@ -320,7 +311,6 @@ body {
 }
 .mail {
 	font-size: 1.3em;
-	font-family: serif;
 	font-weight: 300;
 	color: #666;
 }
@@ -354,7 +344,6 @@ footer {
 	padding-top: 30px;
 	text-align: center;
 	font-size: 15px;
-	font-family: serif;
 	padding-bottom: 100px;
 	font-weight: 300;
 	color: #fff;
@@ -424,7 +413,6 @@ button.close {
 #single .titlesingle {
 	font-weight: bold;
 	text-transform: uppercase;
-	font-family: serif;
 	margin-bottom: 0;
 	text-align: center;
 	margin-bottom: 20px;
@@ -435,7 +423,6 @@ button.close {
 	font-size: 3em;
 }
 #single p {
-	font-family: serif;
 	font-size: 1.3em;
 	font-weight: 300;
 	color: #444;
