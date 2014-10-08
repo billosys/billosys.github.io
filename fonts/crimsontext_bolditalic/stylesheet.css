@@ -1,11 +1,11 @@
 @font-face {
-    font-family: 'crimson_textbold_italic';
+    font-family: 'crimson-text-bold-italic';
     src: url('crimsontext-bolditalic-webfont.eot');
     src: url('crimsontext-bolditalic-webfont.eot?#iefix') format('embedded-opentype'),
          url('crimsontext-bolditalic-webfont.woff2') format('woff2'),
          url('crimsontext-bolditalic-webfont.woff') format('woff'),
          url('crimsontext-bolditalic-webfont.ttf') format('truetype'),
-         url('crimsontext-bolditalic-webfont.svg#crimson_textbold_italic') format('svg');
+         url('crimsontext-bolditalic-webfont.svg#crimson-text-bold-italic') format('svg');
     font-weight: normal;
     font-style: normal;
 
