@@ -102,12 +102,16 @@ h1, h2, h3, h4, h5, h6 {
 
 /* section 2 */
 #section-2 {
+	background-color: #eee8d5;
 	border-top: solid 2px #92845e;
 }
 #section-2 p {
 	font-size: 1.3em;
 	font-weight: 300;
 	color: #444;
+}
+#section-2 h3 {
+	color: #432907;
 }
 .icon-about a i {
 	font-size: 3em;
@@ -175,7 +179,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* section 4 */
 #section-4 {
-	background: #273035;
+	background-color: #4a76ff;
 	color: #fff;
 	border-top: solid 2px #92845e;
 }
@@ -218,8 +222,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* section 5 */
 #section-5 {
-	background-color: #4a76ff;
-	color: #fff;
+	background-color: #211403;
+	color: #92845e;
 	border-top: solid 2px #92845e;
 }
 #section-5 h4 {
@@ -271,7 +275,7 @@ h1, h2, h3, h4, h5, h6 {
 	display: block;
 }
 
-/* section 6 */
+
 .fluid-wrapper {
 	position: relative;
 	height: 350px;
@@ -285,41 +289,23 @@ h1, h2, h3, h4, h5, h6 {
 	height: 100%;
 	border: none;
 }
+
+/* section 6 */
 #section-6 {
-	background-color: #211403;
-	color: #92845e;
+	background-color: #eee8d5;
+	color: #1a0f00;
 	border-top: solid 2px #92845e;
 }
-
+#section-6 h3 {
+	color: #432907;
+}
 #section-6 .fa {
 	font-size: 1.2em;
+	color: #432907;
 }
-.mail {
-	font-size: 1.3em;
-	font-weight: 300;
-}
-.frm input[type="text"],
-.frm input[type="email"] {
-	background: #fcfcfc !important;
-	border-radius: 0 !important;
-	height: 50px;
-}
-textarea {
-	background: #fcfcfc !important;
-	border-radius: 0 !important;
-	padding: 10px !important;
-	font-size: 1.2em;
-}
-.btn-biru {
-	background: #1b93c7;
-	border-radius: 0 !important;
-	border: 0 !important;
-}
-.btn-biru:hover {
-	background: #0170a0;
-}
-#success p {
-	padding: 15px;
+
+.maps iframe{
+    pointer-events: none;
 }
 
 /* footer */
@@ -406,32 +392,6 @@ button.close {
 	z-index: 999;
 }
 
-/* SINGLE BLOG */
-#single {
-	padding-top: 30px;
-	margin-bottom: 40px;
-}
-#single .titlesingle {
-	font-weight: bold;
-	text-transform: uppercase;
-	margin-bottom: 0;
-	text-align: center;
-	margin-bottom: 20px;
-	padding-bottom: 20px;
-	border-bottom: 1px dashed #dedede;
-}
-#single .titlesingle h1 {
-	font-size: 3em;
-}
-#single p {
-	font-size: 1.3em;
-	font-weight: 300;
-	color: #444;
-}
-#single p.datesingle {
-	text-align: center;
-	font-size: 1.6em;
-}
 .alignright {
 	float: right;
 	margin: 5px 0 20px 20px;

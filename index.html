@@ -238,7 +238,9 @@
           </div>
           <div class="fluid-wrapper">
             <!-- IFRAME MAPS -->
+            <div class='embed-container maps'>
             <iframe src="https://maps.google.com/maps?ie=UTF8&amp;ll=43.913723,-99.008789&amp;spn=7.344172,16.907959&amp;t=h&amp;z=7&amp;output=embed" frameborder="0" style="border:0"></iframe>
+            </div>
           </div>
           <div class="container">
             <div class="row">
@@ -313,6 +315,11 @@
     <script src="js/jquery.singlePageNav.js"></script>
     <script src="js/main.js"></script>
     <script src="js/wow.min.js"></script>
-    <script>new WOW().init();</script>
+    <script>
+      new WOW().init();
+      $('.maps').click(function () {
+        $('.maps iframe').css("pointer-events", "auto");
+      });
+    </script>
   </body>
 </html>
