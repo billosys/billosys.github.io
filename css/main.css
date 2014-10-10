@@ -288,8 +288,10 @@ h1, h2, h3, h4, h5, h6 {
 #section-6 {
 	background-color: #eee8d5;
 	color: #1a0f00;
-	font-size: 1.1em;
 	border-top: solid 2px #92845e;
+}
+#section-6 p {
+	font-size: 1.1em;
 }
 #section-6 h3 {
 	color: #432907;
@@ -302,6 +304,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 #section-6 .unicode {
 	font-size: 1.4em;
+}
+#section-6 .star {
+	font-size: 1.8em;
 }
 #section-6 .media {
 	font-size: 4em;
