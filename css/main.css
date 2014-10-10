@@ -155,13 +155,13 @@ h1, h2, h3, h4, h5, h6 {
 	width: 200px;
 	height: 200px;
 	display: inline-block;
-	border: 5px solid #fff;
+	border: 15px solid #fff;
 	border-radius: 50%;
 	margin-bottom: 20px;
 }
 #section-3 span i {
-	font-size: 5em;
-	padding: 65px 50px;
+	font-size: 7.5em;
+	padding: 30px 24px;
 }
 #section-3 span i.fa-mobile {
 	font-size: 7.5em;
