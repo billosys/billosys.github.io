@@ -1,0 +1,33 @@
+/* Blog */
+#blog {
+	background: #1b2124;
+	color: #fff;
+}
+#blog a {
+	color: #fff;
+}
+#blog h4 {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 2.5em;
+	text-transform: uppercase;
+}
+#blog ul {
+	padding: 0;
+}
+#blog li {
+	list-style: none;
+	margin-bottom: 30px;
+	padding: 0;
+}
+#blog h5 {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1.4em;
+	text-transform: uppercase;
+}
+#blog p {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 1.1em;
+}
+.singleblog {
+	background: #273035 !important;
+}
