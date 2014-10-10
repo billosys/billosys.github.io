@@ -222,7 +222,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* section 5 */
 #section-5 {
-	background-color: #4a76ff;
+	/* background-color: #4a76ff; */
+	background-color: rgb(49, 113, 163);
 	color: #eee8d5;
 	border-top: solid 2px #92845e;
 }
