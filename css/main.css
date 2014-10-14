@@ -109,6 +109,7 @@ h1, h2, h3, h4, h5, h6 {
 	font-size: 1.3em;
 	font-weight: 300;
 	color: #444;
+	margin-bottom: 1.2em;
 }
 #section-2 h3 {
 	color: #432907;
@@ -189,6 +190,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 #section-4 p {
 	font-size: 1.3em;
+	margin-bottom: 1.2em;
 }
 #section-4 span {
 	background: #1b93c7;
@@ -221,48 +223,11 @@ h1, h2, h3, h4, h5, h6 {
 	/* background-color: #4a76ff; */
 	background-color: rgb(49, 113, 163);
 	color: #eee8d5;
-	font-size: 1.3em;
 	border-top: solid 2px #92845e;
 }
-#section-5 h4 {
-	font-size: 1.6em;
-	font-weight: bold;
-	text-transform: uppercase;
-	margin-bottom: 0;
-}
-#section-5 ul {
-	position: absolute;
-	top: 60%;
-	left: 16%;
-	display: none;
-	font-size: 24px;
-	text-transform: uppercase;
-	font-weight: bold;
-	color: #fff;
-	padding: 0;
-	margin: 0;
-}
-#section-5 ul li {
-	display: inline-block;
-	background: #1b93c7;
-	padding: 0 10px;
-}
-#section-5 ul li a {
-	color: #fff;
-	font-size: 1.8em;
-}
-#section-5 ul li:hover {
-	background: #273035;
-}
-#section-5 .imgteam {
-	position: relative;
-}
-#section-5 .imgteam:hover {
-	cursor: pointer;
-	opacity: 0.9;
-}
-#section-5 .imgteam:hover ul {
-	display: block;
+#section-5 p {
+	font-size: 1.5em;
+	margin-bottom: 1.2em;
 }
 #section-5 img .vob {
 	height: 113px;
@@ -448,4 +413,9 @@ button.close {
 	.alignleft {
 		width: 100%;
 	}
+}
+
+blockquote {
+	border: none;
+	font-size: 1.8em;
 }
