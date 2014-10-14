@@ -1,3 +1,3 @@
 staging:
-	@#scp -r *.html js css images fonts staging.billo.systems:/var/www/billo/
+	git pull --all && \
 	rsync -azP {*.html,css,js,images,fonts} staging.billo.systems:/var/www/billo/
