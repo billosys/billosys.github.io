@@ -17,12 +17,4 @@ $(document).ready(function(){
               }
             }
     });
-    // Contact
-    $('#submit').click(function(){ 
-        $.post("contactus.php", $(".frm").serialize(),  function(response) {
-            $('#success').html(response);            
-        });
-        return false;   
-    });
-     
 });
