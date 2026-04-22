@@ -1,0 +1,119 @@
+// ──────────────────────────────────────────────────────────────
+// Every Layout primitives (subset — only what v1 actually uses).
+//
+// Heydon Pickering & Andy Bell, Every Layout (https://every-layout.dev).
+// Philosophy: compose layouts from small, axiomatic primitives
+// rather than from bespoke per-page CSS. Each primitive does one
+// layout job and accepts a couple of custom-property knobs.
+//
+// v1 uses: Stack, Center, Cluster, Box, Grid, Cover.
+// Others (Sidebar, Switcher, Frame, Reel, Imposter) can be added
+// when a real use case lands.
+// ──────────────────────────────────────────────────────────────
+
+// ─────────── Stack: vertical rhythm ───────────
+// Adds uniform margin between direct children. The "owl selector"
+// (> * + *) gives every child-but-the-first its top margin, which
+// means a Stack's outer elements don't need to know about their
+// siblings.
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  > * {
+    margin-block: 0;
+  }
+
+  > * + * {
+    margin-block-start: var(--stack-space, var(--content-gap));
+  }
+}
+
+// Tighter variant — useful inside cards or clusters of related lines.
+.stack-tight {
+  --stack-space: var(--content-gap-tight);
+}
+
+// Looser variant — between major sections that aren't quite full section-gap.
+.stack-loose {
+  --stack-space: var(--section-gap-tight);
+}
+
+// ─────────── Center: horizontal measure-constraint ───────────
+// Centres a single child horizontally and caps its inline size.
+// The canonical "set the measure" primitive for prose.
+
+.center {
+  box-sizing: content-box;
+  margin-inline: auto;
+  max-inline-size: var(--center-max, var(--measure));
+  padding-inline: var(--center-gutter, 0);
+}
+
+// ─────────── Cluster: wrapping inline row ───────────
+// Horizontal flow with gap; wraps to multi-line when out of room.
+// For nav items, tag rows, the contact line — anything that's a
+// row of short, uniform-ish things.
+
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cluster-space, var(--cluster-gap));
+  justify-content: flex-start;
+  align-items: center;
+}
+
+// ─────────── Box: padded container ───────────
+// A generic rectangle with internal padding and optional border.
+// For cards, note boxes, anything that needs an inside.
+
+.box {
+  padding: var(--box-padding, var(--card-padding));
+  border: var(--box-border, 0) solid var(--border-subtle);
+  border-radius: var(--box-radius, 0);
+  background: var(--box-bg, transparent);
+}
+
+// ─────────── Grid: auto-fit responsive grid ───────────
+// Grid cells wrap into rows of the viewport-appropriate count.
+// No media queries — the `minmax()` value decides when a new
+// column fits.
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(var(--grid-cell-min, 18rem), 100%), 1fr)
+  );
+  gap: var(--grid-space, var(--space-m-l));
+}
+
+// ─────────── Cover: hero / full-bleed section ───────────
+// A block whose centre child is vertically centred within the
+// available height, with optional header/footer children flanking.
+// For hero sections and splash-style layouts.
+
+.cover {
+  display: flex;
+  flex-direction: column;
+  min-block-size: var(--cover-min, 60vh);
+  padding: var(--cover-padding, var(--page-padding-block) var(--page-padding-inline));
+
+  > * {
+    margin-block: var(--cover-gap, var(--space-m));
+  }
+
+  > :first-child:not(.cover__centre) {
+    margin-block-start: 0;
+  }
+
+  > :last-child:not(.cover__centre) {
+    margin-block-end: 0;
+  }
+
+  > .cover__centre {
+    margin-block: auto;
+  }
+}

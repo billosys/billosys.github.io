@@ -1,0 +1,48 @@
+# Cobalt configuration for billo.systems
+# Refs: CB-19 (config), CB-24 (sass), CB-03 (directory convention).
+# All settings here are optional; values listed are explicit for clarity.
+
+# ───────── Build options ─────────
+source: "."
+destination: site              # The `site/` worktree, branch `site`, GH Pages deploys from it.
+template_extensions:
+  - md
+  - liquid
+include_drafts: false
+
+# Paths Cobalt must not treat as site sources.
+# `/site` is the worktree (build output) and must never be re-scanned.
+# `/workbench` is the local design-system / strategy scratchpad (gitignored).
+# README.md and .git are repo metadata, not site content.
+ignore:
+  - site/**/*
+  - workbench/**/*
+  - README.md
+  - .git/**/*
+  - .gitignore
+
+# ───────── Site metadata ─────────
+site:
+  title: Billo Systems
+  description: Careful engineering at serious scale.
+  base_url: https://billo.systems
+
+# ───────── Frontmatter defaults ─────────
+# Applied to every page/post unless overridden in that file's own frontmatter.
+default:
+  is_draft: false
+  excerpt_separator: "\n\n"
+
+# ───────── Page defaults ─────────
+pages:
+  default:
+    layout: default.liquid
+
+# ───────── Asset processing ─────────
+assets:
+  sass:
+    style: Compressed          # Production-minified CSS.
+
+# ───────── Syntax highlighting ─────────
+# Left at defaults: base16-ocean.dark, enabled. No code blocks in v1
+# content, but keeping the subsystem ready costs nothing.

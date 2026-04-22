@@ -1,2 +1,13 @@
+# Editor swap files
 *.sw[po]
+.DS_Store
+
+# Local-only design / strategy scratchpad
 /workbench
+
+# Cobalt build output (default dir, if ever used)
+/_site
+
+# Worktree for the `site` branch — GH Pages deploys from there.
+# Never commit the build output to the source branches.
+/site

@@ -1,0 +1,22 @@
+// ──────────────────────────────────────────────────────────────
+// billo.systems — main stylesheet entry point.
+//
+// Compiled by Cobalt (see _cobalt.yml `assets.sass.style: Compressed`)
+// from this file at the source root, using partials in _sass/.
+// Output: /main.css at the site root, linked from _layouts/default.liquid.
+//
+// Layer order (matters for cascade + token resolution):
+//   1. tokens      — primitive custom properties (colour, type, space)
+//   2. semantic    — role-named custom properties that read tokens
+//   3. fonts       — @font-face declarations
+//   4. base        — element defaults (type hierarchy, prose, links)
+//   5. primitives  — Every Layout primitive classes
+//   6. landing     — page-specific glue
+// ──────────────────────────────────────────────────────────────
+
+@import "tokens";
+@import "semantic";
+@import "fonts";
+@import "base";
+@import "primitives";
+@import "landing";

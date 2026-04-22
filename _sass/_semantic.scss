@@ -1,0 +1,79 @@
+// ──────────────────────────────────────────────────────────────
+// Semantic tokens — components read these.
+//
+// Primitive tokens (see _tokens.scss) name WHAT a value is.
+// Semantic tokens (this file) name WHAT IT DOES. Components and
+// layouts reference semantic tokens only; when the brand evolves
+// or a subdomain wants its own accent, primitives change and
+// semantics propagate without component churn.
+// ──────────────────────────────────────────────────────────────
+
+:root {
+  // ============================================================
+  // COLOUR ROLES
+  // ============================================================
+
+  // Surfaces — the planes on which things sit.
+  --surface-page:    light-dark(var(--green-50),    var(--green-950));
+  --surface-raised:  light-dark(var(--neutral-50),  var(--neutral-900));
+  --surface-sunken:  light-dark(var(--neutral-100), var(--green-900));
+  --surface-inverse: light-dark(var(--green-950),   var(--green-50));
+
+  // Text — hierarchy through lightness relationships.
+  --text-primary:    light-dark(var(--green-950),   var(--neutral-100));
+  --text-secondary:  light-dark(var(--neutral-700), var(--neutral-300));
+  --text-tertiary:   var(--neutral-500);
+  --text-brand:      light-dark(var(--green-700),   var(--green-300));
+  --text-on-brand:   var(--green-50);
+  --text-on-action:  var(--ochre-50);
+
+  // Borders — structural separation.
+  --border-subtle:  light-dark(var(--neutral-200), var(--neutral-800));
+  --border-default: light-dark(var(--neutral-300), var(--neutral-700));
+  --border-strong:  light-dark(var(--green-600),   var(--green-400));
+
+  // Interactive — ochre does CTA and state work.
+  --action-rest:     light-dark(var(--ochre-600), var(--ochre-500));
+  --action-hover:    light-dark(var(--ochre-700), var(--ochre-400));
+  --action-pressed:  light-dark(var(--ochre-800), var(--ochre-300));
+  --action-disabled: light-dark(var(--neutral-300), var(--neutral-700));
+
+  // Accents — callouts, highlights, status.
+  --accent-warm: light-dark(var(--ochre-400), var(--ochre-600));
+  --accent-cool: light-dark(var(--green-600), var(--green-400));
+  --accent-deep: light-dark(var(--green-800), var(--green-200));
+
+  // ============================================================
+  // SPATIAL ROLES
+  // ============================================================
+
+  // Page-level rhythm.
+  --page-padding-inline: var(--space-s-m);     // Gutter on left/right.
+  --page-padding-block:  var(--space-l-xl);    // Top/bottom of page.
+  --section-gap:         var(--space-xl-2xl);  // Between page sections.
+  --section-gap-tight:   var(--space-l-xl);    // Smaller section breaks.
+  --hero-whitespace:     var(--space-2xl-3xl); // Hero breathing room.
+
+  // Content rhythm.
+  --content-gap:        var(--space-m-l); // Between paragraphs, blocks.
+  --content-gap-tight:  var(--space-s);   // Between related lines.
+  --prose-margin:       var(--space-m);   // Default vertical rhythm in prose.
+
+  // Component rhythm.
+  --card-padding:     var(--space-s-m);
+  --card-gap:         var(--space-s);
+  --button-padding-y: var(--space-2xs);
+  --button-padding-x: var(--space-s);
+  --field-padding-y:  var(--space-2xs);
+  --field-padding-x:  var(--space-xs);
+
+  // Inline rhythm.
+  --inline-gap:       var(--space-2xs); // Icon ↔ label, dot separators.
+  --inline-gap-loose: var(--space-xs);  // Nav items, tag clusters.
+  --cluster-gap:      var(--space-s);   // General flex/wrap clusters.
+
+  // Measure — the canonical prose width.
+  --measure:       60ch;
+  --measure-lead:  50ch;
+  --measure-short: 42ch;
+}

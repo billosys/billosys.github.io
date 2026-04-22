@@ -1,0 +1,239 @@
+// ──────────────────────────────────────────────────────────────
+// Base element styles — a light-touch reset plus the type /
+// colour / rhythm defaults that every page inherits.
+//
+// Philosophy: minimal reset (we're not normalizing inputs across
+// an app UI surface), then apply semantic tokens to the elements
+// you'd actually use in prose. Everything else is component-level.
+// ──────────────────────────────────────────────────────────────
+
+// ─────────── Reset (minimal) ───────────
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+h1, h2, h3, h4, h5, h6,
+p, ul, ol, dl, figure, blockquote {
+  margin: 0;
+}
+
+ul, ol {
+  padding: 0;
+}
+
+img, picture, svg, video {
+  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
+// ─────────── Page defaults ───────────
+
+html {
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: var(--leading-body);
+  color: var(--text-primary);
+  background: var(--surface-page);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  hanging-punctuation: first last;
+}
+
+body {
+  min-block-size: 100vh;
+}
+
+// Interactive / keyboard focus — accent-coloured ring, visible on all modes.
+:focus-visible {
+  outline: 2px solid var(--accent-warm);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+// Selection colour harmonises with the brand rather than default blue.
+::selection {
+  background: var(--accent-cool);
+  color: var(--text-on-brand);
+}
+
+// ─────────── Headings ───────────
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" 20, "WONK" 0;
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--step-4);
+  font-weight: 700;
+  line-height: var(--leading-snug);
+  font-variation-settings: "SOFT" 20, "WONK" 0, "opsz" 96;
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  font-size: var(--step-3);
+  font-weight: 600;
+  line-height: var(--leading-snug);
+  font-variation-settings: "SOFT" 20, "WONK" 0, "opsz" 72;
+}
+
+h3 {
+  font-size: var(--step-2);
+  font-weight: 500;
+  line-height: var(--leading-normal);
+  font-variation-settings: "SOFT" 20, "WONK" 0, "opsz" 48;
+}
+
+h4 {
+  font-size: var(--step-1);
+  font-weight: 500;
+  line-height: var(--leading-normal);
+  font-variation-settings: "SOFT" 20, "WONK" 0, "opsz" 24;
+}
+
+// ─────────── Prose ───────────
+
+p, li, dd {
+  max-inline-size: var(--measure);
+  font-variation-settings: "opsz" 14;
+  text-wrap: pretty;
+}
+
+ul, ol {
+  list-style-position: inside;
+}
+
+a {
+  color: var(--text-brand);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+  text-decoration-color: var(--border-default);
+  transition: color 120ms ease, text-decoration-color 120ms ease;
+
+  &:hover {
+    color: var(--accent-warm);
+    text-decoration-color: currentColor;
+  }
+}
+
+em, i {
+  font-style: italic;
+}
+
+strong, b {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+small {
+  font-size: var(--step--1);
+  font-variation-settings: "opsz" 10;
+  color: var(--text-tertiary);
+}
+
+hr {
+  border: 0;
+  border-block-start: 1px solid var(--border-subtle);
+  margin-block: var(--section-gap-tight);
+}
+
+blockquote {
+  padding-inline-start: var(--space-m);
+  border-inline-start: 2px solid var(--border-strong);
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
+// ─────────── Metadata & code ───────────
+
+.meta, .eyebrow, code, kbd, samp {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+}
+
+.eyebrow {
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-secondary);
+}
+
+.meta {
+  color: var(--text-tertiary);
+}
+
+code {
+  font-size: 0.9em;
+  padding: 0.1em 0.35em;
+  background: var(--surface-sunken);
+  border-radius: 3px;
+  color: var(--text-secondary);
+}
+
+pre {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  padding: var(--space-s);
+  background: var(--surface-sunken);
+  border-radius: 4px;
+  overflow-x: auto;
+
+  > code {
+    padding: 0;
+    background: none;
+    font-size: 1em;
+  }
+}
+
+// ─────────── Lead paragraph ───────────
+.lead {
+  font-size: var(--step-1);
+  line-height: var(--leading-relaxed);
+  font-variation-settings: "opsz" 24;
+  color: var(--text-secondary);
+  max-inline-size: var(--measure-lead);
+}
+
+// ─────────── Display / hero ───────────
+.display {
+  font-family: var(--font-display);
+  font-size: var(--step-5);
+  font-weight: 800;
+  line-height: var(--leading-tight);
+  font-variation-settings: "SOFT" 20, "WONK" 0, "opsz" 144;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  max-inline-size: none;
+}
+
+// ─────────── Caption ───────────
+.caption {
+  font-size: var(--step--1);
+  font-variation-settings: "opsz" 10;
+  color: var(--text-tertiary);
+}
+
+// ─────────── Skip link (a11y) ───────────
+.skip-link {
+  position: absolute;
+  inset-block-start: -100vh;
+  inset-inline-start: 0;
+
+  &:focus {
+    inset-block-start: 0;
+    padding: var(--space-xs) var(--space-s);
+    background: var(--surface-inverse);
+    color: var(--text-on-brand);
+    z-index: 100;
+  }
+}

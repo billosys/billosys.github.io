@@ -1,0 +1,62 @@
+// ──────────────────────────────────────────────────────────────
+// Font-face declarations. All three typefaces are self-hosted
+// (no Google Fonts, no third-party CDN at runtime) and loaded
+// with `font-display: swap` so text renders immediately in
+// fallbacks and upgrades when the custom fonts arrive.
+//
+// Fetch the actual .woff2 files via scripts/fetch-fonts.sh.
+// They land in assets/fonts/ and are served from /assets/fonts/.
+// ──────────────────────────────────────────────────────────────
+
+// Fraunces — variable, full weight axis, normal + italic.
+@font-face {
+  font-family: "Fraunces";
+  src: url("/assets/fonts/fraunces-latin-wght-normal.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("/assets/fonts/fraunces-latin-wght-italic.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+// Source Serif 4 — variable, full weight axis, normal + italic.
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("/assets/fonts/source-serif-4-latin-wght-normal.woff2") format("woff2-variations");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("/assets/fonts/source-serif-4-latin-wght-italic.woff2") format("woff2-variations");
+  font-weight: 200 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+// IBM Plex Mono — static weights (no variable release yet).
+// Regular (400) and Medium (500) cover v1 needs; Bold (700) can
+// be added if we start using bold monospace anywhere.
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/assets/fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/assets/fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
