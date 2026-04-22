@@ -4,23 +4,44 @@
 // actual markup of index.liquid. If the site grows beyond the
 // single-page calling card, promote stable patterns out of this
 // file into a shared components partial.
+//
+// Page layout is band-driven (see _bands.scss). This file
+// describes what happens INSIDE each band.
 // ──────────────────────────────────────────────────────────────
 
-.page {
-  padding-inline: var(--page-padding-inline);
-  padding-block: var(--page-padding-block);
-  --center-max: 60ch;
+// ─────────── Site masthead (inside .band-nav) ───────────
+.site-masthead {
+  --cluster-space: var(--inline-gap-loose);
+  justify-content: space-between;
+
+  .brand {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-variation-settings: "SOFT" 20, "WONK" 0, "opsz" 36;
+    font-size: var(--step-1);
+    letter-spacing: -0.01em;
+  }
+
+  .nav-links {
+    --cluster-space: var(--inline-gap-loose);
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    list-style: none;
+    padding: 0;
+  }
 }
 
-// ─────────── Hero ───────────
+// ─────────── Hero (inside .band-hero) ───────────
 .hero {
   --stack-space: var(--content-gap);
-  margin-block-end: var(--hero-whitespace);
 
   .display {
     // Let the wordmark break the prose measure — display type has
     // its own sizing logic and shouldn't be caged at 60ch.
     max-inline-size: none;
+    color: var(--ochre-200);
   }
 
   .tagline {
@@ -28,35 +49,45 @@
     font-size: var(--step-2);
     font-weight: 400;
     line-height: var(--leading-normal);
-    color: var(--text-brand);
     max-inline-size: none;
     font-variation-settings: "SOFT" 20, "WONK" 0, "opsz" 36;
+    // Tagline inherits the cream hero colour; the italic em gets
+    // a warm accent pop against the deep-green surface.
+    color: inherit;
 
     em {
-      // Fraunces italic at this size is the quietly-decorative note
-      // the tagline wants. No bravado, but clearly stylised.
       font-style: italic;
+      color: var(--accent-warm);
     }
   }
 
   .lead {
     max-inline-size: var(--measure);
-    color: var(--text-secondary);
+    color: inherit;
+    opacity: 0.92; // Soften just enough to signal secondary weight.
   }
 }
 
-// ─────────── Section headings ───────────
-// Each top-level section within the landing gets a small rule above
+// ─────────── Body sections (inside .band-body) ───────────
+.body-content {
+  // The centred prose column. Stack its direct section children
+  // with generous breathing room.
+  --center-max: 60ch;
+  --stack-space: var(--section-gap-tight);
+}
+
+.body-content h1, .body-content h2, .body-content h3,
+.body-content h4, .body-content h5, .body-content h6 {
+  color: var(--ochre-400);
+}
+
+// Each top-level section within the body gets a small rule above
 // its h2. Understated. Acts as a section marker without shouting.
-section > h2 {
+.body-content section > h2 {
   padding-block-start: var(--space-m);
   border-block-start: 1px solid var(--border-subtle);
   margin-block-end: var(--space-s);
 }
-
-// The first section (hero) has no heading, so doesn't need the rule.
-// Sections that do have h2s get the rule; the hero's opt-out is
-// structural (it uses h1, not h2).
 
 // ─────────── Contact line ───────────
 .contact {
@@ -70,14 +101,16 @@ section > h2 {
   }
 }
 
-// ─────────── Footer ───────────
+// ─────────── Footer contents (inside .band-foot) ───────────
 .site-footer {
-  margin-block-start: var(--section-gap);
-  padding-block-start: var(--space-m);
-  border-block-start: 1px solid var(--border-subtle);
+  --cluster-space: var(--inline-gap-loose);
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
 
   .meta {
     max-inline-size: none;
-    color: var(--text-tertiary);
+    color: inherit;
+    opacity: 0.85;
   }
 }

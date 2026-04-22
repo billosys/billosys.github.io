@@ -11,7 +11,8 @@
 //   3. fonts       — @font-face declarations
 //   4. base        — element defaults (type hierarchy, prose, links)
 //   5. primitives  — Every Layout primitive classes
-//   6. landing     — page-specific glue
+//   6. bands       — full-bleed surface strata (page-level composition)
+//   7. landing     — page-specific glue
 // ──────────────────────────────────────────────────────────────
 
 @import "tokens";
@@ -19,4 +20,5 @@
 @import "fonts";
 @import "base";
 @import "primitives";
+@import "bands";
 @import "landing";

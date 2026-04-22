@@ -14,10 +14,24 @@
   // ============================================================
 
   // Surfaces — the planes on which things sit.
-  --surface-page:    light-dark(var(--green-50),    var(--green-950));
+  --surface-page:    light-dark(var(--green-50),    var(--green-850));
   --surface-raised:  light-dark(var(--neutral-50),  var(--neutral-900));
   --surface-sunken:  light-dark(var(--neutral-100), var(--green-900));
   --surface-inverse: light-dark(var(--green-950),   var(--green-50));
+
+  // Bands — full-bleed strata stacked down the page.
+  //
+  //   nav        : deep green in both modes
+  //   foot       : brown in both modes (always the darkest frame)
+  //   hero       : opposite lightness from body in each mode
+  //                  · light mode → dark green (body is near-white)
+  //                  · dark  mode → mid  green (body is near-black)
+  //   body       : tracks --surface-page (which is what sits under it
+  //                when no band is explicitly set)
+  --surface-band-nav:  light-dark(var(--green-800),  var(--green-925));
+  --surface-band-hero: light-dark(var(--green-700),  var(--green-900));
+  --surface-band-body: var(--surface-page);
+  --surface-band-foot: light-dark(var(--green-800),  var(--green-950));
 
   // Text — hierarchy through lightness relationships.
   --text-primary:    light-dark(var(--green-950),   var(--neutral-100));
@@ -26,6 +40,12 @@
   --text-brand:      light-dark(var(--green-700),   var(--green-300));
   --text-on-brand:   var(--green-50);
   --text-on-action:  var(--ochre-50);
+
+  // On dark bands (nav / hero / foot) — cream in both modes. The
+  // lightness delta between green-50 and these band surfaces clears
+  // WCAG AA 4.5:1 comfortably on all three pairings.
+  --text-on-band:    var(--green-50);
+  --text-on-band-muted: light-dark(var(--green-200), var(--green-300));
 
   // Borders — structural separation.
   --border-subtle:  light-dark(var(--neutral-200), var(--neutral-800));

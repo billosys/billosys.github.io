@@ -21,30 +21,41 @@
   // ============================================================
 
   // Brand Green — atmospheric, identity-carrying, receding.
-  --green-50:  oklch(97%   0.015 130);
-  --green-100: oklch(93%   0.030 130);
-  --green-200: oklch(86%   0.045 130);
-  --green-300: oklch(78%   0.060 129);
-  --green-400: oklch(70%   0.070 128);
-  --green-500: oklch(60%   0.080 128);
-  --green-600: oklch(50%   0.085 130);
-  --green-700: oklch(42%   0.080 132);
-  --green-800: oklch(34%   0.070 133);
-  --green-900: oklch(25%   0.050 135);
-  --green-950: oklch(16%   0.030 135);
+  --green-50:  oklch(97%   0.010 130);
+  --green-100: oklch(93%   0.019 130);
+  --green-200: oklch(86%   0.029 130);
+  --green-300: oklch(78%   0.038 129);
+  --green-400: oklch(70%   0.045 128);
+  --green-500: oklch(60%   0.051 128);
+  --green-600: oklch(50%   0.054 130);
+  --green-700: oklch(42%   0.051 132);
+  --green-800: oklch(34%   0.045 133);
+  --green-850: oklch(29.5% 0.038 134);
+  --green-900: oklch(25%   0.032 135);
+  --green-925: oklch(20.5% 0.026 135);
+  --green-950: oklch(16%   0.019 135);
 
   // Brand Ochre — active, attention-getting, constrained.
-  --ochre-50:  oklch(97%   0.020 60);
-  --ochre-100: oklch(93%   0.040 58);
-  --ochre-200: oklch(86%   0.070 56);
-  --ochre-300: oklch(78%   0.100 54);
-  --ochre-400: oklch(72%   0.130 55);
-  --ochre-500: oklch(64%   0.140 50);
-  --ochre-600: oklch(58%   0.150 45);
-  --ochre-700: oklch(50%   0.140 40);
-  --ochre-800: oklch(42%   0.120 38);
-  --ochre-900: oklch(32%   0.090 35);
-  --ochre-950: oklch(22%   0.060 33);
+  --ochre-50:  oklch(97%   0.014 60);
+  --ochre-100: oklch(93%   0.029 58);
+  --ochre-200: oklch(86%   0.050 56);
+  --ochre-300: oklch(78%   0.072 54);
+  --ochre-400: oklch(72%   0.094 55);
+  --ochre-500: oklch(64%   0.101 50);
+  --ochre-600: oklch(58%   0.108 45);
+  --ochre-700: oklch(50%   0.101 40);
+  --ochre-800: oklch(42%   0.086 38);
+  --ochre-900: oklch(32%   0.065 35);
+  --ochre-950: oklch(22%   0.043 33);
+
+  // Brand Brown — sparse 3-step scale at hue 55°, for the frame
+  // (navbar + footer bands). Not a full ladder — the brown only ever
+  // does structural work, so three stops (mid-tan, light-mode frame,
+  // dark-mode frame) is enough. The wordmark in sketch1.svg used
+  // #4a3728 ≈ oklch(29% 0.028 55); brown-800 is tuned to that neighbourhood.
+  --brown-400: oklch(68%   0.045 55);
+  --brown-800: oklch(30%   0.035 55);
+  --brown-950: oklch(14%   0.020 55);
 
   // Warm Neutral — hue-90° near-greys, the connective tissue.
   --neutral-50:  oklch(97.5% 0.005 90);

@@ -1,0 +1,171 @@
+// ──────────────────────────────────────────────────────────────
+// Bands — full-bleed surface strata.
+//
+// The band is the structural unit of the page at the top level.
+// Each band stretches edge-to-edge of the viewport, carries its
+// own background, and holds a measured column of content inside
+// a `.center` wrapper.
+//
+//   <div class="band band-hero">
+//     <div class="center band-inner">…</div>
+//   </div>
+//
+// Why bands rather than a single .page wrapper? Dark framing
+// (navbar, footer) and an emphasised hero want to reach the
+// viewport edge on desktop, while prose still wants to sit on
+// a measured column. Bands resolve that tension cleanly: outer
+// does surface, inner does measure. Every Layout's Cover/Center
+// pair does the same thing at a smaller scale.
+//
+// Variants:
+//   .band-nav   — frame (brown, always darkest)
+//   .band-hero  — emphasis (opposite lightness from body)
+//   .band-body  — page surface (prose lives here)
+//   .band-foot  — frame (mirror of band-nav)
+//
+// Edges:
+//   nav ↔ hero : hard colour change, no rule (brown → green)
+//   hero ↔ body: hard colour change, no rule (dark green → cream,
+//                or mid green → near-black; the hue contrast carries it)
+//   body ↔ foot: 1px ochre hairline — small brand signature where the
+//                transition is between two warm-hued surfaces that
+//                need a clean seam.
+// ──────────────────────────────────────────────────────────────
+
+.band {
+  // Break out of any parent max-inline-size by force. The band
+  // is a direct child of <body> or <main> and stretches viewport-wide.
+  inline-size: 100%;
+
+  // Vertical padding is the band's own. Horizontal padding lives on
+  // the inner .center (via --center-gutter) so the gutter scales with
+  // the measured column, not with the full-bleed surface.
+  padding-block: var(--band-padding-block, var(--space-l-xl));
+
+  // Each band carries its own surface + text colour. Defaults fall
+  // through to the page palette if the variant isn't specified.
+  background: var(--band-surface, var(--surface-page));
+  color:      var(--band-text,    var(--text-primary));
+}
+
+// ─────────── Inner wrapper ───────────
+// Use .center directly inside a band, with --center-gutter set to
+// the page gutter so narrow viewports keep their breathing room.
+// A `.band-inner` class isn't strictly required — it just aliases
+// the gutter override so the markup reads cleanly.
+
+.band > .center,
+.band-inner {
+  --center-gutter: var(--page-padding-inline);
+}
+
+// ─────────── Variants ───────────
+
+// Nav — top frame, deep green in both modes.
+.band-nav {
+  --band-surface: var(--surface-band-nav);
+  --band-text:    var(--text-on-band);
+  --band-padding-block: var(--space-s-m);  // tight; nav is a thin strip
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 10;
+  border-block-end: 0.5px solid var(--ochre-950);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("/assets/images/texture-bg.jpg") repeat;
+    opacity: 0.1;
+    pointer-events: none;
+  }
+
+  > * { position: relative; z-index: 1; }
+
+  // Links inside the nav inherit the band text colour rather than
+  // the default text-brand, since we want the brand to show as the
+  // cream-on-brown frame rather than as highlighted links.
+  a {
+    color: var(--neutral-400);
+    text-decoration-color: transparent;
+
+    &:hover {
+      color: var(--accent-warm);
+      text-decoration-color: currentColor;
+    }
+  }
+}
+
+// Hero — emphasised middle band, opposite lightness from body.
+.band-hero {
+  --band-surface: var(--surface-band-hero);
+  --band-text:    var(--text-on-band);
+  --band-padding-block: var(--space-2xl-3xl);  // generous; hero wants air
+  border-block-end: 0.5px solid var(--ochre-950);
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("/assets/images/texture2-bg.jpg") repeat;
+    opacity: 0.1;
+    pointer-events: none;
+  }
+
+  > * { position: relative; z-index: 1; }
+
+  // Headings inherit the cream colour rather than --text-primary.
+  h1, h2, h3, h4, h5, h6 {
+    color: inherit;
+  }
+
+  // Links in the hero use ochre for warmth against the deep green.
+  a {
+    color: var(--accent-warm);
+    text-decoration-color: transparent;
+
+    &:hover {
+      text-decoration-color: currentColor;
+    }
+  }
+}
+
+// Body — the main prose band. Inherits page surface, no override
+// needed beyond the base .band padding. Kept as a variant for
+// markup symmetry and to make future overrides (texture, accent
+// bleed) easy to attach.
+.band-body {
+  --band-padding-block: var(--space-xl-2xl);
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("/assets/images/texture-bg.jpg") repeat;
+    opacity: 0.1;
+    pointer-events: none;
+  }
+
+  > * { position: relative; z-index: 1; }
+}
+
+// Foot — bottom frame, mirror of nav.
+.band-foot {
+  --band-surface: var(--surface-band-foot);
+  --band-text:    var(--text-on-band);
+  --band-padding-block: var(--space-m-l);
+
+  border-block-start: 0.5px solid var(--ochre-900);
+
+  a {
+    color: inherit;
+    text-decoration-color: transparent;
+
+    &:hover {
+      color: var(--accent-warm);
+      text-decoration-color: currentColor;
+    }
+  }
+}

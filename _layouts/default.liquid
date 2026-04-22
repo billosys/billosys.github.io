@@ -11,8 +11,8 @@
     Dark by default via color-scheme declaration. Light mode is the B-side.
   {% endcomment %}
   <meta name="color-scheme" content="dark light">
-  <meta name="theme-color" content="#102118" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#f2f7ed" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1a2415" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f0f3e9" media="(prefers-color-scheme: light)">
 
   {% comment %}
     Preload the variable fonts so they fire in parallel with HTML parsing.
@@ -36,8 +36,35 @@
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
 
+  {% comment %} ───────── Navbar band ───────── {% endcomment %}
+  <header class="band band-nav">
+    <nav class="center site-masthead cluster" aria-label="Primary">
+      <a href="/" class="brand">Billo Systems</a>
+      <ul class="nav-links cluster" role="list">
+        <li><a href="#work">Work</a></li>
+        <li><a href="#open-source">Open Source</a></li>
+        <li><a href="#writing">Writing</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  {% comment %}
+    Page content. Pages are responsible for emitting their own
+    band-hero + band-body wrappers so the hero can sit at the top
+    of <main>. Deeper pages (if they ever exist) can skip the hero
+    band entirely.
+  {% endcomment %}
   <main id="main">
     {{ page.content }}
   </main>
+
+  {% comment %} ───────── Footer band ───────── {% endcomment %}
+  <footer class="band band-foot">
+    <div class="center site-footer cluster">
+      <p class="meta">&copy; 2026 Billo Systems, L.L.C. &middot; Minnesota, USA.</p>
+      <p class="meta"><a href="mailto:dm@billo.systems">dm@billo.systems</a></p>
+    </div>
+  </footer>
 </body>
 </html>
