@@ -14,115 +14,115 @@
 // ──────────────────────────────────────────────────────────────
 
 :root {
-  color-scheme: dark light;
+    color-scheme: dark light;
 
-  // ============================================================
-  // COLOURS — OKLCH scales (primitive tier).
-  // ============================================================
+    // ============================================================
+    // COLOURS — OKLCH scales (primitive tier).
+    // ============================================================
 
-  // Brand Green — atmospheric, identity-carrying, receding.
-  --green-50:  oklch(97%   0.010 130);
-  --green-100: oklch(93%   0.019 130);
-  --green-200: oklch(86%   0.029 130);
-  --green-300: oklch(78%   0.038 129);
-  --green-400: oklch(70%   0.045 128);
-  --green-500: oklch(60%   0.051 128);
-  --green-600: oklch(50%   0.054 130);
-  --green-700: oklch(42%   0.051 132);
-  --green-800: oklch(34%   0.045 133);
-  --green-850: oklch(29.5% 0.038 134);
-  --green-900: oklch(25%   0.032 135);
-  --green-925: oklch(20.5% 0.026 135);
-  --green-950: oklch(16%   0.019 135);
+    // Brand Green — atmospheric, identity-carrying, receding.
+    --green-50: oklch(97% 0.010 130);
+    --green-100: oklch(93% 0.019 130);
+    --green-200: oklch(86% 0.029 130);
+    --green-300: oklch(78% 0.038 129);
+    --green-400: oklch(70% 0.045 128);
+    --green-500: oklch(60% 0.051 128);
+    --green-600: oklch(50% 0.054 130);
+    --green-700: oklch(42% 0.051 132);
+    --green-800: oklch(34% 0.045 133);
+    --green-850: oklch(29.5% 0.038 134);
+    --green-900: oklch(25% 0.032 135);
+    --green-925: oklch(20.5% 0.026 135);
+    --green-950: oklch(16% 0.019 135);
 
-  // Brand Ochre — active, attention-getting, constrained.
-  --ochre-50:  oklch(97%   0.014 60);
-  --ochre-100: oklch(93%   0.029 58);
-  --ochre-200: oklch(86%   0.050 56);
-  --ochre-300: oklch(78%   0.072 54);
-  --ochre-400: oklch(72%   0.094 55);
-  --ochre-500: oklch(64%   0.101 50);
-  --ochre-600: oklch(58%   0.108 45);
-  --ochre-700: oklch(50%   0.101 40);
-  --ochre-800: oklch(42%   0.086 38);
-  --ochre-900: oklch(32%   0.065 35);
-  --ochre-950: oklch(22%   0.043 33);
+    // Brand Ochre — active, attention-getting, constrained.
+    --ochre-50: oklch(97% 0.014 60);
+    --ochre-100: oklch(93% 0.029 58);
+    --ochre-200: oklch(86% 0.050 56);
+    --ochre-300: oklch(78% 0.072 54);
+    --ochre-400: oklch(72% 0.094 55);
+    --ochre-500: oklch(64% 0.101 50);
+    --ochre-600: oklch(58% 0.108 45);
+    --ochre-700: oklch(50% 0.101 40);
+    --ochre-800: oklch(42% 0.086 38);
+    --ochre-900: oklch(32% 0.065 35);
+    --ochre-950: oklch(22% 0.043 33);
 
-  // Brand Brown — sparse 3-step scale at hue 55°, for the frame
-  // (navbar + footer bands). Not a full ladder — the brown only ever
-  // does structural work, so three stops (mid-tan, light-mode frame,
-  // dark-mode frame) is enough. The wordmark in sketch1.svg used
-  // #4a3728 ≈ oklch(29% 0.028 55); brown-800 is tuned to that neighbourhood.
-  --brown-400: oklch(68%   0.045 55);
-  --brown-800: oklch(30%   0.035 55);
-  --brown-950: oklch(14%   0.020 55);
+    // Brand Brown — sparse 3-step scale at hue 55°, for the frame
+    // (navbar + footer bands). Not a full ladder — the brown only ever
+    // does structural work, so three stops (mid-tan, light-mode frame,
+    // dark-mode frame) is enough. The wordmark in sketch1.svg used
+    // #4a3728 ≈ oklch(29% 0.028 55); brown-800 is tuned to that neighbourhood.
+    --brown-400: oklch(68% 0.045 55);
+    --brown-800: oklch(30% 0.035 55);
+    --brown-950: oklch(14% 0.020 55);
 
-  // Warm Neutral — hue-90° near-greys, the connective tissue.
-  --neutral-50:  oklch(97.5% 0.005 90);
-  --neutral-100: oklch(94%   0.008 90);
-  --neutral-200: oklch(88%   0.010 90);
-  --neutral-300: oklch(80%   0.012 90);
-  --neutral-400: oklch(70%   0.012 90);
-  --neutral-500: oklch(60%   0.012 90);
-  --neutral-600: oklch(50%   0.010 90);
-  --neutral-700: oklch(40%   0.008 90);
-  --neutral-800: oklch(30%   0.006 90);
-  --neutral-900: oklch(20%   0.004 90);
-  --neutral-950: oklch(12%   0.003 90);
+    // Warm Neutral — hue-90° near-greys, the connective tissue.
+    --neutral-50: oklch(97.5% 0.005 90);
+    --neutral-100: oklch(94% 0.008 90);
+    --neutral-200: oklch(88% 0.010 90);
+    --neutral-300: oklch(80% 0.012 90);
+    --neutral-400: oklch(70% 0.012 90);
+    --neutral-500: oklch(60% 0.012 90);
+    --neutral-600: oklch(50% 0.010 90);
+    --neutral-700: oklch(40% 0.008 90);
+    --neutral-800: oklch(30% 0.006 90);
+    --neutral-900: oklch(20% 0.004 90);
+    --neutral-950: oklch(12% 0.003 90);
 
-  // ============================================================
-  // TYPE SCALE — Minor third (1.2) @ 360px → perfect fourth
-  // (1.333) @ 1440px. Base: 16px @ 360px, 18px @ 1440px.
-  // All fluid via clamp() + vi, not breakpoints.
-  // ============================================================
+    // ============================================================
+    // TYPE SCALE — Minor third (1.2) @ 360px → perfect fourth
+    // (1.333) @ 1440px. Base: 16px @ 360px, 18px @ 1440px.
+    // All fluid via clamp() + vi, not breakpoints.
+    // ============================================================
 
-  --step--2: clamp(0.694rem, 0.686rem + 0.035vi, 0.750rem);
-  --step--1: clamp(0.833rem, 0.824rem + 0.016vi, 0.844rem);
-  --step-0:  clamp(1rem,     0.958rem + 0.185vi, 1.125rem);
-  --step-1:  clamp(1.2rem,   1.100rem + 0.444vi, 1.500rem);
-  --step-2:  clamp(1.44rem,  1.254rem + 0.828vi, 2.000rem);
-  --step-3:  clamp(1.728rem, 1.416rem + 1.387vi, 2.665rem);
-  --step-4:  clamp(2.074rem, 1.581rem + 2.190vi, 3.552rem);
-  --step-5:  clamp(2.488rem, 1.740rem + 3.326vi, 4.733rem);
+    --step--2: clamp(0.694rem, 0.686rem + 0.035vi, 0.750rem);
+    --step--1: clamp(0.833rem, 0.824rem + 0.016vi, 0.844rem);
+    --step-0: clamp(1rem, 0.958rem + 0.185vi, 1.125rem);
+    --step-1: clamp(1.2rem, 1.100rem + 0.444vi, 1.500rem);
+    --step-2: clamp(1.44rem, 1.254rem + 0.828vi, 2.000rem);
+    --step-3: clamp(1.728rem, 1.416rem + 1.387vi, 2.665rem);
+    --step-4: clamp(2.074rem, 1.581rem + 2.190vi, 3.552rem);
+    --step-5: clamp(2.488rem, 1.740rem + 3.326vi, 4.733rem);
 
-  // Type families.
-  --font-display: "Fraunces", Georgia, serif;
-  --font-body:    "Source Serif 4", "Source Serif Pro", Georgia, serif;
-  --font-mono:    "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    // Type families.
+    --font-display: "Fraunces", Georgia, serif;
+    --font-body: "Source Serif 4", "Source Serif Pro", Georgia, serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
-  // Line heights — Bringhurst ladder (display wants air, body wants density).
-  --leading-tight:   1.1;
-  --leading-snug:    1.25;
-  --leading-normal:  1.4;
-  --leading-relaxed: 1.5;
-  --leading-body:    1.65;
+    // Line heights — Bringhurst ladder (display wants air, body wants density).
+    --leading-tight: 1.1;
+    --leading-snug: 1.25;
+    --leading-normal: 1.4;
+    --leading-relaxed: 1.5;
+    --leading-body: 1.65;
 
-  // ============================================================
-  // SPACING — t-shirt scale + pair scale.
-  // All fluid via clamp() + vi. Base = step-0 of the type scale.
-  // Harmonic multipliers (0.25/0.5/0.75/1/1.5/2/3/4/6) keep the
-  // scale in tune with itself — doubling a value stays consonant.
-  // ============================================================
+    // ============================================================
+    // SPACING — t-shirt scale + pair scale.
+    // All fluid via clamp() + vi. Base = step-0 of the type scale.
+    // Harmonic multipliers (0.25/0.5/0.75/1/1.5/2/3/4/6) keep the
+    // scale in tune with itself — doubling a value stays consonant.
+    // ============================================================
 
-  // T-shirt scale (proportional; for internal component spacing).
-  --space-3xs: clamp(0.25rem,   0.24rem  + 0.046vi, 0.281rem);
-  --space-2xs: clamp(0.5rem,    0.479rem + 0.093vi, 0.563rem);
-  --space-xs:  clamp(0.75rem,   0.719rem + 0.139vi, 0.844rem);
-  --space-s:   clamp(1rem,      0.958rem + 0.185vi, 1.125rem);
-  --space-m:   clamp(1.5rem,    1.438rem + 0.278vi, 1.688rem);
-  --space-l:   clamp(2rem,      1.917rem + 0.370vi, 2.25rem);
-  --space-xl:  clamp(3rem,      2.875rem + 0.556vi, 3.375rem);
-  --space-2xl: clamp(4rem,      3.833rem + 0.741vi, 4.5rem);
-  --space-3xl: clamp(6rem,      5.75rem  + 1.111vi, 6.75rem);
+    // T-shirt scale (proportional; for internal component spacing).
+    --space-3xs: clamp(0.25rem, 0.24rem + 0.046vi, 0.281rem);
+    --space-2xs: clamp(0.5rem, 0.479rem + 0.093vi, 0.563rem);
+    --space-xs: clamp(0.75rem, 0.719rem + 0.139vi, 0.844rem);
+    --space-s: clamp(1rem, 0.958rem + 0.185vi, 1.125rem);
+    --space-m: clamp(1.5rem, 1.438rem + 0.278vi, 1.688rem);
+    --space-l: clamp(2rem, 1.917rem + 0.370vi, 2.25rem);
+    --space-xl: clamp(3rem, 2.875rem + 0.556vi, 3.375rem);
+    --space-2xl: clamp(4rem, 3.833rem + 0.741vi, 4.5rem);
+    --space-3xl: clamp(6rem, 5.75rem + 1.111vi, 6.75rem);
 
-  // Pair scale (cross-step; grows more dramatically across viewports —
-  // for layout-level spacing where phone wants compactness, desktop
-  // wants generosity).
-  --space-2xs-xs:  clamp(0.5rem,  0.385rem + 0.509vi, 0.844rem);
-  --space-xs-s:    clamp(0.75rem, 0.667rem + 0.370vi, 1.125rem);
-  --space-s-m:     clamp(1rem,    0.771rem + 1.019vi, 1.688rem);
-  --space-m-l:     clamp(1.5rem,  1.25rem  + 1.111vi, 2.25rem);
-  --space-l-xl:    clamp(2rem,    1.542rem + 2.037vi, 3.375rem);
-  --space-xl-2xl:  clamp(3rem,    2.5rem   + 2.222vi, 4.5rem);
-  --space-2xl-3xl: clamp(4rem,    3.083rem + 4.074vi, 6.75rem);
+    // Pair scale (cross-step; grows more dramatically across viewports —
+    // for layout-level spacing where phone wants compactness, desktop
+    // wants generosity).
+    --space-2xs-xs: clamp(0.5rem, 0.385rem + 0.509vi, 0.844rem);
+    --space-xs-s: clamp(0.75rem, 0.667rem + 0.370vi, 1.125rem);
+    --space-s-m: clamp(1rem, 0.771rem + 1.019vi, 1.688rem);
+    --space-m-l: clamp(1.5rem, 1.25rem + 1.111vi, 2.25rem);
+    --space-l-xl: clamp(2rem, 1.542rem + 2.037vi, 3.375rem);
+    --space-xl-2xl: clamp(3rem, 2.5rem + 2.222vi, 4.5rem);
+    --space-2xl-3xl: clamp(4rem, 3.083rem + 4.074vi, 6.75rem);
 }

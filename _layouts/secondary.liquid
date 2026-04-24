@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{% if page.title %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <meta name="description" content="{{ page.description | default: site.description }}">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Brygada+1918:ital,wght@0,400..700;1,400..700&family=Lora:ital,wght@0,400..700;1,400..700&family=Recursive:slnt,wght,CASL,MONO@-15..0,300..800,0..1,0..1&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/secondary.css">
+
+  <meta property="og:title" content="{{ page.title | default: site.title }}">
+  <meta property="og:description" content="{{ page.description | default: site.description }}">
+  <meta property="og:url" content="{{ site.base_url }}{{ page.permalink }}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ site.title }}">
+
+  <link rel="canonical" href="{{ site.base_url }}{{ page.permalink }}">
+</head>
+
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">
+        <img class="nav-logo" src="/assets/images/logo-idea3.1-long.png" alt="Billo Systems">
+      </a>
+      <ul class="nav-links">
+        <li><a href="#">Solutions</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+        <li class="toggle-li">
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle between dark and light theme">
+            <span class="toggle-icon toggle-moon">☾</span>
+            <span class="toggle-icon toggle-sun">☼</span>
+          </button>
+        </li>
+        <li><a href="#" class="nav-cta">Get Started</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    {{ page.content }}
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand-col">
+          <img class="footer-logo" src="/assets/images/logo-idea3.1-long-light.png" alt="Billo Systems">
+          <p class="footer-tagline">Custom-built distributed infrastructure for teams that demand resilience, performance, and clarity.</p>
+        </div>
+        <div>
+          <h4 class="footer-heading">Solutions</h4>
+          <ul class="footer-links">
+            <li><a href="#">Real-time Inference</a></li>
+            <li><a href="#">Distributed Services</a></li>
+            <li><a href="#">Bespoke Solutions</a></li>
+            <li><a href="#">Platform Migration</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Resources</h4>
+          <ul class="footer-links">
+            <li><a href="#">Engineering Blog</a></li>
+            <li><a href="#">Case Studies</a></li>
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">Open Source</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Contact</h4>
+          <ul class="footer-links">
+            <li><a href="mailto:dm@billo.systems">dm@billo.systems</a></li>
+            <li><a href="#">Press &amp; Enquiries</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="https://linkedin.com/in/oubiwann">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bar">
+        <span class="footer-copy">&copy; 2026 Billo Systems, L.L.C. All rights reserved.</span>
+        <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme Toggle
+    const toggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+
+    function getPreferred() {
+      const stored = localStorage.getItem('billo-theme');
+      if (stored) return stored;
+      return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+
+    function setTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      localStorage.setItem('billo-theme', theme);
+    }
+
+    setTheme(getPreferred());
+
+    toggle.addEventListener('click', () => {
+      setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+      if (!localStorage.getItem('billo-theme')) setTheme(e.matches ? 'light' : 'dark');
+    });
+
+    // Scroll Reveal
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  </script>
+
+</body>
+</html>
