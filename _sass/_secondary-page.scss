@@ -93,8 +93,8 @@
   --surface-hero: var(--green-50);
   --hero-bg: url("/assets/images/masthead-bg-1.2-light.jpg");
   --hero-graphic: url("/assets/images/masthead-graphic-1.2-light.png");
-  --surface-band: var(--green-100);
-  --surface-cta: var(--green-800);
+  --surface-band: color-mix(in oklch, var(--ochre-100) 50%, transparent);
+  --surface-cta: var(--green-200);
   --surface-footer: var(--green-900);
 
   --nav-bg: color-mix(in oklch, var(--neutral-50) 92%, transparent);
@@ -126,7 +126,7 @@
   --band-body: var(--neutral-700);
   --band-label: var(--neutral-600);
   --band-glow: color-mix(in oklch, var(--green-100) 30%, transparent);
-  --tech-bg: color-mix(in oklch, var(--neutral-50) 70%, transparent);
+  --tech-bg: color-mix(in oklch, var(--ochre-300) 50%, transparent);
   --tech-bdr: color-mix(in oklch, var(--neutral-200) 50%, transparent);
   --tech-hov: var(--neutral-50);
 
