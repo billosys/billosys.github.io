@@ -15,6 +15,8 @@
   --surface-page: color-mix(in oklch, var(--green-800) 95%, transparent);
   --surface-card: var(--green-850);
   --surface-hero: var(--green-950);
+  --hero-bg: url("/assets/images/masthead-bg-1.1.jpg");
+  --hero-graphic: url("/assets/images/masthead-graphic-1.1.png");
   --surface-band: color-mix(in oklch, var(--green-700) 90%, transparent);
   --surface-cta: color-mix(in oklch, var(--brown-950) 60%, transparent);
   --surface-footer: var(--green-925);
@@ -89,6 +91,8 @@
   --surface-page: var(--green-50);
   --surface-card: var(--neutral-50);
   --surface-hero: var(--green-50);
+  --hero-bg: url("/assets/images/masthead-bg-1.1.jpg");
+  --hero-graphic: url("/assets/images/masthead-graphic-1.1.png");
   --surface-band: var(--green-100);
   --surface-cta: var(--green-800);
   --surface-footer: var(--green-900);
@@ -306,21 +310,17 @@ a   { color: inherit; text-decoration: none; }
 
 .hero {
   min-height: 100vh;
-  background: url("/assets/images/masthead-bg-1.1.jpg") repeat;
+  background: var(--hero-bg) repeat;
   display: grid; grid-template-columns: 1fr; align-items: end;
   position: relative; overflow: hidden; padding-top: 80px;
 }
 
 .hero-geo {
   position: absolute; top: 0; right: 0; bottom: 0;
+  left: 0;
   pointer-events: none; opacity: 0;
   animation: fadeUp 0.8s ease-out 0.5s forwards;
-
-  img {
-    height: 100%; width: auto;
-    object-fit: scale-down; object-position: right;
-    display: block; margin-inline-start: auto;
-  }
+  background: var(--hero-graphic) no-repeat right / auto;
 }
 
 .hero-content {
