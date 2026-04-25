@@ -91,8 +91,8 @@
   --surface-page: var(--green-50);
   --surface-card: var(--neutral-50);
   --surface-hero: var(--green-50);
-  --hero-bg: url("/assets/images/masthead-bg-1.1.jpg");
-  --hero-graphic: url("/assets/images/masthead-graphic-1.1.png");
+  --hero-bg: url("/assets/images/masthead-bg-1.2-light.jpg");
+  --hero-graphic: url("/assets/images/masthead-graphic-1.2-light.png");
   --surface-band: var(--green-100);
   --surface-cta: var(--green-800);
   --surface-footer: var(--green-900);
@@ -354,7 +354,7 @@ a   { color: inherit; text-decoration: none; }
 .hero-sub {
   font-family: 'Lora', serif; font-size: var(--step-1);
   font-weight: 300; line-height: 1.5; color: var(--hero-sub);
-  max-width: var(--measure-narrow); margin-bottom: var(--space-l);
+  max-width: 75%; margin-bottom: var(--space-l);
   opacity: 0; animation: fadeUp 0.8s ease-out 0.5s forwards;
   transition: color 0.4s ease;
 }
