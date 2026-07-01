@@ -1,0 +1,23 @@
+{% comment %}
+  Blog masthead nav. Set `nav_active` before including to mark the current
+  section, e.g. {% assign nav_active = 'tags' %}{% include 'blog-nav.liquid' %}
+{% endcomment %}
+{% assign active = nav_active %}
+<header class="blog-nav">
+  <nav class="blog-nav__inner" aria-label="Primary">
+    <a href="/" class="blog-brand">
+      <span class="blog-brand__mark">Billo Systems</span>
+      <span class="blog-brand__label">Articles</span>
+    </a>
+    <div class="blog-nav__links">
+      <a href="/articles/" class="blog-nav__link{% if active == 'latest' %} is-current{% endif %}">Latest</a>
+      <a href="/archive/" class="blog-nav__link{% if active == 'archive' %} is-current{% endif %}">Archive</a>
+      <a href="/tags/" class="blog-nav__link{% if active == 'tags' %} is-current{% endif %}">Tags</a>
+      <a href="/search/" class="blog-nav__link{% if active == 'search' %} is-current{% endif %}">Search</a>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark theme">
+        <span class="theme-toggle__icon theme-toggle__moon">&#9790;</span>
+        <span class="theme-toggle__icon theme-toggle__sun">&#9788;</span>
+      </button>
+    </div>
+  </nav>
+</header>

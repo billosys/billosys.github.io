@@ -1,0 +1,37 @@
+---
+title: Tags
+description: Browse every subject the writing touches.
+permalink: /tags/
+layout: blog-base.liquid
+data:
+  nav: tags
+---
+{% comment %}
+  Tag directory — design 4a. Aggregates tag counts across all posts.
+  Uses only core Liquid filters (split / uniq / sort) + `contains` on the
+  post.tags array. Size classes (is-xl/is-l/is-s) grade the type by count.
+{% endcomment %}
+{% assign posts = collections.posts.pages %}
+{% assign all_tags = "" %}
+{% for post in posts %}{% for t in post.tags %}{% assign all_tags = all_tags | append: t | append: "," %}{% endfor %}{% endfor %}
+{% assign tag_list = all_tags | split: "," | uniq | sort %}
+
+<header style="padding-block-start: var(--space-2xl);">
+  <p class="blog-eyebrow">{{ tag_list.size }} tags &middot; {{ posts.size }} articles</p>
+  <h1 class="article-title" style="max-inline-size: none; margin-block-start: var(--space-s);">Tags</h1>
+  <p class="featured__dek">Every subject the writing touches, with a count of how often. The recurring ones are the through-line.</p>
+</header>
+
+<div class="tag-directory" style="margin-block-start: var(--space-l);">
+{% for tag in tag_list %}
+  {% assign c = 0 %}
+  {% for post in posts %}{% if post.tags contains tag %}{% assign c = c | plus: 1 %}{% endif %}{% endfor %}
+  {% assign size_class = "" %}
+  {% if c >= 5 %}{% assign size_class = "is-xl" %}{% elsif c >= 3 %}{% assign size_class = "is-l" %}{% elsif c <= 1 %}{% assign size_class = "is-s" %}{% endif %}
+  <div class="tag-directory__row {{ size_class }}">
+    <a href="/tags/{{ tag }}/" class="tag-directory__name">#{{ tag }}</a>
+    <span class="tag-directory__lead"></span>
+    <span class="tag-directory__count">{{ c }}</span>
+  </div>
+{% endfor %}
+</div>

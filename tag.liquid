@@ -1,0 +1,44 @@
+---
+title: Tagged
+description: Articles by tag.
+layout: blog-base.liquid
+data:
+  nav: tags
+pagination:
+  include: Tags
+  per_page: 100
+---
+{% comment %}
+  Single-tag archive — design 4b. Generated once per tag by Cobalt's
+  tag pagination (include: Tags). Cobalt fills `paginator` per tag:
+    paginator.index_title → the tag name
+    paginator.pages       → the posts carrying that tag
+
+  ⚠ VERIFY against your Cobalt version — pagination variable names and the
+  generated permalink for tag pages have shifted between releases. If your
+  build exposes the tag under a different field, adjust `tag` below. The
+  README documents the permalink wiring (/tags/<tag>/).
+{% endcomment %}
+{% assign tag = paginator.index_title %}
+
+<a href="/tags/" class="article-back" style="margin-block-start: var(--space-2xl);">&larr; All tags</a>
+
+<div class="tag-hero" style="margin-block-start: var(--space-m);">
+  <h1 class="tag-hero__name">#{{ tag }}</h1>
+  <span class="tag-hero__count">{{ paginator.pages.size }} articles</span>
+</div>
+
+<hr class="rule-strong" style="margin-block-start: var(--space-l);">
+
+<ul class="post-list">
+  {% for post in paginator.pages %}
+  <li class="post-entry">
+    <div class="article-meta">
+      <span>{{ post.published_date | date: "%b %d, %Y" }}</span><span class="sep">&middot;</span>
+      <span>{{ post.data.minutes }} min</span>
+    </div>
+    <a href="{{ post.permalink }}" class="post-entry__title">{{ post.title }}</a>
+    {% if post.description %}<p class="post-entry__dek">{{ post.description }}</p>{% endif %}
+  </li>
+  {% endfor %}
+</ul>

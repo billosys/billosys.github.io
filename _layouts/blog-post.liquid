@@ -1,0 +1,91 @@
+{% comment %}
+  blog-post.liquid — the long-form reading view (design 3b).
+  Applied to every post via _cobalt.yml → posts.default.layout.
+
+  Spine: Claude Design's mockup (design 3b). Parts borrowed from LFE:
+    · auto reading-time  (computed from content; data.minutes overrides)
+    · author bio card    (data-driven from _data/authors.yml)
+
+  Post frontmatter this template expects:
+    title, description, published_date, tags: [ … ]
+    data: { author: "Duncan McGregor", minutes: 11 (optional override) }
+
+  Body notes:
+    · Fenced code blocks are highlighted by Cobalt; wrap one in
+      <figure class="code-figure"> … </figure> for filename/lang chrome.
+    · <aside class="sidenote"> inline in prose floats to the margin.
+{% endcomment %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% include 'blog-head.liquid' %}
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  {% assign nav_active = "latest" %}
+  {% include 'blog-nav.liquid' %}
+
+  <main id="main" class="blog-wrap">
+    <article>
+      <a href="/articles/" class="article-back">&larr; Articles</a>
+
+      <header class="article-header">
+        {% if page.tags %}
+        <div class="tag-chips">
+          {% for tag in page.tags %}<a href="/tags/{{ tag }}/" class="tag-chip">{{ tag }}</a>{% endfor %}
+        </div>
+        {% endif %}
+        <h1 class="article-title">{{ page.title }}</h1>
+        {% if page.description %}<p class="article-dek">{{ page.description }}</p>{% endif %}
+        <div class="article-meta">
+          <span>{{ page.data.author | default: "Duncan McGregor" }}</span>
+          <span class="sep">&middot;</span>
+          <span>{{ page.published_date | date: "%b %d, %Y" }}</span>
+          {% comment %} Auto reading-time (LFE part); data.minutes overrides. {% endcomment %}
+          {% assign _words = page.content | strip_html | split: " " | size %}
+          {% assign _rt = _words | divided_by: 200 %}{% if _rt < 1 %}{% assign _rt = 1 %}{% endif %}
+          {% assign _mins = page.data.minutes | default: _rt %}
+          <span class="sep">&middot;</span><span>{{ _mins }} min read</span>
+        </div>
+      </header>
+
+      <div class="prose">
+        {{ page.content }}
+      </div>
+
+      {% comment %} ── Author bio (LFE part; single-author, data-driven) ── {% endcomment %}
+      {% assign _author = page.data.author | default: "Duncan McGregor" %}
+      {% for a in site.data.authors %}{% if a[0] == _author %}{% assign author = a[1] %}{% endif %}{% endfor %}
+      {% if author %}
+      <aside class="author-card">
+        {% if author.github_user %}
+        <img class="author-card__avatar" src="https://avatars.githubusercontent.com/{{ author.github_user }}?s=128" alt="{{ author.name }}" loading="lazy" width="64" height="64">
+        {% endif %}
+        <div class="author-card__body">
+          <p class="author-card__name">{{ author.name }}</p>
+          {% if author.bio %}<p class="author-card__bio">{{ author.bio }}</p>{% endif %}
+          {% if author.links %}<div class="author-card__links">{% for l in author.links %}{{ l.label_html }}{% endfor %}</div>{% endif %}
+        </div>
+      </aside>
+      {% endif %}
+
+      {% comment %} ── Prev / next (collection is ordered newest-first) ── {% endcomment %}
+      {% assign posts = collections.posts.pages %}
+      {% assign idx = 0 %}
+      {% for p in posts %}{% if p.permalink == page.permalink %}{% assign idx = forloop.index0 %}{% endif %}{% endfor %}
+      {% assign newer = idx | minus: 1 %}
+      {% assign older = idx | plus: 1 %}
+      <nav class="post-nav">
+        {% if older < posts.size %}{% assign op = posts[older] %}
+          <a href="{{ op.permalink }}"><span class="post-nav__label">&larr; Older</span><span class="post-nav__title">{{ op.title }}</span></a>
+        {% else %}<span></span>{% endif %}
+        {% if newer >= 0 %}{% assign np = posts[newer] %}
+          <a href="{{ np.permalink }}" style="text-align: right;"><span class="post-nav__label">Newer &rarr;</span><span class="post-nav__title">{{ np.title }}</span></a>
+        {% else %}<span></span>{% endif %}
+      </nav>
+    </article>
+  </main>
+
+  {% include 'blog-footer.liquid' %}
+</body>
+</html>

@@ -1,0 +1,21 @@
+{% comment %}
+  blog-base.liquid — full page shell for blog INDEX pages
+  (articles / archive / tags). A page using this layout writes only
+  its inner content; set `data.nav` in the page frontmatter to light
+  the right nav item.
+{% endcomment %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% include 'blog-head.liquid' %}
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  {% assign nav_active = page.data.nav %}
+  {% include 'blog-nav.liquid' %}
+  <main id="main" class="blog-wrap">
+    {{ page.content }}
+  </main>
+  {% include 'blog-footer.liquid' %}
+</body>
+</html>

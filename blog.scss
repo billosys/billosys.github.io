@@ -1,0 +1,14 @@
+// ──────────────────────────────────────────────────────────────
+// blog.scss — stylesheet entry for the Articles blog.
+//
+// Compiled by Cobalt to /blog.css (see _cobalt.yml assets.sass).
+// Reuses the site's primitive tokens (colour ladders, type scale,
+// spacing) from _sass/_tokens.scss, then layers the blog's own
+// reading-tuned semantic tokens + components in _sass/_blog.scss.
+//
+//   1. tokens  — primitive custom properties (shared with main.css)
+//   2. blog    — [data-theme] reading tokens + all blog components
+// ──────────────────────────────────────────────────────────────
+
+@import "tokens";
+@import "blog";

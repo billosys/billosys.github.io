@@ -1,0 +1,28 @@
+---
+layout: null
+permalink: "/rss.xml"
+pagination:
+  include: All
+  per_page: 999
+---
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ site.title }} — Articles</title>
+    <link>{{ site.base_url }}/articles/</link>
+    <description>{{ site.description }}</description>
+    <atom:link href="{{ site.base_url }}/rss.xml" rel="self" type="application/rss+xml"/>
+    {% for post in paginator.pages %}{% if forloop.first %}<lastBuildDate>{{ post.published_date | date: "%a, %d %b %Y %H:%M:%S %z" }}</lastBuildDate>{% endif %}{% endfor %}
+    {% for post in paginator.pages %}
+    <item>
+      <title>{{ post.title | escape }}</title>
+      <link>{{ site.base_url }}{{ post.permalink }}</link>
+      <guid isPermaLink="true">{{ site.base_url }}{{ post.permalink }}</guid>
+      <pubDate>{{ post.published_date | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>
+      {% if post.data.author %}<author>{{ post.data.author | escape }}</author>{% endif %}
+      {% for tag in post.tags %}<category>{{ tag | escape }}</category>{% endfor %}
+      <description>{{ post.description | escape }}</description>
+    </item>
+    {% endfor %}
+  </channel>
+</rss>

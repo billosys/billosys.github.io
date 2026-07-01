@@ -1,0 +1,30 @@
+---
+layout: null
+permalink: "/atom.xml"
+pagination:
+  include: All
+  per_page: 999
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>{{ site.title }} — Articles</title>
+  <link href="{{ site.base_url }}/atom.xml" rel="self"/>
+  <link href="{{ site.base_url }}/articles/"/>
+  <id>{{ site.base_url }}/articles/</id>
+  <subtitle>{{ site.description }}</subtitle>
+  {% for post in paginator.pages %}{% if forloop.first %}<updated>{{ post.published_date | date: "%Y-%m-%dT%H:%M:%SZ" }}</updated>{% endif %}{% endfor %}
+  {% for post in paginator.pages %}
+  {% assign author_name = post.data.author %}
+  {% for a in site.data.authors %}{% if a[0] == post.data.author %}{% assign author_name = a[1].name %}{% endif %}{% endfor %}
+  <entry>
+    <title>{{ post.title | escape }}</title>
+    <link href="{{ site.base_url }}{{ post.permalink }}"/>
+    <id>{{ site.base_url }}{{ post.permalink }}</id>
+    <published>{{ post.published_date | date: "%Y-%m-%dT%H:%M:%SZ" }}</published>
+    <updated>{{ post.published_date | date: "%Y-%m-%dT%H:%M:%SZ" }}</updated>
+    {% for tag in post.tags %}<category term="{{ tag | escape }}"/>{% endfor %}
+    <summary>{{ post.description | escape }}</summary>
+    <author><name>{{ author_name | escape }}</name></author>
+  </entry>
+  {% endfor %}
+</feed>

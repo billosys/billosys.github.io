@@ -1,0 +1,35 @@
+---
+title: Archive
+description: Every article, newest first, grouped by year.
+permalink: /archive/
+layout: blog-base.liquid
+data:
+  nav: archive
+---
+{% comment %} Archive — design 1b: year-grouped ledger. {% endcomment %}
+{% assign posts = collections.posts.pages %}
+
+<header style="padding-block-start: var(--space-2xl);">
+  <p class="blog-eyebrow">Index &middot; {{ posts.size }} articles</p>
+  <h1 class="article-title" style="max-inline-size: none; margin-block-start: var(--space-s);">Archive</h1>
+  <p class="featured__dek">A running index of the writing, newest first. Filter by <a href="/tags/" style="color: var(--accent);">tag</a> or read the <a href="/articles/" style="color: var(--accent);">latest</a>.</p>
+</header>
+
+{% assign current_year = "" %}
+<div style="margin-block-start: var(--space-l);">
+{% for post in posts %}
+  {% assign y = post.published_date | date: "%Y" %}
+  {% if y != current_year %}
+    {% assign current_year = y %}
+    <div class="archive-year"><span class="archive-year__num">{{ y }}</span><span class="archive-year__rule"></span></div>
+  {% endif %}
+  <a href="{{ post.permalink }}" class="archive-row">
+    <span class="archive-row__date">{{ post.published_date | date: "%m &middot; %d" }}</span>
+    <span>
+      <span class="archive-row__title">{{ post.title }}</span>
+      <span class="archive-row__tags">{% for tag in post.tags %}<span>#{{ tag }}</span>{% endfor %}</span>
+    </span>
+    <span class="archive-row__time">{{ post.data.minutes }} min</span>
+  </a>
+{% endfor %}
+</div>

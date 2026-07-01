@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>name</key>
+  <string>Billo Reading Dark</string>
+  <key>settings</key>
+  <array>
+
+    <!-- ── Global: the panel itself ─────────────────────────────
+         Colours are the sRGB renderings of the site's OKLCH tokens:
+           bg          green-950   #0A0F07
+           fg          neutral-300 #C1BDB5
+           caret       ochre-400   #D3956B
+           selection   green-925   #121A0E
+    ────────────────────────────────────────────────────────────── -->
+    <dict>
+      <key>settings</key>
+      <dict>
+        <key>background</key><string>#0A0F07</string>
+        <key>foreground</key><string>#C1BDB5</string>
+        <key>caret</key><string>#D3956B</string>
+        <key>lineHighlight</key><string>#121A0E</string>
+        <key>selection</key><string>#1C2914</string>
+        <key>selectionForeground</key><string>#E4EBDE</string>
+        <key>invisibles</key><string>#4A5340</string>
+        <key>gutter</key><string>#0A0F07</string>
+        <key>gutterForeground</key><string>#5C6551</string>
+      </dict>
+    </dict>
+
+    <!-- Comments — neutral-500, italic -->
+    <dict>
+      <key>name</key><string>Comment</string>
+      <key>scope</key><string>comment, punctuation.definition.comment</string>
+      <key>settings</key><dict>
+        <key>foreground</key><string>#838078</string>
+        <key>fontStyle</key><string>italic</string>
+      </dict>
+    </dict>
+
+    <!-- Strings — green-400 (recedes; strings are quiet) -->
+    <dict>
+      <key>name</key><string>String</string>
+      <key>scope</key><string>string, string.quoted, string.unquoted, meta.attribute-selector string</string>
+      <key>settings</key><dict><key>foreground</key><string>#96A486</string></dict>
+    </dict>
+
+    <!-- Numbers & language constants — ochre-400 -->
+    <dict>
+      <key>name</key><string>Number, Constant</string>
+      <key>scope</key><string>constant.numeric, constant.character, constant.language, constant.other.color</string>
+      <key>settings</key><dict><key>foreground</key><string>#D3956B</string></dict>
+    </dict>
+
+    <!-- Atoms / symbols (Erlang atoms, Ruby symbols) — ochre-300 -->
+    <dict>
+      <key>name</key><string>Symbol / atom</string>
+      <key>scope</key><string>constant.other.symbol, constant.other.key, entity.name.constant</string>
+      <key>settings</key><dict><key>foreground</key><string>#DDAC8C</string></dict>
+    </dict>
+
+    <!-- Keywords, storage, control flow — ochre-300 (the active hue) -->
+    <dict>
+      <key>name</key><string>Keyword, Storage</string>
+      <key>scope</key><string>keyword, keyword.control, storage, storage.type, storage.modifier, keyword.other</string>
+      <key>settings</key><dict><key>foreground</key><string>#DDAC8C</string></dict>
+    </dict>
+
+    <!-- Operators & separators — neutral-400 (structural, muted) -->
+    <dict>
+      <key>name</key><string>Operator, Punctuation</string>
+      <key>scope</key><string>keyword.operator, punctuation.separator, punctuation.terminator, punctuation.accessor, meta.brace, punctuation.section</string>
+      <key>settings</key><dict><key>foreground</key><string>#A19E96</string></dict>
+    </dict>
+
+    <!-- Functions — green-300 -->
+    <dict>
+      <key>name</key><string>Function</string>
+      <key>scope</key><string>entity.name.function, support.function, meta.function-call entity.name.function, meta.function-call.generic</string>
+      <key>settings</key><dict><key>foreground</key><string>#B0BDA3</string></dict>
+    </dict>
+
+    <!-- Types, classes, modules — ochre-200 (light warm) -->
+    <dict>
+      <key>name</key><string>Type, Class</string>
+      <key>scope</key><string>entity.name.type, entity.name.class, entity.name.namespace, entity.name.module, support.type, support.class, entity.other.inherited-class</string>
+      <key>settings</key><dict><key>foreground</key><string>#ECC9B2</string></dict>
+    </dict>
+
+    <!-- Variables & parameters — green-100 (brightest; the subject) -->
+    <dict>
+      <key>name</key><string>Variable</string>
+      <key>scope</key><string>variable, variable.parameter, variable.other, variable.language, meta.definition.variable</string>
+      <key>settings</key><dict><key>foreground</key><string>#E4EBDE</string></dict>
+    </dict>
+
+    <!-- Module attributes / preprocessor (Erlang -module, C #include) -->
+    <dict>
+      <key>name</key><string>Preprocessor / attribute</string>
+      <key>scope</key><string>meta.preprocessor, keyword.control.directive, punctuation.definition.keyword, entity.name.function.preprocessor</string>
+      <key>settings</key><dict><key>foreground</key><string>#DDAC8C</string></dict>
+    </dict>
+
+    <!-- Markup: tags, attribute names — for HTML/XML/JSX snippets -->
+    <dict>
+      <key>name</key><string>Tag</string>
+      <key>scope</key><string>entity.name.tag, punctuation.definition.tag</string>
+      <key>settings</key><dict><key>foreground</key><string>#DDAC8C</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Attribute name</string>
+      <key>scope</key><string>entity.other.attribute-name</string>
+      <key>settings</key><dict><key>foreground</key><string>#B0BDA3</string></dict>
+    </dict>
+
+    <!-- Markdown / prose inside code (rare, but keep it legible) -->
+    <dict>
+      <key>name</key><string>Heading</string>
+      <key>scope</key><string>markup.heading, markup.heading entity.name</string>
+      <key>settings</key><dict>
+        <key>foreground</key><string>#ECC9B2</string>
+        <key>fontStyle</key><string>bold</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Bold</string>
+      <key>scope</key><string>markup.bold</string>
+      <key>settings</key><dict><key>fontStyle</key><string>bold</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Italic</string>
+      <key>scope</key><string>markup.italic</string>
+      <key>settings</key><dict><key>fontStyle</key><string>italic</string></dict>
+    </dict>
+
+    <!-- Invalid / deprecated -->
+    <dict>
+      <key>name</key><string>Invalid</string>
+      <key>scope</key><string>invalid, invalid.illegal</string>
+      <key>settings</key><dict><key>foreground</key><string>#E4EBDE</string><key>background</key><string>#7A3B2E</string></dict>
+    </dict>
+
+  </array>
+  <key>uuid</key>
+  <string>b11105ea-7ead-4ecb-8d5f-9c0f8b17a911</string>
+  <key>colorSpaceName</key>
+  <string>sRGB</string>
+</dict>
+</plist>

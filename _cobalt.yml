@@ -17,6 +17,7 @@ include_drafts: false
 ignore:
   - site/**/*
   - workbench/**/*
+  - docs/**/*                # planning artifacts (slice-doc, ledger, cc-prompt) — not site content
   - README.md
   - .git/**/*
   - .gitignore
@@ -38,11 +39,33 @@ pages:
   default:
     layout: secondary.liquid
 
+# ───────── Posts (the Articles blog) ─────────
+# Cobalt's built-in blog collection — powers /articles/, /archive/, /tags/.
+# Markdown posts live in /posts. Newest-first; the templates assume Desc.
+# No `rss:` key here: hand-written rss.xml / atom.xml (pagination: All) give
+# author + category control the built-in generator doesn't. Tags-only by
+# design — no categories.
+posts:
+  title: Articles
+  description: Field notes on distributed systems, Erlang/OTP, and correctness under contention.
+  dir: posts
+  drafts_dir: _drafts
+  order: Desc
+  default:
+    layout: blog-post.liquid
+    permalink: "/articles/{{ year }}/{{ month }}/{{ slug }}/"
+
 # ───────── Asset processing ─────────
 assets:
   sass:
     style: Compressed          # Production-minified CSS.
 
 # ───────── Syntax highlighting ─────────
-# Left at defaults: base16-ocean.dark, enabled. No code blocks in v1
-# content, but keeping the subsystem ready costs nothing.
+# Palette-matched theme: _syntaxes/billo-reading-dark.tmTheme. The `theme`
+# value is the theme's internal <key>name</key>, not the filename. Confirm
+# Cobalt scanned _syntaxes/ with:  cobalt debug highlight themes
+# If this build doesn't load custom themes, drop back to base16-ocean.dark —
+# the .code-figure CSS still frames code cleanly. (See cc-prompt.md, L-02.)
+syntax_highlight:
+  enabled: true
+  theme: "Billo Reading Dark"

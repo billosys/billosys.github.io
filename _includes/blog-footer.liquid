@@ -1,0 +1,27 @@
+{% comment %} Blog footer + the theme-toggle behaviour script. {% endcomment %}
+<footer class="blog-footer">
+  <div class="blog-footer__inner">
+    <span class="blog-footer__copy">&copy; {{ site.time | date: "%Y" | default: "2026" }} Billo Systems, L.L.C. &middot; Minnesota, USA</span>
+    <div class="blog-footer__links">
+      <a href="/rss.xml">RSS</a>
+      <a href="/archive/">Archive</a>
+      <a href="mailto:dm@billo.systems">dm@billo.systems</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('billo-theme', next);
+    });
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function (e) {
+      if (!localStorage.getItem('billo-theme')) root.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+    });
+  })();
+</script>

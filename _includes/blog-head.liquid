@@ -1,0 +1,39 @@
+{% comment %}
+  Shared <head> for all blog pages. Include right after <head> opens.
+  Fonts: Brygada 1918 (display), Literata (long-form body), IBM Plex Mono
+  (metadata + code). Literata is the reading face — swap to self-hosted
+  woff2 in assets/fonts/ for production (see README) to match the primary
+  site's no-CDN policy.
+{% endcomment %}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>{% if page.title %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }} — Articles{% endif %}</title>
+<meta name="description" content="{{ page.description | default: site.description }}">
+
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#1a2415" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f0f3e9" media="(prefers-color-scheme: light)">
+
+{% comment %} Set the theme before first paint to avoid a flash. {% endcomment %}
+<script>
+  (function () {
+    var stored = localStorage.getItem('billo-theme');
+    var theme = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Brygada+1918:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,500;0,7..72,600;1,7..72,400;1,7..72,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/blog.css">
+<link rel="alternate" type="application/rss+xml" title="{{ site.title }} — Articles" href="/rss.xml">
+<link rel="alternate" type="application/atom+xml" title="{{ site.title }} — Articles" href="/atom.xml">
+
+<meta property="og:title" content="{{ page.title | default: site.title }}">
+<meta property="og:description" content="{{ page.description | default: site.description }}">
+<meta property="og:type" content="{% if page.collection == 'posts' %}article{% else %}website{% endif %}">
+<meta property="og:site_name" content="{{ site.title }}">
+<link rel="canonical" href="{{ site.base_url }}{{ page.permalink }}">

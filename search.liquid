@@ -1,0 +1,27 @@
+---
+title: Search
+description: Search the Billo Systems articles.
+permalink: /search/
+layout: blog-base.liquid
+data:
+  nav: search
+---
+{% comment %}
+  Search page — pagefind UI (LFE-borrowed). The /pagefind/ assets are
+  produced by the post-build `pagefind --site site` step, so this page is
+  inert until that has run. See cc-prompt.md DD-3.
+{% endcomment %}
+<header style="padding-block-start: var(--space-2xl);">
+  <p class="blog-eyebrow">Find an article</p>
+  <h1 class="article-title" style="max-inline-size: none; margin-block-start: var(--space-s);">Search</h1>
+  <p class="featured__dek">Full-text search across every article. Or browse by <a href="/tags/" style="color: var(--accent);">tag</a>.</p>
+</header>
+
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<div id="search" style="margin-block-start: var(--space-l);"></div>
+<script src="/pagefind/pagefind-ui.js"></script>
+<script>
+  window.addEventListener('DOMContentLoaded', function () {
+    if (window.PagefindUI) { new PagefindUI({ element: "#search", showSubResults: true }); }
+  });
+</script>
