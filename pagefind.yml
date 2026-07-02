@@ -1,8 +1,10 @@
-# Pagefind static-search config (LFE-borrowed). Post-BUILD step:
-#   cobalt build && pagefind --site site
-# (pagefind is a standalone tool, not a Cobalt change or a custom CLI.)
-# It indexes the built HTML under site/ and writes site/pagefind/*, which
-# /search/ loads. See docs/design-v2.1.0/01-blog/cc-prompt.md, DD-3.
+# Pagefind search config. Run as a post-build step (reads this file from the
+# project root) by scripts/deploy.sh (deploy) and scripts/preview.sh (local):
+#   pagefind --site site
+# pagefind is a standalone tool — not a Cobalt change or a custom CLI. It writes
+# site/pagefind/* (JS, CSS, wasm, index), which /search/ loads. Indexing is
+# scoped to posts by `data-pagefind-body` on the post <article> (blog-post.liquid);
+# the glob below is a coarse pre-filter. See docs/design-v2.1.0/04-search/.
 site: site
 glob: "articles/**/*.html"
 exclude_selectors:

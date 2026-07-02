@@ -20,3 +20,9 @@ Strength: `asserted` < `attested` (static) < `reproduced` (CC build) < `reconcil
   `avatar` field + template branch) is a separate operator decision.
 - **Marketing `secondary.liquid`** still loads Google Fonts (Brygada/Lora/
   Recursive) — same gap on the marketing side; a marketing follow-up.
+
+## Close (2026-07-01)
+All rows F-01…F-08 **reconciled** — CC `reproduced` (live browser: zero Google
+Fonts requests, all three families loaded per document.fonts), CDC cross-checked
+on disk. See `closing-report.md`. Deferred (out of scope): author avatar,
+marketing-side Google Fonts.

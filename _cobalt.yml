@@ -18,8 +18,7 @@ ignore:
   - site/**/*
   - workbench/**/*
   - docs/**/*                # planning artifacts (slice-doc, ledger, cc-prompt) — not site content
-  - pagefind.yml             # search config — deferred to a later slice (pagefind); kept at root for that step
-  - search.liquid            # search page — deferred with pagefind; not built in v1
+  - pagefind.yml             # pagefind reads this from the project root at index time; must NOT be copied into site/
   - README.md
   - .git/**/*
   - .gitignore

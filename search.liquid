@@ -7,9 +7,11 @@ data:
   nav: search
 ---
 {% comment %}
-  Search page — pagefind UI (LFE-borrowed). The /pagefind/ assets are
-  produced by the post-build `pagefind --site site` step, so this page is
-  inert until that has run. See cc-prompt.md DD-3.
+  Search page — self-hosted Pagefind UI. The /pagefind/ assets (JS, CSS, wasm,
+  index) are produced by the post-build `pagefind --site site` step — run by
+  scripts/deploy.sh (deploy) and scripts/preview.sh (local). Do NOT preview with
+  `cobalt serve`: it rebuilds into a temp dir and wipes site/pagefind/, so search
+  is dead under it. See docs/design-v2.1.0/04-search/.
 {% endcomment %}
 <header style="padding-block-start: var(--space-2xl);">
   <p class="blog-eyebrow">Find an article</p>
@@ -17,11 +19,27 @@ data:
   <p class="featured__dek">Full-text search across every article. Or browse by <a href="/tags/" style="color: var(--accent);">tag</a>.</p>
 </header>
 
+{% comment %} Pagefind UI, themed to the blog tokens via its --pagefind-ui-* vars. {% endcomment %}
+<style>
+  #search {
+    --pagefind-ui-scale: 1;
+    --pagefind-ui-primary: var(--accent);
+    --pagefind-ui-text: var(--ink-primary);
+    --pagefind-ui-background: var(--surface-raised);
+    --pagefind-ui-border: var(--rule);
+    --pagefind-ui-tag: var(--tag-bg);
+    --pagefind-ui-border-width: 1px;
+    --pagefind-ui-border-radius: 8px;
+    --pagefind-ui-font: var(--font-body);
+  }
+</style>
 <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
 <div id="search" style="margin-block-start: var(--space-l);"></div>
 <script src="/pagefind/pagefind-ui.js"></script>
 <script>
   window.addEventListener('DOMContentLoaded', function () {
-    if (window.PagefindUI) { new PagefindUI({ element: "#search", showSubResults: true }); }
+    if (window.PagefindUI) {
+      new PagefindUI({ element: "#search", showSubResults: true, showImages: false });
+    }
   });
 </script>
