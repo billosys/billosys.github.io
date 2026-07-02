@@ -118,7 +118,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 // Reading column + full page wrapper.
-.blog-wrap { max-width: 1200px; margin-inline: auto; padding-inline: var(--space-m); }
+.blog-wrap { max-width: 1200px; margin-inline: auto; padding-inline: var(--space-m); padding-block-end: var(--space-2xl); }
 .measure   { max-width: 760px; margin-inline: auto; }
 
 // ═════════════════════════ NAV ═════════════════════════
