@@ -29,14 +29,14 @@ count at close must equal count at open.
 | L-13 | `/rss.xml` generates and is well-formed (valid RSS 2.0, correct item links/dates). | CC: `xmllint --noout site/rss.xml`; spot-check links. | asserted | reproduced |
 | L-14 | `/atom.xml` generates and is well-formed (valid Atom, single-author name resolved). | CC: `xmllint --noout site/atom.xml`. | asserted | reproduced |
 | L-15 | Sample posts carry **tags only, no `categories:`**; frontmatter valid; author resolves to Duncan. | static: `grep -L 'categories' posts/*.md` = all; YAML parses. | asserted | attested |
-| L-16 | Pagefind: `pagefind.yml` present and scoped to the blog output; index builds. **[DD-3 — extra post-build step]** | CC: `pagefind --site site` (or npx) succeeds; search returns a known post. | asserted | reproduced |
+| L-16 | ~~Pagefind search~~ **DEFERRED to a later slice** (operator decision). `search.liquid` + `pagefind.yml` are `ignore`d and the Search nav link removed → nothing search-related builds in v1. Files stay wired for the pagefind slice. | static: `grep -c 'search.liquid\|pagefind.yml' _cobalt.yml` (both ignored); no `site/search/` after build. | deferred | deferred |
 | L-17 | Blog reachable from the marketing site: footer "Engineering Blog" link + a nav entry point to `/articles/`. | static: `grep '/articles/' _layouts/secondary.liquid`. | asserted | attested |
 | L-18 | Theme toggle works on blog pages and shares the `billo-theme` localStorage key with the marketing site (no flash). | CC: toggle persists across marketing ↔ blog navigation. | asserted | reproduced |
-| L-19 | Both deploy paths publish the blog to expected locations: `scripts/deploy.sh` (→ `site` branch) and `.github/workflows/deploy.yml` (→ Pages artifact, **Cobalt pinned 0.19.7**). `docs/` excluded; `CNAME` present. Pagefind step decision recorded. | CC: run/inspect a build per Step 8; verify tree + no `docs/` leak. | asserted | reproduced |
+| L-19 | Live deploy path `scripts/deploy.sh` (local Cobalt **0.20.2** → `site` branch) publishes the blog to expected locations; `docs/` excluded; `CNAME` present. (CI `.github/workflows/deploy.yml` is uncommitted/not-live; pin 0.20.2+ when adopted.) Pagefind step decision recorded. | CC: run/inspect a build per Step 8; verify tree + no `docs/` leak. | asserted | reproduced |
 
 ## Open questions for CC (fold results back here)
 
-1. **DD-2:** Under the installed Cobalt (target: latest stock, ~v0.20.4), does a
+1. **DD-2:** Under the installed Cobalt (target: local **0.20.2**), does a
    root `tag.liquid` with `pagination: { include: Tags }` generate per-tag pages
    at `/tags/<tag>/`? What are the real paginator field names? Does it also emit
    a stray index page that collides with the hand-rolled `tags.liquid`? If the
@@ -45,5 +45,5 @@ count at close must equal count at open.
 2. **DD-1:** Is `post.content` available (and word-countable) inside
    `{% for post in collections.posts.pages %}` on index pages, or only as
    `page.content` on the post itself?
-3. **DD-3:** Is an extra pagefind build step acceptable, or should search be
-   deferred to keep the build a single `cobalt build`?
+3. **DD-3 — RESOLVED (deferred):** Search is deferred to a later CC slice.
+   Not part of this build. `search.liquid` + `pagefind.yml` are ignored.

@@ -2,7 +2,7 @@
 #   cobalt build && pagefind --site site
 # (pagefind is a standalone tool, not a Cobalt change or a custom CLI.)
 # It indexes the built HTML under site/ and writes site/pagefind/*, which
-# /search/ loads. See docs/design-v0.1.0/01-blog/cc-prompt.md, DD-3.
+# /search/ loads. See docs/design-v2.1.0/01-blog/cc-prompt.md, DD-3.
 site: site
 glob: "articles/**/*.html"
 exclude_selectors:

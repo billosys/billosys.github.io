@@ -23,7 +23,7 @@ data:
     {% assign current_year = y %}
     <div class="archive-year"><span class="archive-year__num">{{ y }}</span><span class="archive-year__rule"></span></div>
   {% endif %}
-  <a href="{{ post.permalink }}" class="archive-row">
+  <a href="/{{ post.permalink }}" class="archive-row">
     <span class="archive-row__date">{{ post.published_date | date: "%m &middot; %d" }}</span>
     <span>
       <span class="archive-row__title">{{ post.title }}</span>

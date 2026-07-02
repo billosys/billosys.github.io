@@ -42,11 +42,10 @@ through Claude Design's approved mockup templates and reachable at `/articles/`.
    (`/atom.xml`), ported from LFE, retuned to single-author + `/articles/`.
 7. **LFE-borrowed mechanics** — auto reading-time on the post view; single-author
    bio block; `_data/authors.yml` (one entry: Duncan).
-8. **Search** — pagefind wiring (`pagefind.yml` + search affordance).
-9. **Sample content** — the 4 mockup posts (`posts/*.md`), frontmatter retuned:
+8. **Sample content** — the 4 mockup posts (`posts/*.md`), frontmatter retuned:
    **tags only, no categories**.
-10. **Marketing integration** — point the marketing footer "Engineering Blog"
-    link (and add a nav entry) to `/articles/`.
+9. **Marketing integration** — point the marketing footer "Engineering Blog"
+   link (and add a nav entry) to `/articles/`.
 
 ## Scope — out (explicit non-goals)
 
@@ -59,6 +58,10 @@ through Claude Design's approved mockup templates and reachable at `/articles/`.
   `cobalt build`.
 - **Multi-author machinery.** Single-author blog; the authors data file exists
   for the bio block and feed author name, not a browsable author index.
+- **Search (pagefind).** Deferred to a later CC slice (operator decision). The
+  templates + config exist (`search.liquid`, `pagefind.yml`) but are `ignore`d
+  in `_cobalt.yml` and unlinked from the nav, so nothing search-related builds
+  in v1 — they sit ready for the pagefind slice.
 
 ## Key design decisions & their risks
 
@@ -80,13 +83,14 @@ through Claude Design's approved mockup templates and reachable at `/articles/`.
   (`.index_title` / `.index_permalink` / `.total_pages`) and each tag from
   `paginator.pages`. **CC to resolve empirically** and report which approach
   the installed Cobalt supports + the actual tag permalink.
-- **DD-3 Pagefind.** In-bounds (it is what LFE uses; not a custom tool), but it
-  is a **post-build step** (`pagefind --site site`) beyond `cobalt build`. If
-  the operator wants a literally single-command build, search is the one
-  deferrable item. Templates + config are wired regardless.
-- **DD-4 `/about/` nav link.** The mockup nav links to `/about/`, which does not
-  yet exist on the Billo site. Left pointing at `/about/` (harmless dead link)
-  or repointed to the marketing site — flagged for the operator.
+- **DD-3 Pagefind — RESOLVED (deferred).** Search needs a `pagefind --site site`
+  post-build step beyond `cobalt build`; operator chose to defer it to its own
+  CC slice. `search.liquid` + `pagefind.yml` are `ignore`d and the nav link
+  removed, so v1 stays a single `cobalt build`. Files remain wired for the
+  follow-up slice.
+- **DD-4 `/about/` nav link — RESOLVED.** The mockup nav's `/about/` link had no
+  page; replaced with (deferred) Search, then Search removed too — so v1 blog
+  nav is Latest / Archive / Tags. Add About/Search back when those pages exist.
 
 ## Verification approach
 

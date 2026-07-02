@@ -1,12 +1,12 @@
 # Blog authors, keyed by the exact string used in each post's `data.author`.
 # Single-author today; the map + lookup (see _layouts/blog-post.liquid and the
 # feeds) is the LFE-borrowed shape, ready if more authors are ever added.
-Duncan McGregor:
-  name: Duncan McGregor
+Duncan McGreggor:
+  name: Duncan McGreggor
   github_user: oubiwann
   bio: >-
-    Founder of Billo Systems. Distributed-systems engineer, Lisper on the BEAM,
-    and creator of the Lykn language. Writes here about correctness under
+    Founder of Billo Systems. Distributed-systems engineer, Rust coder, core contributor to LFE, and
+    creator of the Lykn language. Writes here about correctness under
     contention, Erlang/OTP, and the infrastructure of resilient systems.
   links:
     - label_html: <a href="https://github.com/oubiwann">GitHub</a>

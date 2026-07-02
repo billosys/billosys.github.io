@@ -1,6 +1,7 @@
 ---
-title: Tagged
-description: Articles by tag.
+title: Tags
+description: Browse every subject the writing touches.
+permalink: /tags/
 layout: blog-base.liquid
 data:
   nav: tags
@@ -9,16 +10,46 @@ pagination:
   per_page: 100
 ---
 {% comment %}
-  Single-tag archive — design 4b. Generated once per tag by Cobalt's
-  tag pagination (include: Tags). Cobalt fills `paginator` per tag:
-    paginator.index_title → the tag name
-    paginator.pages       → the posts carrying that tag
+  Tags — single-file pattern (designs 4a directory + 4b single-tag).
 
-  ⚠ VERIFY against your Cobalt version — pagination variable names and the
-  generated permalink for tag pages have shifted between releases. If your
-  build exposes the tag under a different field, adjust `tag` below. The
-  README documents the permalink wiring (/tags/<tag>/).
+  Cobalt's `include: Tags` pagination generates BOTH from this one source:
+    · the directory page  → /tags/index.html      (paginator.indexes is set)
+    · one page per tag    → /tags/<tag>/index.html (paginator.pages is set)
+
+  ⚠ Verified on Cobalt 0.20.2 (cc-prompt DD-2). Two facts drove this shape:
+    1. `paginator.index_title` / `paginator.pages` do NOT exist on the directory
+       page — only the LFE-style `paginator.indexes[]` (each with .index_title,
+       .index_permalink, .total_pages, .pages) does. The two-file
+       tags.liquid + tag.liquid design could not work; they are merged here.
+    2. `sub.index_permalink` renders as `tags//<tag>` (double slash, no leading
+       slash). The generated FILE is at /tags/<tag>/, matching the tag chips, so
+       we build the href from `sub.index_title` — never from index_permalink.
 {% endcomment %}
+{% if paginator.indexes %}
+{% comment %} ── Directory page (design 4a) ──
+   NB: `collections` is NOT in scope on paginated pages (verified 0.20.2), so the
+   distinct article count isn't computable here — the eyebrow shows tag count only. {% endcomment %}
+<header style="padding-block-start: var(--space-2xl);">
+  <p class="blog-eyebrow">{{ paginator.indexes.size }} tags</p>
+  <h1 class="article-title" style="max-inline-size: none; margin-block-start: var(--space-s);">Tags</h1>
+  <p class="featured__dek">Every subject the writing touches, with a count of how often. The recurring ones are the through-line.</p>
+</header>
+
+<div class="tag-directory" style="margin-block-start: var(--space-l);">
+{% for sub in paginator.indexes %}
+  {% assign c = sub.total_pages %}
+  {% assign size_class = "" %}
+  {% if c >= 5 %}{% assign size_class = "is-xl" %}{% elsif c >= 3 %}{% assign size_class = "is-l" %}{% elsif c <= 1 %}{% assign size_class = "is-s" %}{% endif %}
+  <div class="tag-directory__row {{ size_class }}">
+    <a href="/tags/{{ sub.index_title }}/" class="tag-directory__name">#{{ sub.index_title }}</a>
+    <span class="tag-directory__lead"></span>
+    <span class="tag-directory__count">{{ c }}</span>
+  </div>
+{% endfor %}
+</div>
+
+{% else %}
+{% comment %} ── Single-tag page (design 4b) ── {% endcomment %}
 {% assign tag = paginator.index_title %}
 
 <a href="/tags/" class="article-back" style="margin-block-start: var(--space-2xl);">&larr; All tags</a>
@@ -37,8 +68,9 @@ pagination:
       <span>{{ post.published_date | date: "%b %d, %Y" }}</span><span class="sep">&middot;</span>
       <span>{{ post.data.minutes }} min</span>
     </div>
-    <a href="{{ post.permalink }}" class="post-entry__title">{{ post.title }}</a>
+    <a href="/{{ post.permalink }}" class="post-entry__title">{{ post.title }}</a>
     {% if post.description %}<p class="post-entry__dek">{{ post.description }}</p>{% endif %}
   </li>
   {% endfor %}
 </ul>
+{% endif %}

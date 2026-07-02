@@ -18,6 +18,8 @@ ignore:
   - site/**/*
   - workbench/**/*
   - docs/**/*                # planning artifacts (slice-doc, ledger, cc-prompt) — not site content
+  - pagefind.yml             # search config — deferred to a later slice (pagefind); kept at root for that step
+  - search.liquid            # search page — deferred with pagefind; not built in v1
   - README.md
   - .git/**/*
   - .gitignore
@@ -61,11 +63,14 @@ assets:
     style: Compressed          # Production-minified CSS.
 
 # ───────── Syntax highlighting ─────────
-# Palette-matched theme: _syntaxes/billo-reading-dark.tmTheme. The `theme`
-# value is the theme's internal <key>name</key>, not the filename. Confirm
-# Cobalt scanned _syntaxes/ with:  cobalt debug highlight themes
-# If this build doesn't load custom themes, drop back to base16-ocean.dark —
-# the .code-figure CSS still frames code cleanly. (See cc-prompt.md, L-02.)
+# Cobalt-native (syntect) highlighting is DISABLED on purpose. This Cobalt
+# (0.20.2) delegates to `engarde`, whose Syntax::new() takes no args and only
+# knows syntect's built-in themes — it can't load our custom _syntaxes/ .tmTheme
+# and hard-errors the build on any unknown theme name. So we turn it off; fenced
+# code blocks emit clean <pre><code class="language-*">, which self-hosted
+# Prism.js (/assets/js/prism.js, loaded by blog-post.liquid) highlights in the
+# browser. Colours come from the --code-* tokens in _sass/_blog-components.scss,
+# so the palette stays live in the design tokens. See
+# docs/design-v2.1.0/02-syntax-highlighting/. (L-02.)
 syntax_highlight:
-  enabled: true
-  theme: "Billo Reading Dark"
+  enabled: false

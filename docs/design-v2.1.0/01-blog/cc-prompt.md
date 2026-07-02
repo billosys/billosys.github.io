@@ -1,13 +1,13 @@
 # CC assignment — build & verify the Articles blog (stock Cobalt)
 
-You are CC, running on a machine with **stock Cobalt installed**. ⚠ **Version
-matters here:** the GitHub Actions deploy (`.github/workflows/deploy.yml`) pins
-**Cobalt v0.19.7**, while `scripts/deploy.sh` uses whatever `cobalt` is on the
-local PATH. The version-sensitive features below (DD-2 tag pagination, paginator
-field names, custom-`_syntaxes/` scanning) must be verified against **the
-version that actually ships the site**. Run `cobalt --version` first; if it is
-not 0.19.7, either test on 0.19.7 to match CI, or tell CDC the local version so
-we target it. CDC (Claude) authored the blog against the mockup
+You are CC, running on a machine with **stock Cobalt installed** — the live
+deploy path is `scripts/deploy.sh` using the local `cobalt`, currently
+**v0.20.2** (the `.github/workflows/deploy.yml` CI file is uncommitted / not in
+use; when it is adopted it should pin 0.20.2+). Verify against **0.20.2**. Run
+`cobalt --version` to confirm; if it differs, tell CDC so we target the right
+one. The version-sensitive features below (DD-2 tag pagination, paginator field
+names, custom-`_syntaxes/` scanning) are the ones to watch. CDC (Claude)
+authored the blog against the mockup
 spine + borrowed LFE mechanics but could not run Cobalt in its sandbox
 (crates.io / rustup / GitHub release-assets all firewalled). Your job is the
 build gate: run it, confirm the ledger rows that need a real build, and resolve
@@ -16,7 +16,7 @@ can `reconcile` the ledger and close the slice.
 
 Repo: `billosys.github.io` (the Cobalt site; `source: "."`, output `site/`).
 Do **not** patch Cobalt or add a custom CLI — stock `cobalt build` only.
-Plan-of-record: `docs/design-v0.1.0/01-blog/slice-doc.md`; rows: `ledger.md`.
+Plan-of-record: `docs/design-v2.1.0/01-blog/slice-doc.md`; rows: `ledger.md`.
 
 ## Step 1 — Build
 
@@ -92,36 +92,29 @@ cobalt debug highlight themes | grep -i "Billo Reading Dark" \
   || echo "custom theme NOT loaded — fall back to base16-ocean.dark in _cobalt.yml"
 ```
 
-## Step 7 — Pagefind search (L-16, DD-3) — optional/deferrable
+## Step 7 — Search is OUT OF SCOPE for this slice
 
-Pagefind is a separate post-build step (not a Cobalt change / custom CLI):
-
-```bash
-cobalt build && npx -y pagefind --site site   # or the pagefind binary
-```
-
-Then open `site/search/index.html`, search a known term (e.g. "supervision").
-If you'd rather keep the build a single `cobalt build`, say so and we'll mark
-search deferred — the templates/config stay wired for whenever you want it.
+Pagefind search is **deferred to a separate, later CC task** (operator's call).
+For this slice, `search.liquid` and `pagefind.yml` are `ignore`d in `_cobalt.yml`
+and the Search nav link is removed, so **no `/search/` page and no `/pagefind/`
+assets should build**. Do not run pagefind here. If you see a `site/search/`
+directory in the output, that's a defect — report it (it means the ignore did
+not take). The files stay in the repo, wired and ready for the pagefind slice.
 
 ## Step 8 — Deploy-path integration (L-19)
 
-The site ships two ways; confirm the blog lands correctly in the one(s) in use:
+The live deploy path is `scripts/deploy.sh` — it clears the `site/` worktree,
+runs `cobalt build` (destination `site`), and commits + pushes the `site`
+branch. After a run, confirm the tree contains: `site/articles/index.html`,
+`site/archive/index.html`, `site/tags/index.html`, per-tag pages,
+`site/rss.xml`, `site/atom.xml`, `site/blog.css`, and posts at
+`site/articles/<yr>/<mo>/<slug>/index.html`. Confirm `site/CNAME` is present
+(copied from the source root) and that **no `docs/`, `search/`, or `pagefind.yml`
+leaked into the output**.
 
-- **`scripts/deploy.sh`** — clears the `site/` worktree, runs `cobalt build`
-  (destination `site`), commits + pushes the `site` branch. After a run, confirm
-  the tree contains: `site/articles/index.html`, `site/archive/index.html`,
-  `site/tags/index.html`, per-tag pages, `site/search/index.html`,
-  `site/rss.xml`, `site/atom.xml`, `site/blog.css`, and posts at
-  `site/articles/<yr>/<mo>/<slug>/index.html`. Confirm `site/CNAME` is present
-  (copied from the source root) and no `docs/` output leaked in.
-- **`.github/workflows/deploy.yml`** — builds with `--destination _site` on
-  Cobalt 0.19.7 and deploys the Pages artifact. Same expected tree under `_site`.
-
-**Neither deploy path runs pagefind.** So `/search/` is inert and `/pagefind/*`
-404s in production until a pagefind step is added. Report whether CDC should (a)
-add `pagefind --site "$dest"` to both deploy paths, or (b) defer search for v1.
-Do not add it silently — it changes the deploy contract.
+(`.github/workflows/deploy.yml` is **uncommitted / not in use** today; if adopted
+it builds with `--destination _site` and should pin Cobalt 0.20.2+. Ignore
+unless/until it's the live path.)
 
 ## Report back
 

@@ -1,5 +1,5 @@
 ---
-layout: null
+layout: feed.liquid
 permalink: "/rss.xml"
 pagination:
   include: All
@@ -16,8 +16,8 @@ pagination:
     {% for post in paginator.pages %}
     <item>
       <title>{{ post.title | escape }}</title>
-      <link>{{ site.base_url }}{{ post.permalink }}</link>
-      <guid isPermaLink="true">{{ site.base_url }}{{ post.permalink }}</guid>
+      <link>{{ site.base_url }}/{{ post.permalink }}</link>
+      <guid isPermaLink="true">{{ site.base_url }}/{{ post.permalink }}</guid>
       <pubDate>{{ post.published_date | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>
       {% if post.data.author %}<author>{{ post.data.author | escape }}</author>{% endif %}
       {% for tag in post.tags %}<category>{{ tag | escape }}</category>{% endfor %}

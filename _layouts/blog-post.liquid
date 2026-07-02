@@ -41,10 +41,14 @@
           <span>{{ page.data.author | default: "Duncan McGregor" }}</span>
           <span class="sep">&middot;</span>
           <span>{{ page.published_date | date: "%b %d, %Y" }}</span>
-          {% comment %} Auto reading-time (LFE part); data.minutes overrides. {% endcomment %}
+          {% comment %} Auto reading-time (LFE part); data.minutes overrides.
+             NB: on Cobalt 0.20.2 reading a MISSING frontmatter key throws
+             ("Unknown index"), so `page.data.minutes | default: _rt` errors when
+             a post omits minutes. We compute the fallback, then override only if
+             the key is actually present (safe map iteration). {% endcomment %}
           {% assign _words = page.content | strip_html | split: " " | size %}
-          {% assign _rt = _words | divided_by: 200 %}{% if _rt < 1 %}{% assign _rt = 1 %}{% endif %}
-          {% assign _mins = page.data.minutes | default: _rt %}
+          {% assign _mins = _words | divided_by: 200 %}{% if _mins < 1 %}{% assign _mins = 1 %}{% endif %}
+          {% for _kv in page.data %}{% if _kv[0] == "minutes" %}{% assign _mins = _kv[1] %}{% endif %}{% endfor %}
           <span class="sep">&middot;</span><span>{{ _mins }} min read</span>
         </div>
       </header>
@@ -77,15 +81,19 @@
       {% assign older = idx | plus: 1 %}
       <nav class="post-nav">
         {% if older < posts.size %}{% assign op = posts[older] %}
-          <a href="{{ op.permalink }}"><span class="post-nav__label">&larr; Older</span><span class="post-nav__title">{{ op.title }}</span></a>
+          <a href="/{{ op.permalink }}"><span class="post-nav__label">&larr; Older</span><span class="post-nav__title">{{ op.title }}</span></a>
         {% else %}<span></span>{% endif %}
         {% if newer >= 0 %}{% assign np = posts[newer] %}
-          <a href="{{ np.permalink }}" style="text-align: right;"><span class="post-nav__label">Newer &rarr;</span><span class="post-nav__title">{{ np.title }}</span></a>
+          <a href="/{{ np.permalink }}" style="text-align: right;"><span class="post-nav__label">Newer &rarr;</span><span class="post-nav__title">{{ np.title }}</span></a>
         {% else %}<span></span>{% endif %}
       </nav>
     </article>
   </main>
 
   {% include 'blog-footer.liquid' %}
+
+  {% comment %} Client-side syntax highlighting (Cobalt's is disabled — see
+     _cobalt.yml). Self-hosted Prism; colours from --code-* tokens. Posts only. {% endcomment %}
+  <script src="/assets/js/prism.js" defer></script>
 </body>
 </html>
