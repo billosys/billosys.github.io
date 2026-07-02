@@ -25,3 +25,9 @@ Strength: `asserted` (author) < `attested` (static, in-sandbox) < `reproduced`
    dependency-safe: core → markup/css/clike → markup-templating → javascript →
    c → cpp → go → …; markdown last.)
 3. Is a copy-to-clipboard / line-numbers plugin wanted for v1, or deferred?
+
+## Close (2026-07-01)
+All rows S-01…S-10 **reconciled** — CC `reproduced` (incl. live headless-browser
+colour check, S-07), CDC cross-checked on disk. See `closing-report.md`. Bubble-up:
+candidate slice 03 = self-host blog fonts (Google Fonts still external, vs the
+stated no-CDN policy).

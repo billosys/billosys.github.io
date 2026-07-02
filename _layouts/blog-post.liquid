@@ -8,7 +8,7 @@
 
   Post frontmatter this template expects:
     title, description, published_date, tags: [ … ]
-    data: { author: "Duncan McGregor", minutes: 11 (optional override) }
+    data: { author: "Duncan McGreggor", minutes: 11 (optional override) }
 
   Body notes:
     · Fenced code blocks are highlighted by Cobalt; wrap one in
@@ -38,7 +38,7 @@
         <h1 class="article-title">{{ page.title }}</h1>
         {% if page.description %}<p class="article-dek">{{ page.description }}</p>{% endif %}
         <div class="article-meta">
-          <span>{{ page.data.author | default: "Duncan McGregor" }}</span>
+          <span>{{ page.data.author | default: "Duncan McGreggor" }}</span>
           <span class="sep">&middot;</span>
           <span>{{ page.published_date | date: "%b %d, %Y" }}</span>
           {% comment %} Auto reading-time (LFE part); data.minutes overrides.
@@ -58,7 +58,7 @@
       </div>
 
       {% comment %} ── Author bio (LFE part; single-author, data-driven) ── {% endcomment %}
-      {% assign _author = page.data.author | default: "Duncan McGregor" %}
+      {% assign _author = page.data.author | default: "Duncan McGreggor" %}
       {% for a in site.data.authors %}{% if a[0] == _author %}{% assign author = a[1] %}{% endif %}{% endfor %}
       {% if author %}
       <aside class="author-card">

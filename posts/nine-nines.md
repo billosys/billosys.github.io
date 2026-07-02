@@ -6,7 +6,7 @@ tags:
   - reliability
   - distributed-systems
 data:
-  author: Duncan McGregor
+  author: Duncan McGreggor
   minutes: 9
 ---
 Availability is quoted in nines because the decimal point is the honest unit. Three nines is a good year with a bad afternoon. Five nines is five minutes of downtime across the whole year — less than a single deploy gone wrong.

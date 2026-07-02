@@ -8,7 +8,7 @@ tags:
   - graphics
   - web
 data:
-  author: Duncan McGregor
+  author: Duncan McGreggor
   minutes: 1
 ---
 When writing this, it took every ounce of control I was able to summon not to use the title "First Post!" For those expecting such, I apologize. For everyone else, you're welcome.

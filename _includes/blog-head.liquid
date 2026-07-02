@@ -24,9 +24,10 @@
   })();
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Brygada+1918:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,500;0,7..72,600;1,7..72,400;1,7..72,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+{% comment %} Fonts are self-hosted via /blog.css (@font-face in _sass/_blog-fonts.scss)
+   — no Google Fonts, no runtime CDN. Preload the two above-the-fold faces. {% endcomment %}
+<link rel="preload" href="/assets/fonts/literata-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/brygada-1918-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 
 <link rel="stylesheet" href="/blog.css">
 <link rel="alternate" type="application/rss+xml" title="{{ site.title }} — Articles" href="/rss.xml">

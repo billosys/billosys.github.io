@@ -6,7 +6,7 @@ tags:
   - consensus
   - distributed-systems
 data:
-  author: Duncan McGregor
+  author: Duncan McGreggor
   minutes: 18
 ---
 Raft is taught as a clean state machine: followers, candidates, a leader, and a term that only ever increases. In production the diagram is the same, but the transitions fire for reasons the paper politely abstracts away — a garbage-collection pause mistaken for a dead leader, a network partition that heals into two histories, a disk that fsyncs slower than the election timeout.

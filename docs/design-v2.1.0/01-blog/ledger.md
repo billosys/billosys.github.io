@@ -47,3 +47,8 @@ count at close must equal count at open.
    `page.content` on the post itself?
 3. **DD-3 — RESOLVED (deferred):** Search is deferred to a later CC slice.
    Not part of this build. `search.liquid` + `pagefind.yml` are ignored.
+
+## Close (2026-07-01)
+All rows **reconciled** — CC `reproduced` on Cobalt 0.20.2, CDC cross-checked on
+disk. L-16 (search) `deferred` by operator decision. See `closing-report.md` for
+the per-row walk, the 7 build-surfaced fixes, and the project bubble-up.

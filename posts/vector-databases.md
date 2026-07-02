@@ -6,7 +6,7 @@ tags:
   - ai
   - infrastructure
 data:
-  author: Duncan McGregor
+  author: Duncan McGreggor
   minutes: 12
 ---
 A vector database is an index. It answers "what is near this?" instead of "what equals this?", and it accepts being approximately right in exchange for answering at all at scale. Once you see it that way, the operational questions become familiar ones: recall versus latency, how the index is built, what happens when it's rebuilt under load.

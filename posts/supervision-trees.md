@@ -6,7 +6,7 @@ tags:
   - erlang
   - otp
 data:
-  author: Duncan McGregor
+  author: Duncan McGreggor
   minutes: 11
 ---
 The first time you read a supervisor's `init/1`, it looks like configuration: a strategy, some intensity, a list of children. It reads like a YAML file that happens to be written in Erlang. That reading isn't wrong, exactly, but it misses the point so completely that people go on to build systems which technically use OTP and get almost none of its benefits.

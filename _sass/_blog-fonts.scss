@@ -1,0 +1,70 @@
+// ──────────────────────────────────────────────────────────────
+// Blog @font-face — self-hosted, no Google Fonts / CDN at runtime.
+// Mirrors the marketing site's _fonts.scss convention (Fontsource
+// woff2, font-display: swap, variable fonts declared with weight
+// ranges so the browser discovers the axes from the file).
+//
+// Families:
+//   Brygada 1918 — display (variable wght; normal + italic)
+//   Literata     — long-form reading body (variable opsz+wght; the
+//                  "standard" slice carries both axes; normal + italic)
+//   IBM Plex Mono — metadata + code (static 400/500/600)
+//
+// Files vendored from Fontsource (npm) into assets/fonts/.
+// ──────────────────────────────────────────────────────────────
+
+// Brygada 1918 — variable weight, normal + italic.
+@font-face {
+  font-family: "Brygada 1918";
+  src: url("/assets/fonts/brygada-1918-latin-wght-normal.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brygada 1918";
+  src: url("/assets/fonts/brygada-1918-latin-wght-italic.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+// Literata — variable optical-size + weight (opsz applied automatically
+// by the browser from the size), normal + italic.
+@font-face {
+  font-family: "Literata";
+  src: url("/assets/fonts/literata-latin-standard-normal.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Literata";
+  src: url("/assets/fonts/literata-latin-standard-italic.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+// IBM Plex Mono — static weights (no variable release). 400/500/600.
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/assets/fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/assets/fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/assets/fonts/ibm-plex-mono-latin-600-normal.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}

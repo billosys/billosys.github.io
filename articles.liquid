@@ -15,7 +15,7 @@ data:
   <a href="/{{ featured.permalink }}" class="featured__title">{{ featured.title }}</a>
   {% if featured.description %}<p class="featured__dek">{{ featured.description }}</p>{% endif %}
   <div class="article-meta">
-    <span>{{ featured.data.author | default: "Duncan McGregor" }}</span>
+    <span>{{ featured.data.author | default: "Duncan McGreggor" }}</span>
     <span class="sep">&middot;</span>
     <span>{{ featured.published_date | date: "%b %d, %Y" }}</span>
     {% if featured.data.minutes %}<span class="sep">&middot;</span><span>{{ featured.data.minutes }} min</span>{% endif %}
@@ -36,7 +36,7 @@ data:
     <div class="article-meta">
       <span>{{ post.published_date | date: "%b %d, %Y" }}</span><span class="sep">&middot;</span>
       <span>{{ post.data.minutes }} min</span><span class="sep">&middot;</span>
-      <span>{{ post.data.author | default: "Duncan McGregor" }}</span>
+      <span>{{ post.data.author | default: "Duncan McGreggor" }}</span>
     </div>
     <a href="/{{ post.permalink }}" class="post-entry__title">{{ post.title }}</a>
     {% if post.description %}<p class="post-entry__dek">{{ post.description }}</p>{% endif %}
