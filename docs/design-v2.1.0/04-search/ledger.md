@@ -24,3 +24,9 @@ Strength: `asserted` < `attested` (static) < `reproduced` (CC) < `reconciled`.
    version and note any install friction for the docs.
 3. Does `data-pagefind-body` correctly exclude the landing/tag/archive pages, or
    did any slip into the index (P-08)?
+
+## Close (2026-07-01)
+All rows P-01…P-11 **reconciled** — CC `reproduced` on Cobalt 0.20.2 + pagefind
+1.5.2 (live `--serve`: real hits, posts-only, self-hosted, deploy tree clean),
+CDC cross-checked on disk. CC's flag (missing `install-pagefind.sh`) resolved —
+the script was added after CC's checkout and is now present. See `closing-report.md`.

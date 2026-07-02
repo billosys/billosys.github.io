@@ -63,3 +63,46 @@
   font-style: normal;
   font-display: swap;
 }
+
+// Brygada 1918 — variable weight, normal + italic (display accents).
+// Same woff2 the blog uses (assets/fonts/), now wired for the marketing CSS.
+@font-face {
+  font-family: "Brygada 1918";
+  src: url("/assets/fonts/brygada-1918-latin-wght-normal.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brygada 1918";
+  src: url("/assets/fonts/brygada-1918-latin-wght-italic.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+// Lora — variable weight, normal + italic.
+@font-face {
+  font-family: "Lora";
+  src: url("/assets/fonts/lora-latin-wght-normal.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Lora";
+  src: url("/assets/fonts/lora-latin-wght-italic.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+// Recursive — full variable (wght + slnt + CASL + MONO axes in one file).
+// Components set the axes via font-variation-settings; the file carries them.
+@font-face {
+  font-family: "Recursive";
+  src: url("/assets/fonts/recursive-latin-full-normal.woff2") format("woff2");
+  font-weight: 300 800;
+  font-style: normal;
+  font-display: swap;
+}

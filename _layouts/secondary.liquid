@@ -7,10 +7,8 @@
   <title>{% if page.title %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
   <meta name="description" content="{{ page.description | default: site.description }}">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Brygada+1918:ital,wght@0,400..700;1,400..700&family=Lora:ital,wght@0,400..700;1,400..700&family=Recursive:slnt,wght,CASL,MONO@-15..0,300..800,0..1,0..1&display=swap" rel="stylesheet">
-
+  {% comment %} All fonts self-hosted via /secondary.css (@font-face in
+     _sass/_fonts.scss) — no Google Fonts, no runtime CDN. {% endcomment %}
   <link rel="stylesheet" href="/secondary.css">
 
   <meta property="og:title" content="{{ page.title | default: site.title }}">
