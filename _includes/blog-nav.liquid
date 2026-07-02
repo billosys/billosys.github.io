@@ -5,8 +5,9 @@
 {% assign active = nav_active %}
 <header class="blog-nav">
   <nav class="blog-nav__inner" aria-label="Primary">
-    <a href="/" class="blog-brand">
-      <span class="blog-brand__mark">Billo Systems</span>
+    <a href="/" class="blog-brand" aria-label="Billo Systems — Articles">
+      {% comment %} Same logo as the marketing top-nav, in both themes. {% endcomment %}
+      <img class="blog-brand__logo" src="/assets/images/logo-v4.3.1-long.png" alt="Billo Systems">
       <span class="blog-brand__label">Articles</span>
     </a>
     <div class="blog-nav__links">

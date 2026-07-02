@@ -138,8 +138,8 @@ a { color: inherit; text-decoration: none; }
   padding: var(--space-xs) var(--space-m);
   display: flex; align-items: center; justify-content: space-between; gap: var(--space-m);
 }
-.blog-brand { display: flex; align-items: baseline; gap: .6em; }
-.blog-brand__mark  { font-family: var(--font-display); font-weight: 600; font-size: var(--step-1); color: var(--ink-heading); }
+.blog-brand { display: flex; align-items: center; gap: .7em; }
+.blog-brand__logo { height: 32px; width: auto; display: block; }
 .blog-brand__label { font-family: var(--font-mono); font-size: var(--step--2); letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
 .blog-nav__links { display: flex; align-items: center; gap: var(--space-m); }
 .blog-nav__link {
