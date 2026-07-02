@@ -15,14 +15,22 @@ The marketing site uses **six** families. Three were already self-hosted
 three were pulled from Google Fonts via a `<link>` in `secondary.liquid`
 (`Brygada 1918`, `Lora`, `Recursive`).
 
-**Root-cause bug found (and fixed):** `secondary.scss` imported only `tokens` +
+**Wiring gap found (and fixed):** `secondary.scss` imported only `tokens` +
 `secondary-page` — **not `fonts`** — so the built `site/secondary.css` had
-**zero `@font-face` rules**. The marketing landing (which uses
-`secondary.liquid` → `secondary.css`) was therefore getting Brygada/Lora/Recursive
-*only* from the Google link, while Fraunces and Source Serif were silently
-falling back to Georgia. Simply deleting the Google link would have left the
-landing with no webfonts at all. The real fix is to make `secondary.css` carry
-the `@font-face` rules.
+**zero `@font-face` rules**. The landing (which uses `secondary.liquid` →
+`secondary.css`) was therefore getting its fonts (Brygada/Lora/Recursive) *only*
+from the Google link; deleting the link without adding `@font-face` would have
+left the landing with no webfonts. The fix is `@import "fonts"` in
+`secondary.scss`.
+
+**Correction (per CC review):** an earlier draft claimed this also fixed a
+Fraunces/Source-Serif "Georgia fallback" bug on the landing. That was wrong —
+`_secondary-page.scss` never references `--font-display`/`--font-body`, so the
+landing simply **does not use** Fraunces/Source Serif. Their `@font-face` now
+ship in `secondary.css` too (from the shared `_fonts.scss`) but are never applied
+and never fetched — harmless dead declarations, ready if a secondary page ever
+uses them. The landing's three real families are **Lora / Brygada 1918 /
+Recursive**.
 
 ## What changed
 
@@ -35,7 +43,8 @@ the `@font-face` rules.
    Lora (normal+italic), Recursive (full variable). Now declares all six families.
 3. **`secondary.scss`** — added `@import "fonts";` (after `tokens`) so
    `secondary.css` includes the `@font-face` rules. **This is the load-bearing
-   change** — it also fixes the pre-existing Fraunces/Source-Serif fallback bug.
+   change**: without it, removing the Google link would leave the landing's
+   Brygada/Lora/Recursive with no source.
 4. **`_layouts/secondary.liquid`** — removed the Google Fonts `<link>` + the two
    `preconnect`s. (`default.liquid` → `main.css` already imported `fonts`; it was
    never affected.)

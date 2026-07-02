@@ -11,7 +11,7 @@ Strength: `asserted` < `attested` (static) < `reproduced` (CC) < `reconciled`.
 | M-05 | Every `@font-face` src resolves to a real woff2. | static check (done). | attested | reconciled |
 | M-06 | Clean build; **`site/secondary.css` contains the `@font-face` rules** (was 0 before). **[DD-A]** | CC: `grep -c @font-face site/secondary.css` ≥ 6. | asserted | reproduced |
 | M-07 | Marketing landing loads its fonts from `/assets/fonts/`; **zero requests to fonts.googleapis.com / gstatic**. | CC: devtools network on the landing. | asserted | reproduced |
-| M-08 | Landing renders all six families (incl. Fraunces/Source Serif, previously falling back to Georgia) — `document.fonts` shows them loaded. | CC: computed font-family + document.fonts. | asserted | reproduced |
+| M-08 | Landing renders its three **actual** families (Lora / Brygada 1918 / Recursive) self-hosted, not fallback. Fraunces/Source Serif are **not used** on the landing (their `@font-face` ship in secondary.css but are never applied or fetched). | CC: computed font-family + document.fonts. | asserted | reproduced (corrected) |
 | M-09 | Recursive's mono/casual/slant rendering matches the previous Google-served look (axes via font-variation-settings still work). **[DD-B]** | CC: eyeball a Recursive element. | asserted | reproduced |
 | M-10 | No regression: blog (slices 01–04) unchanged; `default.liquid`/`main.css` unaffected. | CC. | asserted | reproduced |
 
@@ -19,5 +19,15 @@ Strength: `asserted` < `attested` (static) < `reproduced` (CC) < `reconciled`.
 
 - Recursive `full` woff2 ≈ 305 KB (all four axes in one file) — expected for a
   4-axis variable face.
-- This slice also fixed a **pre-existing** bug: `secondary.css` had no
-  `@font-face`, so Fraunces/Source Serif fell back to Georgia on the landing.
+- **Retraction (CC review):** an earlier draft claimed this fixed a
+  Fraunces/Source-Serif "Georgia fallback" bug on the landing. Incorrect — the
+  landing never uses those two (`_secondary-page.scss` references only
+  Lora/Brygada/Recursive). Their `@font-face` now ship in `secondary.css` but are
+  unused/unfetched (harmless). Candidate cleanup: a marketing-only fonts partial
+  (Lora/Brygada/Recursive) would drop the two dead families — not worth it now.
+
+## Close (2026-07-01)
+M-01…M-10 **reconciled** — CC `reproduced` (secondary.css: 11 @font-face, was 0;
+zero Google Fonts requests; Recursive axes work). M-08 corrected per CC review
+(landing uses Lora/Brygada/Recursive only; no Fraunces/Source-Serif fallback bug —
+claim retracted). See `closing-report.md`.
