@@ -36,3 +36,12 @@
    (e.g. a selector nested under a marketing-only parent), report it.
 2. **DD-C:** Do `--ft-*`/`--surface-footer` resolve on the blog once the partial
    is imported, or did a light/dark block get missed in the move?
+
+## Close (2026-07-01)
+SF-01…SF-15 **reconciled**. CC implemented; **SF-09 corrected** — the blog footer
+was misaligned (shared footer depended on marketing-only base resets: UA `ul`
+40px padding + margins, `h4`/`p` margins, 1.75 vs 1.65 line-height). CDC made
+`_site-footer.scss` self-sufficient (reset own margins/padding, pin line-height,
+`display:block` logo); **operator visually confirmed** the footer now lines up on
+both sites, both themes. SF-13 was a false positive (comment only). See
+`closing-report.md`.

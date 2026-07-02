@@ -1,0 +1,144 @@
+// ═════════════════════════════════════════════════════════════
+// SHARED SITE FOOTER
+// One footer, rendered on both the marketing site and the blog.
+// Imported by BOTH secondary.scss and blog.scss so /secondary.css and
+// /blog.css each carry the footer's rules AND its tokens. Markup lives in
+// _includes/site-footer.liquid. Moved here (verbatim) from
+// _secondary-page.scss so the two sides share one source. (Slice 06.)
+// ═════════════════════════════════════════════════════════════
+
+// Footer theme tokens — both variants, so the footer themes correctly in
+// whichever stylesheet imports this partial.
+[data-theme="dark"] {
+    --surface-footer: var(--green-925);
+    --ft-border: color-mix(in oklch, var(--green-950) 50%, transparent);
+    --ft-text: var(--green-600);
+    --ft-heading: var(--green-500);
+    --ft-bar-bdr: var(--green-950);
+    --ft-copy: var(--green-700);
+}
+
+[data-theme="light"] {
+    --surface-footer: var(--green-900);
+    --ft-border: color-mix(in oklch, var(--green-900) 50%, transparent);
+    --ft-text: var(--green-400);
+    --ft-heading: var(--green-400);
+    --ft-bar-bdr: var(--green-900);
+    --ft-copy: var(--green-600);
+}
+
+.footer {
+    background: var(--surface-footer);
+    border-top: 1px solid var(--ft-border);
+    transition: background 0.4s ease;
+    // Pin the footer's line-height so it doesn't inherit the host body's value
+    // (marketing 1.65 vs blog 1.75) — that divergence stretched the heading/link
+    // columns on the blog and dropped the first link below the tagline. --leading-body
+    // is shared (_tokens.scss); this is a no-op on marketing, the fix on the blog.
+    line-height: var(--leading-body);
+}
+
+.footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: var(--space-2xl) var(--space-m) var(--space-l);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-xl);
+}
+
+@media (max-width: 768px) {
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.footer-logo {
+    display: block;          // self-sufficient: the blog stylesheet has no base `img` rule
+    height: 32px;            // (marketing's _base.scss does), so the shared footer must
+    width: auto;             // normalise its own logo or it renders inline on the blog and
+    max-inline-size: 100%;   // the baseline gap shifts the brand column's vertical rhythm.
+    margin-bottom: var(--space-xs);
+}
+
+// NB: the blog stylesheet has no global element reset (marketing's _base.scss
+// does: `h1-6,p,ul { margin: 0 }` and `ul { padding: 0 }`). So this shared
+// footer must reset its own p / h4 / ul margins + the ul's default left padding,
+// or on the blog the links indent ~40px and the columns drift out of alignment.
+
+.footer-tagline {
+    font-family: 'Lora', serif;
+    font-size: var(--step--1);
+    color: var(--ft-text);
+    max-width: 30ch;
+    line-height: 1.55;
+    margin: 0;
+}
+
+.footer-heading {
+    font-family: 'Recursive', monospace;
+    font-variation-settings: 'MONO' 1, 'CASL' 0;
+    font-size: var(--step--2);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ft-heading);
+    margin: 0 0 var(--space-s);
+}
+
+.footer-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+
+    a {
+        font-family: 'Lora', serif;
+        font-size: var(--step--1);
+        color: var(--ft-text);
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: var(--ochre-400);
+        }
+    }
+}
+
+.footer-bar {
+    border-top: 1px solid var(--ft-bar-bdr);
+    padding-top: var(--space-s);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-s);
+}
+
+.footer-copy {
+    font-family: 'Recursive', monospace;
+    font-size: 0.7rem;
+    color: var(--ft-copy);
+    letter-spacing: 0.03em;
+}
+
+.footer-legal {
+    display: flex;
+    gap: var(--space-s);
+
+    a {
+        font-family: 'Recursive', monospace;
+        font-size: 0.7rem;
+        color: var(--ft-copy);
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: var(--ochre-400);
+        }
+    }
+}

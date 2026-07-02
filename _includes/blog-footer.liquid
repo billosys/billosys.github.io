@@ -1,14 +1,9 @@
-{% comment %} Blog footer + the theme-toggle behaviour script. {% endcomment %}
-<footer class="blog-footer">
-  <div class="blog-footer__inner">
-    <span class="blog-footer__copy">&copy; {{ site.time | date: "%Y" | default: "2026" }} Billo Systems, L.L.C. &middot; Minnesota, USA</span>
-    <div class="blog-footer__links">
-      <a href="/rss.xml">RSS</a>
-      <a href="/archive/">Archive</a>
-      <a href="mailto:dm@billo.systems">dm@billo.systems</a>
-    </div>
-  </div>
-</footer>
+{% comment %} Shared site footer + the blog's theme-toggle behaviour script.
+   The footer markup/CSS is shared with the marketing site (site-footer.liquid /
+   _sass/_site-footer.scss). The script below is blog-only: it drives the nav's
+   #themeToggle button and MUST stay here (the marketing footer has no toggle
+   script — that one is inline in secondary.liquid). See slice 06. {% endcomment %}
+{% include 'site-footer.liquid' %}
 
 <script>
   (function () {

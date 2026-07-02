@@ -68,3 +68,28 @@
   font-style: normal;
   font-display: swap;
 }
+
+// Shared site footer (slice 06) uses Lora + Recursive. Same woff2 the
+// marketing CSS uses (assets/fonts/, slice 05), now wired into blog.css so
+// the footer renders in-brand on blog pages instead of falling back.
+@font-face {
+  font-family: "Lora";
+  src: url("/assets/fonts/lora-latin-wght-normal.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Lora";
+  src: url("/assets/fonts/lora-latin-wght-italic.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Recursive";
+  src: url("/assets/fonts/recursive-latin-full-normal.woff2") format("woff2");
+  font-weight: 300 800;
+  font-style: normal;
+  font-display: swap;
+}

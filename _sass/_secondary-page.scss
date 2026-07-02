@@ -19,7 +19,6 @@
     --hero-graphic: url("/assets/images/masthead-graphic-1.3-dark.png");
     --surface-band: color-mix(in oklch, var(--green-700) 90%, transparent);
     --surface-cta: color-mix(in oklch, var(--brown-950) 60%, transparent);
-    --surface-footer: var(--green-925);
 
     --nav-bg: color-mix(in oklch, var(--green-925) 88%, transparent);
     --nav-border: color-mix(in oklch, var(--green-950) 50%, transparent);
@@ -63,12 +62,6 @@
     --proc-from: var(--ochre-600);
     --proc-to: var(--ochre-300);
 
-    --ft-border: color-mix(in oklch, var(--green-950) 50%, transparent);
-    --ft-text: var(--green-600);
-    --ft-heading: var(--green-500);
-    --ft-bar-bdr: var(--green-950);
-    --ft-copy: var(--green-700);
-
     --ic-erl-bg: oklch(30% 0.06 15 / 0.5);
     --ic-erl-fg: oklch(45% 0.12 15);
     --ic-dist-bg: color-mix(in oklch, var(--green-800) 50%, transparent);
@@ -95,7 +88,6 @@
     --hero-graphic: url("/assets/images/masthead-graphic-1.3-light.png");
     --surface-band: color-mix(in oklch, var(--ochre-100) 50%, transparent);
     --surface-cta: var(--green-200);
-    --surface-footer: var(--green-900);
 
     --nav-bg: color-mix(in oklch, var(--neutral-50) 92%, transparent);
     --nav-border: color-mix(in oklch, var(--neutral-200) 50%, transparent);
@@ -138,12 +130,6 @@
 
     --proc-from: var(--ochre-500);
     --proc-to: var(--ochre-200);
-
-    --ft-border: color-mix(in oklch, var(--green-900) 50%, transparent);
-    --ft-text: var(--green-400);
-    --ft-heading: var(--green-400);
-    --ft-bar-bdr: var(--green-900);
-    --ft-copy: var(--green-600);
 
     --ic-erl-bg: oklch(92% 0.04 15 / 0.3);
     --ic-erl-fg: oklch(45% 0.12 15);
@@ -989,110 +975,8 @@ a {
     }
 }
 
-// ═════════════════════════════════════════════════════════════
-// FOOTER
-// ═════════════════════════════════════════════════════════════
-
-.footer {
-    background: var(--surface-footer);
-    border-top: 1px solid var(--ft-border);
-    transition: background 0.4s ease;
-}
-
-.footer-inner {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: var(--space-2xl) var(--space-m) var(--space-l);
-}
-
-.footer-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: var(--space-xl);
-    margin-bottom: var(--space-xl);
-}
-
-@media (max-width: 768px) {
-    .footer-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-.footer-logo {
-    height: 32px;
-    width: auto;
-    margin-bottom: var(--space-xs);
-}
-
-.footer-tagline {
-    font-family: 'Lora', serif;
-    font-size: var(--step--1);
-    color: var(--ft-text);
-    max-width: 30ch;
-    line-height: 1.55;
-}
-
-.footer-heading {
-    font-family: 'Recursive', monospace;
-    font-variation-settings: 'MONO' 1, 'CASL' 0;
-    font-size: var(--step--2);
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ft-heading);
-    margin-bottom: var(--space-s);
-}
-
-.footer-links {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2xs);
-
-    a {
-        font-family: 'Lora', serif;
-        font-size: var(--step--1);
-        color: var(--ft-text);
-        transition: color 0.2s ease;
-
-        &:hover {
-            color: var(--ochre-400);
-        }
-    }
-}
-
-.footer-bar {
-    border-top: 1px solid var(--ft-bar-bdr);
-    padding-top: var(--space-s);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--space-s);
-}
-
-.footer-copy {
-    font-family: 'Recursive', monospace;
-    font-size: 0.7rem;
-    color: var(--ft-copy);
-    letter-spacing: 0.03em;
-}
-
-.footer-legal {
-    display: flex;
-    gap: var(--space-s);
-
-    a {
-        font-family: 'Recursive', monospace;
-        font-size: 0.7rem;
-        color: var(--ft-copy);
-        transition: color 0.2s ease;
-
-        &:hover {
-            color: var(--ochre-400);
-        }
-    }
-}
+// Footer markup + CSS moved to the shared _sass/_site-footer.scss partial
+// (imported by both secondary.scss and blog.scss) — see slice 06.
 
 // ═════════════════════════════════════════════════════════════
 // SCROLL REVEAL

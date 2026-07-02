@@ -1,3 +1,4 @@
 @import "tokens";
 @import "fonts";        // self-hosted @font-face — required now that secondary.liquid no longer links Google Fonts
 @import "secondary-page";
+@import "site-footer";  // shared footer (markup in _includes/site-footer.liquid) — also imported by blog.scss

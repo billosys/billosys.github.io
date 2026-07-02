@@ -7,10 +7,13 @@
 // reading-tuned semantic tokens + components in _sass/_blog.scss.
 //
 //   1. tokens      — primitive custom properties (shared with main.css)
-//   2. blog-fonts  — self-hosted @font-face (Brygada/Literata/IBM Plex Mono)
+//   2. blog-fonts  — self-hosted @font-face (Brygada/Literata/IBM Plex Mono
+//                    + Lora/Recursive for the shared footer)
 //   3. blog        — [data-theme] reading tokens + all blog components
+//   4. site-footer — shared footer CSS + tokens (also imported by secondary.scss)
 // ──────────────────────────────────────────────────────────────
 
 @import "tokens";
 @import "blog-fonts";
 @import "blog-components";
+@import "site-footer";
