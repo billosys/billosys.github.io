@@ -56,13 +56,15 @@ description: The dek/standfirst shown on cards and under the title.
 published_date: 2026-06-18 09:00:00 -0600
 tags: [erlang, otp]
 data:
-  author: Duncan McGregor
-  minutes: 11          # reading time (Cobalt doesn't compute this)
+  author: Duncan McGreggor
+  # minutes: 11        # OPTIONAL override — reading time is auto-computed
 ---
 ```
 
-- **Reading time** is manual (`data.minutes`) — Cobalt has no word-count
-  filter. If you'd rather automate it, add a tiny build step or a data file.
+- **Reading time is auto-computed** by `_layouts/blog-post.liquid`
+  (`words | divided_by: 200`, minimum 1). `data.minutes` is an *optional
+  manual override* — omit it in new posts. (Corrected 2026-07-03; this doc
+  previously claimed the field was required/manual.)
 - **Margin sidenotes**: drop `<aside class="sidenote">…</aside>` inline in the
   markdown; it floats into the right column on wide screens and collapses
   inline on narrow ones. See `posts/supervision-trees.md`.
