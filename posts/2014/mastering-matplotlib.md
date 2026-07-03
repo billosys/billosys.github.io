@@ -7,6 +7,7 @@ tags:
   - matplotlib
   - data-visualization
   - technical-writing
+  - scientific-computing
 is_draft: false
 data:
   author: Duncan McGreggor
