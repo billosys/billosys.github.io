@@ -66,7 +66,11 @@ pagination:
   <li class="post-entry">
     <div class="article-meta">
       <span>{{ post.published_date | date: "%b %d, %Y" }}</span><span class="sep">&middot;</span>
-      <span>{{ post.data.minutes }} min</span>
+      {% comment %} Safe reading-time (see archive.liquid): compute, override if data.minutes present. {% endcomment %}
+      {% assign _words = post.content | strip_html | split: " " | size %}
+      {% assign _mins = _words | divided_by: 200 %}{% if _mins < 1 %}{% assign _mins = 1 %}{% endif %}
+      {% for _kv in post.data %}{% if _kv[0] == "minutes" %}{% assign _mins = _kv[1] %}{% endif %}{% endfor %}
+      <span>{{ _mins }} min</span>
     </div>
     <a href="/{{ post.permalink }}" class="post-entry__title">{{ post.title }}</a>
     {% if post.description %}<p class="post-entry__dek">{{ post.description }}</p>{% endif %}

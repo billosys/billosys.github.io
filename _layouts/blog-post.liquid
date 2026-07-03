@@ -62,6 +62,19 @@
         </div>
       </header>
 
+      {% comment %} Republish notice — shown only when the post carries
+         data.republished (source_name, source_url, original_date, license). {% endcomment %}
+      {% if page.data.republished %}
+      {% assign rp = page.data.republished %}
+      <aside class="republished">
+        <span class="republished__icon" aria-hidden="true">&#8599;</span>
+        <div>
+          <span class="republished__label">Republished</span>
+          <p class="republished__text">Originally posted on <a class="republished__link" href="{{ rp.source_url }}">{{ rp.source_name }}</a> on {{ rp.original_date | date: "%B %-d, %Y" }}. Republished here {{ rp.license }}.</p>
+        </div>
+      </aside>
+      {% endif %}
+
       <div class="prose">
         {{ page.content }}
       </div>

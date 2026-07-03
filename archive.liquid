@@ -29,7 +29,12 @@ data:
       <span class="archive-row__title">{{ post.title }}</span>
       <span class="archive-row__tags">{% for tag in post.tags %}<span>#{{ tag }}</span>{% endfor %}</span>
     </span>
-    <span class="archive-row__time">{{ post.data.minutes }} min</span>
+    {% comment %} Safe reading-time: compute from content, override with data.minutes
+       only if present (bare post.data.minutes throws "Unknown index" on 0.20.2). {% endcomment %}
+    {% assign _words = post.content | strip_html | split: " " | size %}
+    {% assign _mins = _words | divided_by: 200 %}{% if _mins < 1 %}{% assign _mins = 1 %}{% endif %}
+    {% for _kv in post.data %}{% if _kv[0] == "minutes" %}{% assign _mins = _kv[1] %}{% endif %}{% endfor %}
+    <span class="archive-row__time">{{ _mins }} min</span>
   </a>
 {% endfor %}
 </div>

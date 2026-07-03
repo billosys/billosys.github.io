@@ -18,7 +18,11 @@ data:
     <span>{{ featured.data.author | default: "Duncan McGreggor" }}</span>
     <span class="sep">&middot;</span>
     <span>{{ featured.published_date | date: "%b %d, %Y" }}</span>
-    {% if featured.data.minutes %}<span class="sep">&middot;</span><span>{{ featured.data.minutes }} min</span>{% endif %}
+    {% comment %} Safe reading-time (see archive.liquid): compute, override if data.minutes present. {% endcomment %}
+    {% assign _words = featured.content | strip_html | split: " " | size %}
+    {% assign _mins = _words | divided_by: 200 %}{% if _mins < 1 %}{% assign _mins = 1 %}{% endif %}
+    {% for _kv in featured.data %}{% if _kv[0] == "minutes" %}{% assign _mins = _kv[1] %}{% endif %}{% endfor %}
+    <span class="sep">&middot;</span><span>{{ _mins }} min</span>
     {% for tag in featured.tags %}<span class="hash">#{{ tag }}</span>{% endfor %}
   </div>
   <a href="/{{ featured.permalink }}" class="read-more">Read the essay <span>&rarr;</span></a>
@@ -35,7 +39,10 @@ data:
   <li class="post-entry">
     <div class="article-meta">
       <span>{{ post.published_date | date: "%b %d, %Y" }}</span><span class="sep">&middot;</span>
-      <span>{{ post.data.minutes }} min</span><span class="sep">&middot;</span>
+      {% assign _words = post.content | strip_html | split: " " | size %}
+      {% assign _mins = _words | divided_by: 200 %}{% if _mins < 1 %}{% assign _mins = 1 %}{% endif %}
+      {% for _kv in post.data %}{% if _kv[0] == "minutes" %}{% assign _mins = _kv[1] %}{% endif %}{% endfor %}
+      <span>{{ _mins }} min</span><span class="sep">&middot;</span>
       <span>{{ post.data.author | default: "Duncan McGreggor" }}</span>
     </div>
     <a href="/{{ post.permalink }}" class="post-entry__title">{{ post.title }}</a>
@@ -56,7 +63,10 @@ data:
         {% for tag in post.tags %}<span class="sep">&middot;</span><span class="hash">#{{ tag }}</span>{% endfor %}
       </span>
     </span>
-    <span class="post-compact__time">{{ post.data.minutes }} min</span>
+    {% assign _words = post.content | strip_html | split: " " | size %}
+    {% assign _mins = _words | divided_by: 200 %}{% if _mins < 1 %}{% assign _mins = 1 %}{% endif %}
+    {% for _kv in post.data %}{% if _kv[0] == "minutes" %}{% assign _mins = _kv[1] %}{% endif %}{% endfor %}
+    <span class="post-compact__time">{{ _mins }} min</span>
   </a>
   {% endfor %}
 </div>
