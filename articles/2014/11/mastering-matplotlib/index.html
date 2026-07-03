@@ -1,0 +1,242 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Mastering matplotlib: The First Month — Billo Systems</title>
+<meta name="description" content="A cold email, a move to the Midwest, and a month spent deciding that "mastering" means going down to the architecture — the layers, the event loops, the module graph itself.">
+
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#1a2415" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f0f3e9" media="(prefers-color-scheme: light)">
+
+
+<script>
+  (function () {
+    var stored = localStorage.getItem('billo-theme');
+    var theme = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
+
+
+<link rel="preload" href="/assets/fonts/literata-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/brygada-1918-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+
+
+<link rel="icon" href="/assets/icons/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="/assets/icons/site.webmanifest">
+
+<link rel="stylesheet" href="/blog.css">
+<link rel="alternate" type="application/rss+xml" title="Billo Systems — Articles" href="/rss.xml">
+<link rel="alternate" type="application/atom+xml" title="Billo Systems — Articles" href="/atom.xml">
+
+<meta property="og:title" content="Mastering matplotlib: The First Month">
+<meta property="og:description" content="A cold email, a move to the Midwest, and a month spent deciding that "mastering" means going down to the architecture — the layers, the event loops, the module graph itself.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Billo Systems">
+<link rel="canonical" href="https://billo.systems/articles/2014/11/mastering-matplotlib/">
+
+
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  
+  
+
+<header class="blog-nav">
+  <nav class="blog-nav__inner" aria-label="Primary">
+    <a href="/" class="blog-brand" aria-label="Billo Systems — Articles">
+      
+      <img class="blog-brand__logo" src="/assets/images/logo-v4.3.1-long.png" alt="Billo Systems">
+      <span class="blog-brand__label">Articles</span>
+    </a>
+    <div class="blog-nav__links">
+      <a href="/articles/" class="blog-nav__link is-current">Latest</a>
+      <a href="/archive/" class="blog-nav__link">Archive</a>
+      <a href="/tags/" class="blog-nav__link">Tags</a>
+      <a href="/search/" class="blog-nav__link">Search</a>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark theme">
+        <span class="theme-toggle__icon theme-toggle__moon">&#9790;</span>
+        <span class="theme-toggle__icon theme-toggle__sun">&#9788;</span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+
+  <main id="main" class="blog-wrap">
+    
+    <article data-pagefind-body>
+      <a href="/articles/" class="article-back">&larr; Articles</a>
+
+      <header class="article-header">
+        
+        <div class="tag-chips">
+          <a href="/tags/python/" class="tag-chip">python</a><a href="/tags/matplotlib/" class="tag-chip">matplotlib</a><a href="/tags/data-visualization/" class="tag-chip">data-visualization</a><a href="/tags/technical-writing/" class="tag-chip">technical-writing</a>
+        </div>
+        
+        <h1 class="article-title">Mastering matplotlib: The First Month</h1>
+        <p class="article-dek">A cold email, a move to the Midwest, and a month spent deciding that "mastering" means going down to the architecture — the layers, the event loops, the module graph itself.</p>
+        <div class="article-meta">
+          <span>Duncan McGreggor</span>
+          <span class="sep">&middot;</span>
+          <span>Nov 30, 2014</span>
+          
+          
+          
+          
+          <span class="sep">&middot;</span><span>9 min read</span>
+        </div>
+      </header>
+
+      
+      
+
+      <div class="prose">
+        <p>A little over a month ago, an email arrived from an acquisition editor at Packt named Meeta Rajani, asking whether I might be interested in writing a book called <em>Mastering matplotlib</em>. I read it twice, mostly to make sure it was real. Then I sat with it for the better part of an afternoon, because saying yes to a book is not a small thing, and I wanted to be honest with myself about why I would.</p>
+<p>The honest answer surprised me a little. I have not written Python for a living in some years now — my days lately are spent in Erlang, LFE, Common Lisp, and Clojure, which is about as far from <code>pyplot</code> as a person can wander and still be plotting anything at all. But I studied physics and mathematics before I wrote software for a living, and the love of scientific computing and of <em>seeing</em> data never really left. matplotlib was the tool I reached for back then, and I have a great deal of affection for the Python community that built and sustains it. A recent move from San Francisco to a much quieter corner of rural Minnesota had, among other things, given me something I had not had in a long while: the time to try something I had long wanted to try. Writing this book felt like a way to give a little back — to the craft of visualization, and to a community I owe more than I have repaid.</p>
+<p>So I said yes. It's going to be a wild ride.</p>
+<h2>What "mastering" ought to mean</h2>
+<p>Packt's original brief contained a line I kept coming back to. The book, they said, should teach <em>how</em> matplotlib works, not just <em>what</em> to do with it. That is exactly the kind of sentence that is easy to nod along to and hard to actually honor, and I decided early that honoring it would be the whole point of the book.</p>
+<p>There are already good matplotlib books — I'll be recommending a few of them in these pages, because pointing you toward other people's fine work is part of the job. Most of them, quite reasonably, teach you <em>what to do</em>: here is how you make this kind of plot, here is the incantation for that. A "mastering" book has to earn its title by going one level down. Not more recipes — the layers underneath the recipes. Not "call this function," but "here is the architecture that function lives in, and here is how you can go and read it yourself." My real goal, the one under all the chapters, is to make you no longer need the book.</p>
+<p>That ambition showed up first in the outline, which I spent a hard few days on before I wrote a line of the book proper. An outline is not paperwork; it is a design act, and this one changed shape as I thought. I had planned separate chapters on architecture and internals, then found there was not enough daylight between them and merged the two. Reading through months of mailing-list and Stack Overflow questions, I noticed how many advanced users were still genuinely confused about matplotlib's several APIs — so I carved out a small dedicated chapter on exactly that, right after the architecture. I had wanted the cloud chapter to cover Elastic Beanstalk and Heroku and OpenShift besides, and admitted to myself that would take a second book, so it became two, done properly: plain EC2 and Google App Engine. And I still cannot decide whether big data or clustering should come first, because you cannot really explain one without the reader having felt the limits that motivate the other. I suspect the writing will decide it for me.</p>
+<aside class="sidenote"><span class="sidenote__label">&bull; aside</span>The nicest compliment my editor paid the outline was that she could see I'd read the mailing lists. That's the whole trick, really — write for the questions people are actually asking.</aside>
+<h2>A month in the open</h2>
+<p>Here is a thing worth admitting about writing a technical book: the finished object is serene and orderly, and the making of it is nothing of the sort.</p>
+<p>I set the book up as a family of small repositories — one per chapter — so that every example would be something you can clone and run, not something you have to reconstruct from a printed page. Reproducibility is not a nicety; it is the difference between a book you read and a book you <em>use</em>. The bulk of the structure came into being almost at once, stamped out from a single seed, and then I began filling it in — which is where the orderliness ends.</p>
+<p>Because chapters do not fill in evenly. Some of them come pouring out; some of them sit there as an empty scaffold while you circle the topic waiting for the way in. As I write this, four of the nine chapters have real content and five are still skeletons with nothing in them but a heading and a promise. That is not a confession of failure — it is just what the middle of a book looks like, and I'd rather you saw it honestly than imagine the thing arrives fully formed.</p>
+<p>The chapters that <em>did</em> come first were the early ones, and they came in two hard weeks. Chapter 1 needed real data to be worth anything, so I threw out the tidy little sample I'd started with — a hundred-odd rows of recent baseball statistics — and replaced it with the full historical record: just under twenty-two thousand player-seasons of batting, reaching all the way back to 1871, complete with the honest gaps where nineteenth-century leagues simply didn't record a number. There's not enough neatness in a data set like that to do tidy science, but there is an enormous amount to explore, which is rather the point.</p>
+<p>And as those first finished chapters began making their way back to Packt for review, the book quietly gained a second editor — Sumeet Sawant — to shepherd the drafts as they come in. It's a small thing, an extra name in the email thread, but it's the kind of small thing that makes a project feel real. A month ago this was a single message in my inbox from Meeta Rajani; now there are people on the other end of it, waiting on pages.</p>
+<h2>An instrument, not a diagram</h2>
+<p>The chapter I am proudest of so far is the one on architecture, and the reason is a small tool I built for it.</p>
+<p>It would have been easy to draw you a three-layer diagram of matplotlib — backend, artist, scripting — label the boxes, and move on. Diagrams like that are comforting and, taken too literally, quietly wrong; the running code does not actually partition itself along the lines the tidy picture suggests. So rather than hand you a diagram to trust, I wanted to hand you an instrument you could point at the framework yourself.</p>
+<p>The tool subclasses Python's own <code>modulefinder</code> to watch matplotlib import itself, recording which module pulls in which and how often, and building that up into a weighted graph of the framework's internal dependencies. On top of the raw graph I laid a hand-made map of matplotlib's real submodules onto its architectural layers — backend, artist, scripting, configuration, utilities — so that the picture is not just "these files import each other" but "here is the shape of the thing, by role." Run it against an average plotting script and matplotlib's structure draws <em>itself</em>, which is a far more honest teacher than any diagram I could pose for you.</p>
+<aside class="sidenote"><span class="sidenote__label">&bull; credit</span>matplotlib exists because John D. Hunter needed to visualize epilepsy data during his neurobiology research, and built the tool the scientific-Python world now takes for granted. He passed away in 2012; every one of these chapters is, in a quiet way, in his debt.</aside>
+<h2>Teaching the event loop by building a worse one</h2>
+<p>The chapter I'm in the middle of right now is on event handling and interactive plots, and it has taught me — again — that the fastest way to explain something intimidating is to build a deliberately terrible version of it first.</p>
+<p>An event loop sounds like systems-programming arcana. So the chapter starts with the most naive loop imaginable — a <code>while</code> loop that does nothing but spin — and then grows it, a piece at a time, into a small class that keeps a registry of handlers, runs until something tells it to stop, and knows how to bow out gracefully when you interrupt it. It is a toy. I say so plainly. But it is a toy with a purpose: it is <em>very</em> close, in spirit and in code, to the real event loop matplotlib runs underneath your interactive figures, and once you've built the toy the real thing stops being magic.</p>
+<p>And then, because this voice does not oversell, an honest wrinkle: I wanted to show off keyboard interaction inside the IPython Notebook, and discovered that the notebook backend simply did not support keyboard events yet. No amount of wishing changed that. So the section does the grown-up thing and drops down to the native GUI backend to make the keyboard demo work, and tells you exactly why it had to. Your tools have edges; a book that pretends otherwise is worse than useless.</p>
+<h2>The best part: the people</h2>
+<p>The thing I did not expect to love most about writing this book is the excuse it gives me to write to strangers.</p>
+<p>Part of what "mastering" a community's tool should mean is engaging with the community itself, so I've been reaching out — to physics professors, to working experimental scientists, to people whose example code I admired — asking permission to adapt their work and, where I can, to make it better. The generosity has already been humbling. One physics professor not only let me use code from a tutorial he'd written but sent along more; because his used a since-deprecated module, I modernized it, which felt like a small way of returning the favor. Another scientist, formerly of the National Radio Astronomy Observatory, gave his blessing and — it turns out he's writing a book of his own — offered better examples still. A third piece I needed had already been released under a permissive license by some generous folks at the University of Toronto, so I could simply use it with thanks.</p>
+<p>I've written to a good many more people than have written back so far, and I have high hopes of hearing from them in the weeks to come. Every one of these examples will be credited, by name and link, where it lives in the code. Pointing outward like this is not politeness; it is the truest thing a book like this can do — remind you that the tool in your hands was made by people, and that you are now part of the same lineage.</p>
+<h2>Where things stand</h2>
+<p>So: four chapters written, five waiting; a tool that draws matplotlib's own architecture; a toy event loop with a real one hiding inside it; and a growing pile of gracious email from people I've never met. There is a great deal of book still ahead of me, and I have no illusions that the second half will be as tidy as this note makes the first half sound.</p>
+<p>But the shape of the thing is clear now, and the shape is the ambition: not to tell you what to type, but to walk you down into the framework until you can find your own way around it — and then, gently, to let go of your hand.</p>
+<p>More soon.</p>
+
+      </div>
+
+      
+      
+      
+      
+      <aside class="author-card">
+        
+        
+        <img class="author-card__avatar" src="/assets/images/authors/oubiwann.png" alt="Duncan McGreggor" loading="lazy" width="64" height="64">
+        
+        <div class="author-card__body">
+          <p class="author-card__name">Duncan McGreggor</p>
+          <p class="author-card__bio">Founder of Billo Systems. Distributed-systems engineer, Rust coder, core contributor to LFE, and creator of the Lykn language. Writes here about correctness under contention, Erlang/OTP, and the infrastructure of resilient systems.</p>
+          <div class="author-card__links"><a href="https://github.com/oubiwann">GitHub</a><a href="https://linkedin.com/in/oubiwann">LinkedIn</a><a href="https://mastodon.social/@oubiwann">Mastodon</a></div>
+        </div>
+      </aside>
+      
+
+      
+      
+      
+      
+      
+      
+      <nav class="post-nav">
+        
+          <a href="/articles/2014/11/company-site-is-live/"><span class="post-nav__label">&larr; Older</span><span class="post-nav__title">Company Site is Live!</span></a>
+        
+        
+          <a href="/articles/2014/12/erlport-using-python-from-erlang-lfe/" style="text-align: right;"><span class="post-nav__label">Newer &rarr;</span><span class="post-nav__title">ErlPort: Using Python from Erlang/LFE</span></a>
+        
+      </nav>
+    </article>
+  </main>
+
+  
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand-col">
+        <img class="footer-logo" src="/assets/images/logo-v4.3.1-long-light.png" alt="Billo Systems">
+        <p class="footer-tagline">Custom-built distributed infrastructure for teams that demand resilience, performance, and clarity.</p>
+      </div>
+      <div>
+        <h4 class="footer-heading">Solutions</h4>
+        <ul class="footer-links">
+          <li><a href="#">Real-time Inference</a></li>
+          <li><a href="#">Distributed Services</a></li>
+          <li><a href="#">Bespoke Solutions</a></li>
+          <li><a href="#">Platform Migration</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">Resources</h4>
+        <ul class="footer-links">
+          <li><a href="/articles/">Engineering Blog</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">Open Source</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:dm@billo.systems">dm@billo.systems</a></li>
+          <li><a href="#">Press &amp; Enquiries</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="https://linkedin.com/in/oubiwann">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <span class="footer-copy">&copy; 2026 Billo Systems, L.L.C. All rights reserved.</span>
+      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('billo-theme', next);
+    });
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function (e) {
+      if (!localStorage.getItem('billo-theme')) root.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+    });
+  })();
+</script>
+
+
+  
+  <script src="/assets/js/prism.js" defer></script>
+
+</body>
+</html>

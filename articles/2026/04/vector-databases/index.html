@@ -1,0 +1,213 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Vector Databases Are Just Indexes With Better Manners — Billo Systems</title>
+<meta name="description" content="Strip the marketing and a vector store is an index that has made peace with being approximately right. That peace is the whole engineering problem.">
+
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#1a2415" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f0f3e9" media="(prefers-color-scheme: light)">
+
+
+<script>
+  (function () {
+    var stored = localStorage.getItem('billo-theme');
+    var theme = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
+
+
+<link rel="preload" href="/assets/fonts/literata-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/brygada-1918-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+
+
+<link rel="icon" href="/assets/icons/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="/assets/icons/site.webmanifest">
+
+<link rel="stylesheet" href="/blog.css">
+<link rel="alternate" type="application/rss+xml" title="Billo Systems — Articles" href="/rss.xml">
+<link rel="alternate" type="application/atom+xml" title="Billo Systems — Articles" href="/atom.xml">
+
+<meta property="og:title" content="Vector Databases Are Just Indexes With Better Manners">
+<meta property="og:description" content="Strip the marketing and a vector store is an index that has made peace with being approximately right. That peace is the whole engineering problem.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Billo Systems">
+<link rel="canonical" href="https://billo.systems/articles/2026/04/vector-databases/">
+
+
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  
+  
+
+<header class="blog-nav">
+  <nav class="blog-nav__inner" aria-label="Primary">
+    <a href="/" class="blog-brand" aria-label="Billo Systems — Articles">
+      
+      <img class="blog-brand__logo" src="/assets/images/logo-v4.3.1-long.png" alt="Billo Systems">
+      <span class="blog-brand__label">Articles</span>
+    </a>
+    <div class="blog-nav__links">
+      <a href="/articles/" class="blog-nav__link is-current">Latest</a>
+      <a href="/archive/" class="blog-nav__link">Archive</a>
+      <a href="/tags/" class="blog-nav__link">Tags</a>
+      <a href="/search/" class="blog-nav__link">Search</a>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark theme">
+        <span class="theme-toggle__icon theme-toggle__moon">&#9790;</span>
+        <span class="theme-toggle__icon theme-toggle__sun">&#9788;</span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+
+  <main id="main" class="blog-wrap">
+    
+    <article data-pagefind-body>
+      <a href="/articles/" class="article-back">&larr; Articles</a>
+
+      <header class="article-header">
+        
+        <div class="tag-chips">
+          <a href="/tags/ai/" class="tag-chip">ai</a><a href="/tags/infrastructure/" class="tag-chip">infrastructure</a>
+        </div>
+        
+        <h1 class="article-title">Vector Databases Are Just Indexes With Better Manners</h1>
+        <p class="article-dek">Strip the marketing and a vector store is an index that has made peace with being approximately right. That peace is the whole engineering problem.</p>
+        <div class="article-meta">
+          <span>Duncan McGreggor</span>
+          <span class="sep">&middot;</span>
+          <span>Apr 21, 2026</span>
+          
+          
+          
+          
+          <span class="sep">&middot;</span><span>12 min read</span>
+        </div>
+      </header>
+
+      
+      
+
+      <div class="prose">
+        <p>A vector database is an index. It answers "what is near this?" instead of "what equals this?", and it accepts being approximately right in exchange for answering at all at scale. Once you see it that way, the operational questions become familiar ones: recall versus latency, how the index is built, what happens when it's rebuilt under load.</p>
+<p>The novelty is not the math. It's that the correctness contract is now probabilistic, and every layer above has to be honest about that. An approximate answer presented as an exact one is not a smaller bug — it's a category error you shipped.</p>
+
+      </div>
+
+      
+      
+      
+      
+      <aside class="author-card">
+        
+        
+        <img class="author-card__avatar" src="/assets/images/authors/oubiwann.png" alt="Duncan McGreggor" loading="lazy" width="64" height="64">
+        
+        <div class="author-card__body">
+          <p class="author-card__name">Duncan McGreggor</p>
+          <p class="author-card__bio">Founder of Billo Systems. Distributed-systems engineer, Rust coder, core contributor to LFE, and creator of the Lykn language. Writes here about correctness under contention, Erlang/OTP, and the infrastructure of resilient systems.</p>
+          <div class="author-card__links"><a href="https://github.com/oubiwann">GitHub</a><a href="https://linkedin.com/in/oubiwann">LinkedIn</a><a href="https://mastodon.social/@oubiwann">Mastodon</a></div>
+        </div>
+      </aside>
+      
+
+      
+      
+      
+      
+      
+      
+      <nav class="post-nav">
+        
+          <a href="/articles/2025/12/raft-in-anger/"><span class="post-nav__label">&larr; Older</span><span class="post-nav__title">Consensus Without Ceremony: Raft in Anger</span></a>
+        
+        
+          <a href="/articles/2026/05/nine-nines/" style="text-align: right;"><span class="post-nav__label">Newer &rarr;</span><span class="post-nav__title">Nine Nines and the Cost of the Last One</span></a>
+        
+      </nav>
+    </article>
+  </main>
+
+  
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand-col">
+        <img class="footer-logo" src="/assets/images/logo-v4.3.1-long-light.png" alt="Billo Systems">
+        <p class="footer-tagline">Custom-built distributed infrastructure for teams that demand resilience, performance, and clarity.</p>
+      </div>
+      <div>
+        <h4 class="footer-heading">Solutions</h4>
+        <ul class="footer-links">
+          <li><a href="#">Real-time Inference</a></li>
+          <li><a href="#">Distributed Services</a></li>
+          <li><a href="#">Bespoke Solutions</a></li>
+          <li><a href="#">Platform Migration</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">Resources</h4>
+        <ul class="footer-links">
+          <li><a href="/articles/">Engineering Blog</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">Open Source</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:dm@billo.systems">dm@billo.systems</a></li>
+          <li><a href="#">Press &amp; Enquiries</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="https://linkedin.com/in/oubiwann">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <span class="footer-copy">&copy; 2026 Billo Systems, L.L.C. All rights reserved.</span>
+      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('billo-theme', next);
+    });
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function (e) {
+      if (!localStorage.getItem('billo-theme')) root.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+    });
+  })();
+</script>
+
+
+  
+  <script src="/assets/js/prism.js" defer></script>
+
+</body>
+</html>

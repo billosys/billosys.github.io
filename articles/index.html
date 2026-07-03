@@ -1,0 +1,319 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Articles — Billo Systems</title>
+<meta name="description" content="Field notes on distributed systems, Erlang/OTP, and the infrastructure of correctness under contention.">
+
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#1a2415" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f0f3e9" media="(prefers-color-scheme: light)">
+
+
+<script>
+  (function () {
+    var stored = localStorage.getItem('billo-theme');
+    var theme = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
+
+
+<link rel="preload" href="/assets/fonts/literata-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/brygada-1918-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+
+
+<link rel="icon" href="/assets/icons/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="/assets/icons/site.webmanifest">
+
+<link rel="stylesheet" href="/blog.css">
+<link rel="alternate" type="application/rss+xml" title="Billo Systems — Articles" href="/rss.xml">
+<link rel="alternate" type="application/atom+xml" title="Billo Systems — Articles" href="/atom.xml">
+
+<meta property="og:title" content="Articles">
+<meta property="og:description" content="Field notes on distributed systems, Erlang/OTP, and the infrastructure of correctness under contention.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Billo Systems">
+<link rel="canonical" href="https://billo.systems/articles/">
+
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  
+  
+
+<header class="blog-nav">
+  <nav class="blog-nav__inner" aria-label="Primary">
+    <a href="/" class="blog-brand" aria-label="Billo Systems — Articles">
+      
+      <img class="blog-brand__logo" src="/assets/images/logo-v4.3.1-long.png" alt="Billo Systems">
+      <span class="blog-brand__label">Articles</span>
+    </a>
+    <div class="blog-nav__links">
+      <a href="/articles/" class="blog-nav__link is-current">Latest</a>
+      <a href="/archive/" class="blog-nav__link">Archive</a>
+      <a href="/tags/" class="blog-nav__link">Tags</a>
+      <a href="/search/" class="blog-nav__link">Search</a>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark theme">
+        <span class="theme-toggle__icon theme-toggle__moon">&#9790;</span>
+        <span class="theme-toggle__icon theme-toggle__sun">&#9788;</span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+  <main id="main" class="blog-wrap">
+    
+
+
+
+<section class="featured">
+  <span class="featured__eyebrow">Latest essay</span>
+  <a href="/articles/2026/06/supervision-trees/" class="featured__title">Supervision Trees Are a Philosophy, Not a Feature</a>
+  <p class="featured__dek">Let-it-crash is not carelessness. It's a theory of where responsibility lives — enforced by the runtime rather than by anyone's good intentions.</p>
+  <div class="article-meta">
+    <span>Duncan McGreggor</span>
+    <span class="sep">&middot;</span>
+    <span>Jun 18, 2026</span>
+    
+    
+    
+    
+    <span class="sep">&middot;</span><span>11 min</span>
+    <span class="hash">#erlang</span><span class="hash">#otp</span>
+  </div>
+  <a href="/articles/2026/06/supervision-trees/" class="read-more">Read the essay <span>&rarr;</span></a>
+</section>
+
+<hr class="rule-strong" style="margin-block-start: var(--space-xl);">
+
+<p class="section-label" style="display:block; margin-block-start: var(--space-l);">Recent</p>
+<ul class="post-list">
+  
+  
+  
+  <li class="post-entry">
+    <div class="article-meta">
+      <span>Jun 14, 2026</span><span class="sep">&middot;</span>
+      
+      
+      
+      <span>11 min</span><span class="sep">&middot;</span>
+      <span>Duncan McGreggor</span>
+    </div>
+    <a href="/articles/2026/06/bringing-types-to-lfe/" class="post-entry__title">Bringing Types to LFE: Lessons from Haskell, the Typed Lisps, and Gleam</a>
+    <p class="post-entry__dek">Why we started building a gradual type system for Lisp Flavoured Erlang — a tour through how Haskell, Go, Rust, Typed Racket, Coalton, and Typed Clojure each spell the same small idea, the ergonomic quibbles that pushed us, and the strategic moves we borrowed from Gleam.</p>
+    <div class="tag-chips"><a href="/tags/lfe/" class="tag-chip">lfe</a><a href="/tags/types/" class="tag-chip">types</a><a href="/tags/type-systems/" class="tag-chip">type-systems</a><a href="/tags/gradual-typing/" class="tag-chip">gradual-typing</a><a href="/tags/lykn/" class="tag-chip">lykn</a><a href="/tags/gleam/" class="tag-chip">gleam</a><a href="/tags/haskell/" class="tag-chip">haskell</a><a href="/tags/rust/" class="tag-chip">rust</a><a href="/tags/racket/" class="tag-chip">racket</a><a href="/tags/coalton/" class="tag-chip">coalton</a><a href="/tags/clojure/" class="tag-chip">clojure</a></div>
+  </li>
+  
+  
+  <li class="post-entry">
+    <div class="article-meta">
+      <span>Jun 06, 2026</span><span class="sep">&middot;</span>
+      
+      
+      
+      <span>67 min</span><span class="sep">&middot;</span>
+      <span>Duncan McGreggor</span>
+    </div>
+    <a href="/articles/2026/06/graph-theory-in-lfe-graffeo-erlang-knowledge/" class="post-entry__title">Graph Theory in LFE: A Knowledge Graph of Erlang Itself</a>
+    <p class="post-entry__dek">A deep, hands-on tour of graph theory in LFE — built on a real corpus of 1,664 Erlang concept cards, driven by the graffeo library, and unfolded slowly enough to teach the mathematics underneath each query.</p>
+    <div class="tag-chips"><a href="/tags/graph-theory/" class="tag-chip">graph-theory</a><a href="/tags/erlang/" class="tag-chip">erlang</a><a href="/tags/otp/" class="tag-chip">otp</a><a href="/tags/knowledge-graph/" class="tag-chip">knowledge-graph</a><a href="/tags/dijkstra/" class="tag-chip">dijkstra</a><a href="/tags/mathematics/" class="tag-chip">mathematics</a><a href="/tags/libraries/" class="tag-chip">libraries</a></div>
+  </li>
+  
+  
+  <li class="post-entry">
+    <div class="article-meta">
+      <span>Jun 05, 2026</span><span class="sep">&middot;</span>
+      
+      
+      
+      <span>6 min</span><span class="sep">&middot;</span>
+      <span>Duncan McGreggor</span>
+    </div>
+    <a href="/articles/2026/06/lykn-a-lisp-born-from-lfe/" class="post-entry__title">Lykn: A Lisp Born from LFE</a>
+    <p class="post-entry__dek">How fourteen years with Lisp Flavoured Erlang led to a new language — and how that language came home to power lfe.io.</p>
+    <div class="tag-chips"><a href="/tags/lfe/" class="tag-chip">lfe</a><a href="/tags/lykn/" class="tag-chip">lykn</a><a href="/tags/lisp/" class="tag-chip">lisp</a><a href="/tags/javascript/" class="tag-chip">javascript</a><a href="/tags/languages/" class="tag-chip">languages</a><a href="/tags/release/" class="tag-chip">release</a></div>
+  </li>
+  
+  
+  <li class="post-entry">
+    <div class="article-meta">
+      <span>May 09, 2026</span><span class="sep">&middot;</span>
+      
+      
+      
+      <span>9 min</span><span class="sep">&middot;</span>
+      <span>Duncan McGreggor</span>
+    </div>
+    <a href="/articles/2026/05/nine-nines/" class="post-entry__title">Nine Nines and the Cost of the Last One</a>
+    <p class="post-entry__dek">Every additional nine is one decimal point away and an order of magnitude harder. The question is never whether you can afford it, but who pays.</p>
+    <div class="tag-chips"><a href="/tags/reliability/" class="tag-chip">reliability</a><a href="/tags/distributed-systems/" class="tag-chip">distributed-systems</a></div>
+  </li>
+  
+  
+</ul>
+
+<p class="section-label" style="display:block; margin-block-start: var(--space-l);">Earlier writing</p>
+<div>
+  
+  <a href="/articles/2026/04/vector-databases/" class="post-compact">
+    <span style="min-width: 0;">
+      <span class="post-compact__title">Vector Databases Are Just Indexes With Better Manners</span>
+      <span class="post-compact__meta">
+        <span>Apr 21, 2026</span>
+        <span class="sep">&middot;</span><span class="hash">#ai</span><span class="sep">&middot;</span><span class="hash">#infrastructure</span>
+      </span>
+    </span>
+    
+    
+    
+    <span class="post-compact__time">12 min</span>
+  </a>
+  
+  <a href="/articles/2025/12/raft-in-anger/" class="post-compact">
+    <span style="min-width: 0;">
+      <span class="post-compact__title">Consensus Without Ceremony: Raft in Anger</span>
+      <span class="post-compact__meta">
+        <span>Dec 15, 2025</span>
+        <span class="sep">&middot;</span><span class="hash">#consensus</span><span class="sep">&middot;</span><span class="hash">#distributed-systems</span>
+      </span>
+    </span>
+    
+    
+    
+    <span class="post-compact__time">18 min</span>
+  </a>
+  
+  <a href="/articles/2014/12/scientific-python-on-the-beam/" class="post-compact">
+    <span style="min-width: 0;">
+      <span class="post-compact__title">Scientific Python on the BEAM</span>
+      <span class="post-compact__meta">
+        <span>Dec 31, 2014</span>
+        <span class="sep">&middot;</span><span class="hash">#lfe</span><span class="sep">&middot;</span><span class="hash">#erlang</span><span class="sep">&middot;</span><span class="hash">#python</span><span class="sep">&middot;</span><span class="hash">#scientific-computing</span>
+      </span>
+    </span>
+    
+    
+    
+    <span class="post-compact__time">6 min</span>
+  </a>
+  
+  <a href="/articles/2014/12/erlport-using-python-from-erlang-lfe/" class="post-compact">
+    <span style="min-width: 0;">
+      <span class="post-compact__title">ErlPort: Using Python from Erlang/LFE</span>
+      <span class="post-compact__meta">
+        <span>Dec 03, 2014</span>
+        <span class="sep">&middot;</span><span class="hash">#howtos</span><span class="sep">&middot;</span><span class="hash">#erlport</span><span class="sep">&middot;</span><span class="hash">#python</span><span class="sep">&middot;</span><span class="hash">#interop</span><span class="sep">&middot;</span><span class="hash">#lfe</span><span class="sep">&middot;</span><span class="hash">#libraries</span>
+      </span>
+    </span>
+    
+    
+    
+    <span class="post-compact__time">2 min</span>
+  </a>
+  
+  <a href="/articles/2014/11/mastering-matplotlib/" class="post-compact">
+    <span style="min-width: 0;">
+      <span class="post-compact__title">Mastering matplotlib: The First Month</span>
+      <span class="post-compact__meta">
+        <span>Nov 30, 2014</span>
+        <span class="sep">&middot;</span><span class="hash">#python</span><span class="sep">&middot;</span><span class="hash">#matplotlib</span><span class="sep">&middot;</span><span class="hash">#data-visualization</span><span class="sep">&middot;</span><span class="hash">#technical-writing</span>
+      </span>
+    </span>
+    
+    
+    
+    <span class="post-compact__time">9 min</span>
+  </a>
+  
+  <a href="/articles/2014/11/company-site-is-live/" class="post-compact">
+    <span style="min-width: 0;">
+      <span class="post-compact__title">Company Site is Live!</span>
+      <span class="post-compact__meta">
+        <span>Nov 17, 2014</span>
+        <span class="sep">&middot;</span><span class="hash">#announcements</span><span class="sep">&middot;</span><span class="hash">#design</span><span class="sep">&middot;</span><span class="hash">#graphics</span><span class="sep">&middot;</span><span class="hash">#web</span>
+      </span>
+    </span>
+    
+    
+    
+    <span class="post-compact__time">1 min</span>
+  </a>
+  
+</div>
+<div class="list-more"><a href="/archive/">Browse the full archive &rarr;</a></div>
+
+  </main>
+  
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand-col">
+        <img class="footer-logo" src="/assets/images/logo-v4.3.1-long-light.png" alt="Billo Systems">
+        <p class="footer-tagline">Custom-built distributed infrastructure for teams that demand resilience, performance, and clarity.</p>
+      </div>
+      <div>
+        <h4 class="footer-heading">Solutions</h4>
+        <ul class="footer-links">
+          <li><a href="#">Real-time Inference</a></li>
+          <li><a href="#">Distributed Services</a></li>
+          <li><a href="#">Bespoke Solutions</a></li>
+          <li><a href="#">Platform Migration</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">Resources</h4>
+        <ul class="footer-links">
+          <li><a href="/articles/">Engineering Blog</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">Open Source</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:dm@billo.systems">dm@billo.systems</a></li>
+          <li><a href="#">Press &amp; Enquiries</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="https://linkedin.com/in/oubiwann">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <span class="footer-copy">&copy; 2026 Billo Systems, L.L.C. All rights reserved.</span>
+      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('billo-theme', next);
+    });
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function (e) {
+      if (!localStorage.getItem('billo-theme')) root.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+    });
+  })();
+</script>
+
+</body>
+</html>

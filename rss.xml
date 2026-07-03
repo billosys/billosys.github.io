@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Billo Systems — Articles</title>
+    <link>https://billo.systems/articles/</link>
+    <description>Careful engineering at serious scale.</description>
+    <atom:link href="https://billo.systems/rss.xml" rel="self" type="application/rss+xml"/>
+    <lastBuildDate>Thu, 18 Jun 2026 09:00:00 -0600</lastBuildDate>
+    
+    <item>
+      <title>Supervision Trees Are a Philosophy, Not a Feature</title>
+      <link>https://billo.systems/articles/2026/06/supervision-trees/</link>
+      <guid isPermaLink="true">https://billo.systems/articles/2026/06/supervision-trees/</guid>
+      <pubDate>Thu, 18 Jun 2026 09:00:00 -0600</pubDate>
+      <author>Duncan McGreggor</author>
+      <category>erlang</category><category>otp</category>
+      <description>Let-it-crash is not carelessness. It&#39;s a theory of where responsibility lives — enforced by the runtime rather than by anyone&#39;s good intentions.</description>
+    </item>
+    
+    <item>
+      <title>Bringing Types to LFE: Lessons from Haskell, the Typed Lisps, and Gleam</title>
+      <link>https://billo.systems/articles/2026/06/bringing-types-to-lfe/</link>
+      <guid isPermaLink="true">https://billo.systems/articles/2026/06/bringing-types-to-lfe/</guid>
+      <pubDate>Sun, 14 Jun 2026 10:08:00 +0000</pubDate>
+      <author>Duncan McGreggor</author>
+      <category>lfe</category><category>types</category><category>type-systems</category><category>gradual-typing</category><category>lykn</category><category>gleam</category><category>haskell</category><category>rust</category><category>racket</category><category>coalton</category><category>clojure</category>
+      <description>Why we started building a gradual type system for Lisp Flavoured Erlang — a tour through how Haskell, Go, Rust, Typed Racket, Coalton, and Typed Clojure each spell the same small idea, the ergonomic quibbles that pushed us, and the strategic moves we borrowed from Gleam.</description>
+    </item>
+    
+    <item>
+      <title>Graph Theory in LFE: A Knowledge Graph of Erlang Itself</title>
+      <link>https://billo.systems/articles/2026/06/graph-theory-in-lfe-graffeo-erlang-knowledge/</link>
+      <guid isPermaLink="true">https://billo.systems/articles/2026/06/graph-theory-in-lfe-graffeo-erlang-knowledge/</guid>
+      <pubDate>Sat, 06 Jun 2026 10:08:00 -0600</pubDate>
+      <author>Duncan McGreggor</author>
+      <category>graph-theory</category><category>erlang</category><category>otp</category><category>knowledge-graph</category><category>dijkstra</category><category>mathematics</category><category>libraries</category>
+      <description>A deep, hands-on tour of graph theory in LFE — built on a real corpus of 1,664 Erlang concept cards, driven by the graffeo library, and unfolded slowly enough to teach the mathematics underneath each query.</description>
+    </item>
+    
+    <item>
+      <title>Lykn: A Lisp Born from LFE</title>
+      <link>https://billo.systems/articles/2026/06/lykn-a-lisp-born-from-lfe/</link>
+      <guid isPermaLink="true">https://billo.systems/articles/2026/06/lykn-a-lisp-born-from-lfe/</guid>
+      <pubDate>Fri, 05 Jun 2026 18:00:00 -0600</pubDate>
+      <author>Duncan McGreggor</author>
+      <category>lfe</category><category>lykn</category><category>lisp</category><category>javascript</category><category>languages</category><category>release</category>
+      <description>How fourteen years with Lisp Flavoured Erlang led to a new language — and how that language came home to power lfe.io.</description>
+    </item>
+    
+    <item>
+      <title>Nine Nines and the Cost of the Last One</title>
+      <link>https://billo.systems/articles/2026/05/nine-nines/</link>
+      <guid isPermaLink="true">https://billo.systems/articles/2026/05/nine-nines/</guid>
+      <pubDate>Sat, 09 May 2026 09:00:00 -0600</pubDate>
+      <author>Duncan McGreggor</author>
+      <category>reliability</category><category>distributed-systems</category>
+      <description>Every additional nine is one decimal point away and an order of magnitude harder. The question is never whether you can afford it, but who pays.</description>
+    </item>
+    
+    <item>
+      <title>Vector Databases Are Just Indexes With Better Manners</title>
+      <link>https://billo.systems/articles/2026/04/vector-databases/</link>
+      <guid isPermaLink="true">https://billo.systems/articles/2026/04/vector-databases/</guid>
+      <pubDate>Tue, 21 Apr 2026 09:00:00 -0600</pubDate>
+      <author>Duncan McGreggor</author>
+      <category>ai</category><category>infrastructure</category>
+      <description>Strip the marketing and a vector store is an index that has made peace with being approximately right. That peace is the whole engineering problem.</description>
+    </item>
+    
+    <item>
+      <title>Consensus Without Ceremony: Raft in Anger</title>
+      <link>https://billo.systems/articles/2025/12/raft-in-anger/</link>
+      <guid isPermaLink="true">https://billo.systems/articles/2025/12/raft-in-anger/</guid>
+      <pubDate>Mon, 15 Dec 2025 09:00:00 -0600</pubDate>
+      <author>Duncan McGreggor</author>
+      <category>consensus</category><category>distributed-systems</category>
+      <description>The paper is elegant; production is not. Here is what leader election actually does when the network is having a genuinely bad day.</description>
+    </item>
+    
+    <item>
+      <title>Scientific Python on the BEAM</title>
+      <link>https://billo.systems/articles/2014/12/scientific-python-on-the-beam/</link>
+      <guid isPermaLink="true">https://billo.systems/articles/2014/12/scientific-python-on-the-beam/</guid>
+      <pubDate>Wed, 31 Dec 2014 22:00:00 -0600</pubDate>
+      <author>Duncan McGreggor</author>
+      <category>lfe</category><category>erlang</category><category>python</category><category>scientific-computing</category>
+      <description>The matplotlib book left me wondering how much of the scientific-Python world I could pull onto the Erlang VM. The answer became two projects, a discovery I didn&#39;t plan, and line charts drawn in the terminal.</description>
+    </item>
+    
+    <item>
+      <title>ErlPort: Using Python from Erlang/LFE</title>
+      <link>https://billo.systems/articles/2014/12/erlport-using-python-from-erlang-lfe/</link>
+      <guid isPermaLink="true">https://billo.systems/articles/2014/12/erlport-using-python-from-erlang-lfe/</guid>
+      <pubDate>Wed, 03 Dec 2014 01:08:00 -0600</pubDate>
+      <author>Duncan McGreggor</author>
+      <category>howtos</category><category>erlport</category><category>python</category><category>interop</category><category>lfe</category><category>libraries</category>
+      <description>A Quick Introduction to ErlPort via LFE</description>
+    </item>
+    
+    <item>
+      <title>Mastering matplotlib: The First Month</title>
+      <link>https://billo.systems/articles/2014/11/mastering-matplotlib/</link>
+      <guid isPermaLink="true">https://billo.systems/articles/2014/11/mastering-matplotlib/</guid>
+      <pubDate>Sun, 30 Nov 2014 00:33:00 -0600</pubDate>
+      <author>Duncan McGreggor</author>
+      <category>python</category><category>matplotlib</category><category>data-visualization</category><category>technical-writing</category>
+      <description>A cold email, a move to the Midwest, and a month spent deciding that &quot;mastering&quot; means going down to the architecture — the layers, the event loops, the module graph itself.</description>
+    </item>
+    
+    <item>
+      <title>Company Site is Live!</title>
+      <link>https://billo.systems/articles/2014/11/company-site-is-live/</link>
+      <guid isPermaLink="true">https://billo.systems/articles/2014/11/company-site-is-live/</guid>
+      <pubDate>Mon, 17 Nov 2014 11:03:00 -0600</pubDate>
+      <author>Duncan McGreggor</author>
+      <category>announcements</category><category>design</category><category>graphics</category><category>web</category>
+      <description>Announcing the launch of the original Billo Systems company site — a note on the build, the tools that made it painless, and the drafts still to come.</description>
+    </item>
+    
+  </channel>
+</rss>

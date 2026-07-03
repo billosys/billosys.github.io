@@ -24,6 +24,18 @@ find site -mindepth 1 -maxdepth 1 -not -name '.git' -exec rm -rf {} +
 echo "→ Building with Cobalt..."
 cobalt build
 
+# Build the Pagefind search index into site/pagefind/ (reads ./pagefind.yml).
+# Stock tool, no custom CLI: the `pagefind` binary on PATH. Safe here because
+# this is a one-shot build (unlike `cobalt serve`, which would wipe
+# site/pagefind/ on each incremental rebuild — see scripts/preview.sh).
+echo "→ Indexing search (Pagefind)..."
+if ! command -v pagefind >/dev/null 2>&1; then
+  echo "error: pagefind not found on PATH — run ./scripts/install-pagefind.sh" >&2
+  echo "       (or see https://pagefind.app/docs/installation/)." >&2
+  exit 1
+fi
+pagefind --site site
+
 # Commit + push from within the worktree.
 cd site
 echo "→ Staging deploy..."

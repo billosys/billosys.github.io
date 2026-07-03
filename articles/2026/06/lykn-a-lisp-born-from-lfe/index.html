@@ -1,0 +1,302 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Lykn: A Lisp Born from LFE — Billo Systems</title>
+<meta name="description" content="How fourteen years with Lisp Flavoured Erlang led to a new language — and how that language came home to power lfe.io.">
+
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#1a2415" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f0f3e9" media="(prefers-color-scheme: light)">
+
+
+<script>
+  (function () {
+    var stored = localStorage.getItem('billo-theme');
+    var theme = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
+
+
+<link rel="preload" href="/assets/fonts/literata-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/brygada-1918-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+
+
+<link rel="icon" href="/assets/icons/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="/assets/icons/site.webmanifest">
+
+<link rel="stylesheet" href="/blog.css">
+<link rel="alternate" type="application/rss+xml" title="Billo Systems — Articles" href="/rss.xml">
+<link rel="alternate" type="application/atom+xml" title="Billo Systems — Articles" href="/atom.xml">
+
+<meta property="og:title" content="Lykn: A Lisp Born from LFE">
+<meta property="og:description" content="How fourteen years with Lisp Flavoured Erlang led to a new language — and how that language came home to power lfe.io.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Billo Systems">
+<link rel="canonical" href="https://billo.systems/articles/2026/06/lykn-a-lisp-born-from-lfe/">
+
+
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  
+  
+
+<header class="blog-nav">
+  <nav class="blog-nav__inner" aria-label="Primary">
+    <a href="/" class="blog-brand" aria-label="Billo Systems — Articles">
+      
+      <img class="blog-brand__logo" src="/assets/images/logo-v4.3.1-long.png" alt="Billo Systems">
+      <span class="blog-brand__label">Articles</span>
+    </a>
+    <div class="blog-nav__links">
+      <a href="/articles/" class="blog-nav__link is-current">Latest</a>
+      <a href="/archive/" class="blog-nav__link">Archive</a>
+      <a href="/tags/" class="blog-nav__link">Tags</a>
+      <a href="/search/" class="blog-nav__link">Search</a>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark theme">
+        <span class="theme-toggle__icon theme-toggle__moon">&#9790;</span>
+        <span class="theme-toggle__icon theme-toggle__sun">&#9788;</span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+
+  <main id="main" class="blog-wrap">
+    
+    <article data-pagefind-body>
+      <a href="/articles/" class="article-back">&larr; Articles</a>
+
+      <header class="article-header">
+        
+        <div class="tag-chips">
+          <a href="/tags/lfe/" class="tag-chip">lfe</a><a href="/tags/lykn/" class="tag-chip">lykn</a><a href="/tags/lisp/" class="tag-chip">lisp</a><a href="/tags/javascript/" class="tag-chip">javascript</a><a href="/tags/languages/" class="tag-chip">languages</a><a href="/tags/release/" class="tag-chip">release</a>
+        </div>
+        
+        <h1 class="article-title">Lykn: A Lisp Born from LFE</h1>
+        <p class="article-dek">How fourteen years with Lisp Flavoured Erlang led to a new language — and how that language came home to power lfe.io.</p>
+        <div class="article-meta">
+          <span>Duncan McGreggor</span>
+          <span class="sep">&middot;</span>
+          <span>Jun 05, 2026</span>
+          
+          
+          
+          
+          <span class="sep">&middot;</span><span>6 min read</span>
+        </div>
+      </header>
+
+      
+      
+      
+      <aside class="republished">
+        <span class="republished__icon" aria-hidden="true">&#8599;</span>
+        <div>
+          <span class="republished__label">Republished</span>
+          <p class="republished__text">Originally posted on <a class="republished__link" href="https://lfe.io/blog/languages/2026/06/04/1800-lykn-a-lisp-born-from-lfe/">The LFE Blog</a> on June 4, 2026. Republished here with permission.</p>
+        </div>
+      </aside>
+      
+
+      <div class="prose">
+        <p>For years, the <a href="https://lfe.io">lfe.io</a> front page has had a quiet little party trick: a tagline that cycles through LFE quotes (from various community members), powered by a <code>&lt;script&gt;</code> tag running <a href="https://www.biwascheme.org/">BiwaScheme</a>. BiwaScheme is a Scheme interpreter that runs in the browser — the kind of delightful hack that makes a Lisper smile. S-expressions on the LFE site, running live in the DOM. What's not to love?</p>
+<p>Then, back in March, I gave BiwaScheme a hard look for use in another set of ECMAScript projects I needed to work on. <a href="https://lykn.pl/posts/the-origin-of-lykn.html">It turned out not to be a good fit</a>, and nor were any of the other Lispy JS alternatives. So naturally, two nights later an early version of <a href="https://lykn.pl">Lykn</a> was released.</p>
+<p>Lykn is a lightweight Lisp that compiles S-expressions to clean, readable JavaScript. No runtime dependencies in the compiled output. The first release that was usable in the browser was 10 times smaller than BiwaScheme (it's grown since then, but still much smaller).</p>
+<h2>From BiwaScheme to Lykn</h2>
+<p>With the <a href="https://lykn.pl/posts/the-road-to-lykn-0.5.0">0.5.0 release</a>, Lykn was mature enough to replace BiwaScheme on the LFE site — and it felt right to celebrate the release by bringing it home.</p>
+<p>Here's the old BiwaScheme code that powered the tagline cycler:</p>
+<pre><code class="language-lisp">&lt;script src=&quot;/js/biwascheme.js&quot;&gt;
+  ;; Project: https://github.com/biwascheme/biwascheme
+  ;; Docs: https://www.biwascheme.org/index.html
+  (let* ([quotes (list &quot;\&quot;A proper Lisp.\&quot;&quot;
+                       &quot;\&quot;LFE combines the best of both Lisp and Erlang, at the SAME time!\&quot;&quot;
+                       &quot;\&quot;Taking the syntax out of distributed systems programming.\&quot;&quot;
+                       ...)]
+          [num-quotes (length quotes)])
+    (define get-quote (lambda ()
+      (list-ref quotes (random-integer num-quotes))))
+    (define set-quote (lambda ()
+      (set-content! &quot;#lfe-tagline&quot; (get-quote))))
+    (set-timer! set-quote 10))
+&lt;/script&gt;
+</code></pre>
+<p>BiwaScheme interprets Scheme at runtime — the entire interpreter ships to the browser, and the source runs inside the <code>&lt;script&gt;</code> tag's body. It worked well for years, but it meant bundling a 9,000-line interpreter for a ten-line script.</p>
+<p>Here's the Lykn replacement:</p>
+<pre><code class="language-lisp">&lt;script type=&quot;module&quot; src=&quot;https://esm.sh/jsr/@lykn/browser@0.5.0&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/lykn&quot;&gt;
+  (bind quotes #a(
+    &quot;\&quot;A proper Lisp.\&quot;&quot;
+    &quot;\&quot;LFE combines the best of both Lisp and Erlang, at the SAME time!\&quot;&quot;
+    &quot;\&quot;Taking the syntax out of distributed systems programming.\&quot;&quot;
+    ...))
+
+  (genfunc cycle
+    :args (:array items)
+    :yields :string
+    :body
+    (while true
+      (for-of item items (yield item))))
+
+  (bind it (cycle quotes))
+  (bind el (document:query-selector &quot;#lfe-tagline&quot;))
+
+  (setInterval
+    (fn ()
+      (bind next (it:next))
+      (set! el:text-content next:value))
+    10000)
+&lt;/script&gt;
+</code></pre>
+<p>A few things changed. The random selection became a generator-based cycle — <code>genfunc</code> with <code>yield</code>, which compiles to a native JavaScript generator. The DOM mutation uses <code>set!</code> on properties instead of a library function. And Lykn's browser shim compiles the <code>&lt;script type="text/lykn"&gt;</code> content to JavaScript on load, so there's no interpreter sitting in memory — just the compiled output running natively.</p>
+<p>What's especially important to note: Biwa is an <em>actual Scheme</em>. Lykn is <em>a Lisp flavour</em>. Most of Lykn's language-level choices are based upon its ECMAScript 2025 core, and it never really strays far from that core. And don't let the Lykn macros fool you! They expand to what is essentially S-expression ECMAScript.</p>
+<h2>What's Happening in 0.6.0</h2>
+<p>The 0.5.0 release was the "it works for real projects" milestone. The current 0.6.0 cycle is about making the language genuinely capable. A few highlights from what's been landing:</p>
+<p><strong>ICU MessageFormat as a first-class surface form.</strong> Lykn's <code>template</code> macro now supports full ICU MessageFormat — named parameters with plural, select, and interpolation forms. We're also going to extend this capablity to a pre-compiler step, allowing users to define all the language using i8n (which may get pushed to 0.7.0). As far as we can tell, this makes Lykn the first Lisp with built-in internationalization in a core language construct, not bolted on as a library.</p>
+<p>For instance, these will be supported:</p>
+<pre><code class="language-lykn">;; lang: zh
+(绑定 名字 &quot;邓肯&quot;)
+(函数 问候
+  :参数 (:字符串 名字)
+  :返回 :字符串
+  :体 (模板 &quot;你好，{名字}！&quot; :名字 名字))
+
+(控制台:日志 (问候 名字))
+</code></pre>
+<p>and</p>
+<pre><code class="language-lykn">;; lang: ru
+(привязка имя &quot;Дункан&quot;)
+(функция приветствие
+  :аргументы (:строка имя)
+  :возвращает :строка
+  :тело (шаблон &quot;Привет, {имя}!&quot; :имя имя))
+
+(консоль:лог (приветствие имя))
+</code></pre>
+<p>The goal is that i18n isn't something you add later; it's something the language already knows how to do.</p>
+<p><strong>Compiler overhaul.</strong> The two compilers (JS and Rust) have been through a significant alignment pass. Conditionals (<code>if</code>, <code>match</code>, <code>if-let</code>, <code>when-let</code>) now compile position-aware — an <code>if</code> in expression position becomes a ternary, while the same form in statement position becomes an <code>if</code>-statement. Lisp-style identifier conventions (<code>valid?</code>, <code>swap!</code>) now map correctly to JavaScript naming (<code>isValid</code>, <code>swap</code>), with collision detection at compile time. The Rust compiler can now load JS-defined surface macros, closing a major gap between the two compilation paths.</p>
+<p><strong>Packaging ecosystem for library authors.</strong> The Lykn binary is now fully self-contained: <code>cargo install lykn-cli</code> just works, with the JS compiler embedded at build time and lazily materialized on first use. For library consumers, we've making big improvements in importing from jsr.io and NPM, including using Lykn macros from other projects/dependenceis. Additionally, Lykn can now generate TypeScript <code>.d.ts</code> definitions directly from <code>:type</code> annotations in function signatures, so published Lykn packages get full IDE autocomplete in downstream TypeScript projects.</p>
+<p>There's more — the <a href="https://lykn.pl/blog/">Lykn blog</a> has detailed write-ups of each release — but those three threads capture the shape of where the language is heading next.</p>
+<h2>The LFE of It All</h2>
+<p>I should say plainly what's obvious to anyone who's looked at both languages: Lykn wouldn't exist without fourteen years of LFE.</p>
+<p>The surface syntax, the way macros work, the instinct to reach for pattern matching, the preference for small composable forms over sprawling special syntax, the conviction that a Lisp can be a practical tool for real systems and not just an academic exercise — all of that is LFE. The approach to error handling (let it crash, but crash cleanly) came from Erlang through LFE. The idea that a language should compile to something readable and idiomatic in the host platform, rather than treating the target as an instruction set to be abused. And maybe most of all, the fact that Lykn transparently supports and respects the underlying "root" language — that's Robert Virding's design philosophy for LFE on the BEAM, applied to JavaScript.</p>
+<p>To that point, Robert's influence on how I think about languages is hard to overstate. The technical decisions matter — LFE's macro system, its approach to Erlang interop, its refusal to paper over the host platform — but the deeper thing is a way of <em>thinking</em> about what a language is for. A language is a tool for thought that happens to also run on a computer. That's what I learned from working with Robert, and it's the lens through which every design decision in Lykn gets made.</p>
+<p>If you're curious about Lykn, the site is at <a href="https://lykn.pl">lykn.pl</a> and the source is on <a href="https://github.com/lykn-lang/lykn">GitHub</a>. And if you visit <a href="https://lfe.io">lfe.io</a> today, watch the tagline — those parentheses are Lykn now :-)</p>
+
+      </div>
+
+      
+      
+      
+      
+      <aside class="author-card">
+        
+        
+        <img class="author-card__avatar" src="/assets/images/authors/oubiwann.png" alt="Duncan McGreggor" loading="lazy" width="64" height="64">
+        
+        <div class="author-card__body">
+          <p class="author-card__name">Duncan McGreggor</p>
+          <p class="author-card__bio">Founder of Billo Systems. Distributed-systems engineer, Rust coder, core contributor to LFE, and creator of the Lykn language. Writes here about correctness under contention, Erlang/OTP, and the infrastructure of resilient systems.</p>
+          <div class="author-card__links"><a href="https://github.com/oubiwann">GitHub</a><a href="https://linkedin.com/in/oubiwann">LinkedIn</a><a href="https://mastodon.social/@oubiwann">Mastodon</a></div>
+        </div>
+      </aside>
+      
+
+      
+      
+      
+      
+      
+      
+      <nav class="post-nav">
+        
+          <a href="/articles/2026/05/nine-nines/"><span class="post-nav__label">&larr; Older</span><span class="post-nav__title">Nine Nines and the Cost of the Last One</span></a>
+        
+        
+          <a href="/articles/2026/06/graph-theory-in-lfe-graffeo-erlang-knowledge/" style="text-align: right;"><span class="post-nav__label">Newer &rarr;</span><span class="post-nav__title">Graph Theory in LFE: A Knowledge Graph of Erlang Itself</span></a>
+        
+      </nav>
+    </article>
+  </main>
+
+  
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand-col">
+        <img class="footer-logo" src="/assets/images/logo-v4.3.1-long-light.png" alt="Billo Systems">
+        <p class="footer-tagline">Custom-built distributed infrastructure for teams that demand resilience, performance, and clarity.</p>
+      </div>
+      <div>
+        <h4 class="footer-heading">Solutions</h4>
+        <ul class="footer-links">
+          <li><a href="#">Real-time Inference</a></li>
+          <li><a href="#">Distributed Services</a></li>
+          <li><a href="#">Bespoke Solutions</a></li>
+          <li><a href="#">Platform Migration</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">Resources</h4>
+        <ul class="footer-links">
+          <li><a href="/articles/">Engineering Blog</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">Open Source</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:dm@billo.systems">dm@billo.systems</a></li>
+          <li><a href="#">Press &amp; Enquiries</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="https://linkedin.com/in/oubiwann">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <span class="footer-copy">&copy; 2026 Billo Systems, L.L.C. All rights reserved.</span>
+      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('billo-theme', next);
+    });
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function (e) {
+      if (!localStorage.getItem('billo-theme')) root.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+    });
+  })();
+</script>
+
+
+  
+  <script src="/assets/js/prism.js" defer></script>
+
+</body>
+</html>

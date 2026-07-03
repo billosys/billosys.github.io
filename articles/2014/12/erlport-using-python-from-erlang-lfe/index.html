@@ -1,0 +1,302 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>ErlPort: Using Python from Erlang/LFE — Billo Systems</title>
+<meta name="description" content="A Quick Introduction to ErlPort via LFE">
+
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#1a2415" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f0f3e9" media="(prefers-color-scheme: light)">
+
+
+<script>
+  (function () {
+    var stored = localStorage.getItem('billo-theme');
+    var theme = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
+
+
+<link rel="preload" href="/assets/fonts/literata-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/brygada-1918-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+
+
+<link rel="icon" href="/assets/icons/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="/assets/icons/site.webmanifest">
+
+<link rel="stylesheet" href="/blog.css">
+<link rel="alternate" type="application/rss+xml" title="Billo Systems — Articles" href="/rss.xml">
+<link rel="alternate" type="application/atom+xml" title="Billo Systems — Articles" href="/atom.xml">
+
+<meta property="og:title" content="ErlPort: Using Python from Erlang/LFE">
+<meta property="og:description" content="A Quick Introduction to ErlPort via LFE">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Billo Systems">
+<link rel="canonical" href="https://billo.systems/articles/2014/12/erlport-using-python-from-erlang-lfe/">
+
+
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  
+  
+
+<header class="blog-nav">
+  <nav class="blog-nav__inner" aria-label="Primary">
+    <a href="/" class="blog-brand" aria-label="Billo Systems — Articles">
+      
+      <img class="blog-brand__logo" src="/assets/images/logo-v4.3.1-long.png" alt="Billo Systems">
+      <span class="blog-brand__label">Articles</span>
+    </a>
+    <div class="blog-nav__links">
+      <a href="/articles/" class="blog-nav__link is-current">Latest</a>
+      <a href="/archive/" class="blog-nav__link">Archive</a>
+      <a href="/tags/" class="blog-nav__link">Tags</a>
+      <a href="/search/" class="blog-nav__link">Search</a>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark theme">
+        <span class="theme-toggle__icon theme-toggle__moon">&#9790;</span>
+        <span class="theme-toggle__icon theme-toggle__sun">&#9788;</span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+
+  <main id="main" class="blog-wrap">
+    
+    <article data-pagefind-body>
+      <a href="/articles/" class="article-back">&larr; Articles</a>
+
+      <header class="article-header">
+        
+        <div class="tag-chips">
+          <a href="/tags/howtos/" class="tag-chip">howtos</a><a href="/tags/erlport/" class="tag-chip">erlport</a><a href="/tags/python/" class="tag-chip">python</a><a href="/tags/interop/" class="tag-chip">interop</a><a href="/tags/lfe/" class="tag-chip">lfe</a><a href="/tags/libraries/" class="tag-chip">libraries</a>
+        </div>
+        
+        <h1 class="article-title">ErlPort: Using Python from Erlang/LFE</h1>
+        <p class="article-dek">A Quick Introduction to ErlPort via LFE</p>
+        <div class="article-meta">
+          <span>Duncan McGreggor</span>
+          <span class="sep">&middot;</span>
+          <span>Dec 03, 2014</span>
+          
+          
+          
+          
+          <span class="sep">&middot;</span><span>2 min read</span>
+        </div>
+      </header>
+
+      
+      
+      
+      <aside class="republished">
+        <span class="republished__icon" aria-hidden="true">&#8599;</span>
+        <div>
+          <span class="republished__label">Republished</span>
+          <p class="republished__text">Originally posted on <a class="republished__link" href="https://lfe.io/blog/tutorials/2014/11/21/1508-erlport-using-python-from-erlang-lfe/">The LFE Blog</a> on November 21, 2014. Republished here with permission.</p>
+        </div>
+      </aside>
+      
+
+      <div class="prose">
+        <h2>Intro</h2>
+<p>This blog post is one I've been wanting to get out there ever since
+I ran across <a href="http://erlport.org/">the erlport project</a> a few years ago. I'm
+glad to finally have the chance to sit down and get it out there. I hope that
+more people who need to take advantage of Python's strengths from Erlang/LFE
+find out about this project.</p>
+<h2>Strengths and Weaknesses</h2>
+<p>Erlang was built for fault-tolerance. It had a goal of unprecedented uptimes,
+and these have been achieved. It powers 40% of our world's telecommunications
+traffic. It's capable of supporting amazing levels of concurrency
+(remember the <a href="https://www.sics.se/~joe/apachevsyaws.html">2007 announcement</a>
+about the performance of YAWS vs. Apache?).</p>
+<p>However, with this knowledge in mind, a common mistake by folks new to Erlang
+is to think these performance characteristics will be applicable to their own
+particular domain. This has often resulted in failure, disappointment, and the
+unjust blaming of Erlang. If you want to process huge files, do lots of string
+manipulation, or crunch tons of numbers, Erlang's not your bag, baby. Try
+<a href="https://www.python.org/">Python</a> or <a href="http://julialang.org/">Julia</a>.</p>
+<p>But then, you may be thinking: I like supervision trees. I have long-running
+processes that I want to be managed per the rules I establish. I want to run
+lots of jobs in parallel on my 64-core box. I want to run jobs in parallel
+over the network on 64 of my 64-core boxes. Python's the right tool for the
+jobs, but I wish I could manage them with Erlang.</p>
+<p>(There are sooo many other options for the use cases above, many of them
+really excellent. But this post is about Erlang/LFE :-)).</p>
+<h2>Erlang Ports</h2>
+<p>Traditionally, if you want to run other languages with Erlang in a reliable
+way that doesn't bring your Erlang nodes down with badly behaved code, you
+use <a href="http://erlang.org/doc/reference_manual/ports.html">Ports</a>.
+(more info is available in the
+<a href="http://www.erlang.org/doc/tutorial/overview.html">Interoperability Guide</a>).
+This is what
+<a href="http://www.erlang.org/doc/apps/jinterface/jinterface_users_guide.html">JInterface</a>
+builds upon (and, incidentally, allows for some pretty cool
+<a href="https://github.com/oubiwann/lfecljapp">integration with Clojure</a>). However,
+this still leaves a pretty significant burden for the Python or Ruby developer
+for any serious application needs (quick one-offs that only use one or two
+data types are not that big a deal).</p>
+<h2>ErlPort Quick-Start</h2>
+<p><a href="https://github.com/hdima/erlport">erlport</a> was created by
+<a href="https://twitter.com/hdima">Dmitry Vasiliev</a> in 2009 in an effort to solve just this
+problem, making it easier to use of and integrate between Erlang and more common
+languages like Python and Ruby. The project is maintained, and in fact has just
+received a few updates. Below, we'll demonstrate some usage in
+<a href="http://lfe.io/">LFE</a> with <a href="https://docs.python.org/3/">Python 3</a>.</p>
+<p>If you want to follow along, there's a demo repo you can check out:</p>
+<pre><code class="language-bash">git clone git@github.com:oubiwann/erlport-demo.git
+cd erlport-demo
+</code></pre>
+<p>Change into the repo directory and set up your Python environment:</p>
+<pre><code class="language-bash">cd python
+python3.4 -m venv .venv
+. .venv/bin/activate
+cd ../
+</code></pre>
+<p>Next, switch over to the LFE directory, and fire up a REPL:</p>
+<pre><code class="language-bash">$ cd lfe
+$ make repl
+
+[snip]
+
+Starting an LFE REPL ...
+Erlang/OTP 17 [erts-6.2] [source] [64-bit] [smp:8:8] ...
+
+LFE Shell V6.2 (abort with ^G)
+&gt;
+</code></pre>
+<p>Note that this will first download the necessary dependencies and compile them
+(that's what the <code>[snip]</code> is eliding).</p>
+<p>Now we're ready to take erlport for a quick trip down to the local:</p>
+<pre><code class="language-lfe">&gt; (set `#(ok ,pid) (python:start))
+#(ok &lt;0.32.0&gt;)
+&gt; (set result (python:call pid &#39;sys &#39;version.__str__ ()))
+&quot;3.4.2 (v3.4.2:ab2c023a9432, Oct  5 2014, 20:42:22) ...&quot;
+&gt;
+</code></pre>
+<p>And that's all there is to it :-)</p>
+<p>Perhaps in a future post we can dive into the internals, showing you more of the
+glory that is erlport. Even better, we could look at more compelling example
+usage, approaching some of the functionality offered by such projects as
+<a href="http://discoproject.org/">Disco</a> or
+<a href="http://continuum.io/anaconda-server">Anaconda</a>.</p>
+
+      </div>
+
+      
+      
+      
+      
+      <aside class="author-card">
+        
+        
+        <img class="author-card__avatar" src="/assets/images/authors/oubiwann.png" alt="Duncan McGreggor" loading="lazy" width="64" height="64">
+        
+        <div class="author-card__body">
+          <p class="author-card__name">Duncan McGreggor</p>
+          <p class="author-card__bio">Founder of Billo Systems. Distributed-systems engineer, Rust coder, core contributor to LFE, and creator of the Lykn language. Writes here about correctness under contention, Erlang/OTP, and the infrastructure of resilient systems.</p>
+          <div class="author-card__links"><a href="https://github.com/oubiwann">GitHub</a><a href="https://linkedin.com/in/oubiwann">LinkedIn</a><a href="https://mastodon.social/@oubiwann">Mastodon</a></div>
+        </div>
+      </aside>
+      
+
+      
+      
+      
+      
+      
+      
+      <nav class="post-nav">
+        
+          <a href="/articles/2014/11/mastering-matplotlib/"><span class="post-nav__label">&larr; Older</span><span class="post-nav__title">Mastering matplotlib: The First Month</span></a>
+        
+        
+          <a href="/articles/2014/12/scientific-python-on-the-beam/" style="text-align: right;"><span class="post-nav__label">Newer &rarr;</span><span class="post-nav__title">Scientific Python on the BEAM</span></a>
+        
+      </nav>
+    </article>
+  </main>
+
+  
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand-col">
+        <img class="footer-logo" src="/assets/images/logo-v4.3.1-long-light.png" alt="Billo Systems">
+        <p class="footer-tagline">Custom-built distributed infrastructure for teams that demand resilience, performance, and clarity.</p>
+      </div>
+      <div>
+        <h4 class="footer-heading">Solutions</h4>
+        <ul class="footer-links">
+          <li><a href="#">Real-time Inference</a></li>
+          <li><a href="#">Distributed Services</a></li>
+          <li><a href="#">Bespoke Solutions</a></li>
+          <li><a href="#">Platform Migration</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">Resources</h4>
+        <ul class="footer-links">
+          <li><a href="/articles/">Engineering Blog</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">Open Source</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:dm@billo.systems">dm@billo.systems</a></li>
+          <li><a href="#">Press &amp; Enquiries</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="https://linkedin.com/in/oubiwann">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <span class="footer-copy">&copy; 2026 Billo Systems, L.L.C. All rights reserved.</span>
+      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('billo-theme', next);
+    });
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function (e) {
+      if (!localStorage.getItem('billo-theme')) root.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+    });
+  })();
+</script>
+
+
+  
+  <script src="/assets/js/prism.js" defer></script>
+
+</body>
+</html>

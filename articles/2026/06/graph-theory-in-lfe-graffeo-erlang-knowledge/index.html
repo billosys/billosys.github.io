@@ -1,0 +1,1095 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Graph Theory in LFE: A Knowledge Graph of Erlang Itself — Billo Systems</title>
+<meta name="description" content="A deep, hands-on tour of graph theory in LFE — built on a real corpus of 1,664 Erlang concept cards, driven by the graffeo library, and unfolded slowly enough to teach the mathematics underneath each query.">
+
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#1a2415" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f0f3e9" media="(prefers-color-scheme: light)">
+
+
+<script>
+  (function () {
+    var stored = localStorage.getItem('billo-theme');
+    var theme = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
+
+
+<link rel="preload" href="/assets/fonts/literata-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/brygada-1918-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+
+
+<link rel="icon" href="/assets/icons/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="/assets/icons/site.webmanifest">
+
+<link rel="stylesheet" href="/blog.css">
+<link rel="alternate" type="application/rss+xml" title="Billo Systems — Articles" href="/rss.xml">
+<link rel="alternate" type="application/atom+xml" title="Billo Systems — Articles" href="/atom.xml">
+
+<meta property="og:title" content="Graph Theory in LFE: A Knowledge Graph of Erlang Itself">
+<meta property="og:description" content="A deep, hands-on tour of graph theory in LFE — built on a real corpus of 1,664 Erlang concept cards, driven by the graffeo library, and unfolded slowly enough to teach the mathematics underneath each query.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Billo Systems">
+<link rel="canonical" href="https://billo.systems/articles/2026/06/graph-theory-in-lfe-graffeo-erlang-knowledge/">
+
+
+<link rel="stylesheet" href="/assets/katex/katex.min.css">
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  
+  
+
+<header class="blog-nav">
+  <nav class="blog-nav__inner" aria-label="Primary">
+    <a href="/" class="blog-brand" aria-label="Billo Systems — Articles">
+      
+      <img class="blog-brand__logo" src="/assets/images/logo-v4.3.1-long.png" alt="Billo Systems">
+      <span class="blog-brand__label">Articles</span>
+    </a>
+    <div class="blog-nav__links">
+      <a href="/articles/" class="blog-nav__link is-current">Latest</a>
+      <a href="/archive/" class="blog-nav__link">Archive</a>
+      <a href="/tags/" class="blog-nav__link">Tags</a>
+      <a href="/search/" class="blog-nav__link">Search</a>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark theme">
+        <span class="theme-toggle__icon theme-toggle__moon">&#9790;</span>
+        <span class="theme-toggle__icon theme-toggle__sun">&#9788;</span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+
+  <main id="main" class="blog-wrap">
+    
+    <article data-pagefind-body>
+      <a href="/articles/" class="article-back">&larr; Articles</a>
+
+      <header class="article-header">
+        
+        <div class="tag-chips">
+          <a href="/tags/graph-theory/" class="tag-chip">graph-theory</a><a href="/tags/erlang/" class="tag-chip">erlang</a><a href="/tags/otp/" class="tag-chip">otp</a><a href="/tags/knowledge-graph/" class="tag-chip">knowledge-graph</a><a href="/tags/dijkstra/" class="tag-chip">dijkstra</a><a href="/tags/mathematics/" class="tag-chip">mathematics</a><a href="/tags/libraries/" class="tag-chip">libraries</a>
+        </div>
+        
+        <h1 class="article-title">Graph Theory in LFE: A Knowledge Graph of Erlang Itself</h1>
+        <p class="article-dek">A deep, hands-on tour of graph theory in LFE — built on a real corpus of 1,664 Erlang concept cards, driven by the graffeo library, and unfolded slowly enough to teach the mathematics underneath each query.</p>
+        <div class="article-meta">
+          <span>Duncan McGreggor</span>
+          <span class="sep">&middot;</span>
+          <span>Jun 06, 2026</span>
+          
+          
+          
+          
+          <span class="sep">&middot;</span><span>67 min read</span>
+        </div>
+      </header>
+
+      
+      
+      
+      <aside class="republished">
+        <span class="republished__icon" aria-hidden="true">&#8599;</span>
+        <div>
+          <span class="republished__label">Republished</span>
+          <p class="republished__text">Originally posted on <a class="republished__link" href="https://lfe.io/blog/tutorials/2026/06/05/1008-graph-theory-in-lfe-graffeo-erlang-knowledge/">The LFE Blog</a> on June 5, 2026. Republished here with permission.</p>
+        </div>
+      </aside>
+      
+
+      <div class="prose">
+        <p>There is a small, stubborn idea behind this post: that working Erlangers and LFEers have most of the intuition they need to <em>do</em> graph theory, but almost none of the language for it — because every introduction to the subject seems to assume either no programming background, or a Python/Java/C++ one. Not nearly as much fun. Also,  while a working BEAM programmer already understands graph theoretic pragmatics via supervision trees, message-passing topologies, distribution maps, and dependency graphs in <code>*.app</code> files, none of that intuition is being claimed by textbooks.</p>
+<p>This tutorial is an attempt to claim it. We are going to build a real graph — not a toy with seven vertices and five edges, but a directed multilabelled graph over <strong>1,664 Erlang "concept cards"</strong> distilled from a dozen canonical Erlang/OTP sources — and then ask interesting graph-theoretic questions of it, in LFE, with <a href="https://github.com/erlsci/graffeo">graffeo</a> as our library. Every algorithm used in this post was written and tested against an independent implementation (a small Rust oracle that lives alongside the example which uses the excellent <code>petgraph</code> library), so the numbers are real and can be reproduced exactly.</p>
+<p>The underlying example is the Erlang <code>examples/erlang-concepts</code> directory in the <a href="https://github.com/erlsci/graffeo">graffeo repository</a>. The original README is itself a guided tour, in Erlang. What you are reading is the LFE rewrite of that tour — but with the mathematics opened up. Where the Erlang README says <em>"this is what condensation does,"</em> the LFE version is going to say <em>what condensation is, why it works, what theorem you are leaning on, and how the algorithm sees the graph from the inside.</em></p>
+<h2>What you'll need</h2>
+<ul>
+<li>Erlang/OTP 27+ and <code>rebar3</code>.</li>
+<li>LFE 2.2 or later (via the <code>rebar3_lfe</code> plugin).</li>
+<li>About 13 MB of disk space for the corpus, fetched as a shallow git clone.</li>
+</ul>
+<p>You will not need any prior graph theory. You will not need to read the Erlang version of the example. We'll meet every term as it comes up.</p>
+<h2>1. Clone, set up the LFE toolchain</h2>
+<p>Start with a clone of <code>graffeo</code> and step into the example directory:</p>
+<pre><code class="language-shell">git clone https://github.com/erlsci/graffeo.git
+cd graffeo/examples/erlang-concepts
+make fetch-cards
+</code></pre>
+<p><code>make fetch-cards</code> does one job: it pins and shallow-clones <code>billosys/ai-engineering@0.1.0</code> into <code>../../workbench/ai-engineering</code>. The cards live under <code>knowledge/erlang/concept-cards/</code> once the clone is done. We won't vendor them — they're 13 MB of Markdown with typed front matter, and they want to be a separately versioned thing.</p>
+<p>Now teach <code>rebar3</code> to compile LFE alongside Erlang. Open <code>rebar.config</code> and add the <code>rebar3_lfe</code> plugin and the LFE dependency:</p>
+<pre><code class="language-erlang">{erl_opts, [debug_info]}.
+
+{deps, [
+    {lfe, &quot;2.2.0&quot;}
+]}.
+
+{project_plugins, [
+    erlfmt,
+    rebar3_lint,
+    rebar3_lfe
+]}.
+
+{provider_hooks, [
+    {pre, [{compile, {lfe, compile}}]}
+]}.
+
+{project_app_dirs, [&quot;apps/*&quot;, &quot;lib/*&quot;, &quot;.&quot;, &quot;../..&quot;]}.
+</code></pre>
+<p>The <code>provider_hooks</code> line is the one that matters: it tells <code>rebar3</code> to run the LFE compiler before the Erlang one, so any LFE module that exports functions can be called from Erlang in the same project (and vice versa). The Erlang modules already in <code>src/</code> won't go anywhere; we will sit a parallel set of LFE modules next to them, and prove they can live together.</p>
+<p>Make a clean spot for the new code:</p>
+<pre><code class="language-shell">touch src/lfeerlcpt-parser.lfe \
+      src/lfeerlcpt-ingest.lfe \
+      src/lfeerlcpt-queries.lfe \
+      src/lfeerlcpt.lfe
+</code></pre>
+<p><code>lfeerlcpt</code> is short for "<strong>LFE</strong> <strong>Erl</strong>ang <strong>C</strong>once<strong>pt</strong>s." If you'd rather name things <code>egc-parser</code>, <code>gc-parser</code>, or anything else, go ahead — the only thing that matters is that the prefix is the same across all four modules and doesn't collide with <code>erlc_*</code>.</p>
+<p>A quick health check before we write a single line of LFE:</p>
+<pre><code class="language-shell">rebar3 compile
+rebar3 lfe repl
+</code></pre>
+<p>If you get an <code>lfe&gt;</code> prompt and <code>(graffeo:new)</code> returns a <code>#(...)</code> tuple, you're set. The rest of this post is the substance.</p>
+<h2>2. The shape of the graph</h2>
+<p>Before we write code that builds the graph, we have to be very precise about what the graph <em>is.</em> This is the part of graph work that is almost always glossed in tutorials, and it's the part that has the highest leverage downstream — a vague mental model leads to a vague API leads to vague queries.</p>
+<p>A directed graph $G = (V, E)$ is a set of vertices $V$ together with a set of edges $E \subseteq V \times V$. That is the entire formal content of the term <em>directed graph</em>. Everything else — labels, weights, vertex attributes, edge attributes — is conventional decoration. Working programmers tend to over-import the decoration into the definition; the math is much barer than that. The bareness is <em>useful</em>: it lets us say things like "every directed graph has a unique condensation" without first having to specify what kind of decoration is on it.</p>
+<p>Our graph here will not be bare. It will carry two distinct kinds of vertex and four distinct kinds of edge label, so we need a small notation for the decoration.</p>
+<p>A <strong>vertex</strong> is one of two shapes:</p>
+<ul>
+<li>a <strong>source-layer vertex</strong>, written <code>(tuple SourceSlug Slug)</code> — for example, <code>#(#"programming-erlang" #"gen-server")</code>. This is "the <code>gen-server</code> card in <em>Programming Erlang</em>." A binary 2-tuple.</li>
+<li>an <strong>abstract-layer vertex</strong>, written as a bare <code>Slug</code> — for example, <code>#"gen-server"</code>. This is "the concept <code>gen-server</code>," without reference to any particular book.</li>
+</ul>
+<p>Why two layers? Because the question <em>"what is gen-server related to?"</em> has two honest answers, and a single-layer graph would force you to pick one. <em>Programming Erlang's</em> take on <code>gen-server</code> is not literally the same as <em>Learn You Some Erlang's</em> take, and pretending otherwise loses information; but you also frequently want the <em>union</em> across books, and forcing every query to do that union by hand is exhausting. The two-layer model gives you both — at the cost of an extra kind of edge, which we'll call <strong>membership</strong>.</p>
+<p>A <strong>membership edge</strong> runs from a source-layer vertex up to its abstract concept:</p>
+<p>$$\{(s, c) \to c \;:\; \text{card } (s, c) \text{ exists}\}$$</p>
+<p>We label it <code>instance_of</code>. There is exactly one membership edge per card; if six books all document <code>gen-server</code>, there are six membership edges pointing into the abstract <code>#"gen-server"</code> vertex.</p>
+<p>Then there are four kinds of <strong>relationship edge</strong>, drawn from the corpus's typed front matter:</p>
+<ul>
+<li><code>prerequisites</code> — <em>X needs Y first</em> (directed).</li>
+<li><code>extends</code> — <em>X is a special case of Y</em> (directed).</li>
+<li><code>related</code> — <em>see also</em> (symmetric in spirit; the corpus stores it directed but you can read it either way).</li>
+<li><code>contrasts_with</code> — <em>don't confuse X with Y</em> (symmetric).</li>
+</ul>
+<p>Crucially, both layers carry these four kinds. Within a single source layer, an edge <code>(s, x) → (s, y)</code> means "book $s$ says $x$ relates to $y$ in this way." On the abstract layer, an edge $x \to y$ is the <strong>upward projection</strong>: it exists if <em>any</em> book asserted that relationship between cards for $x$ and $y$. Edge metadata records which types were asserted (as a set) and which books asserted them (also a set), so the abstract layer is a <em>labelled multilabel projection</em> of the source layer.</p>
+<p>This is the whole modelling decision, and once it's clear, the API gives itself: a graph operation that wants to ask a source-local question pattern-matches on tuple vertices; a graph operation that wants the cross-book view runs against binary vertices.</p>
+<h2>3. Writing the parser in LFE</h2>
+<p>The parser does the work of turning each card's YAML-ish Markdown front matter into a structured record. The cards themselves come in two slightly different dialect variants — some have <code># === SECTION ===</code> comment headers interleaved with key-value lines, some are flat — so the parser has to be tolerant about both. Tolerant parsers are mostly about pattern-matching cleanly on lines, which is exactly the sort of thing LFE is good at.</p>
+<p>A card is a map with atom keys:</p>
+<pre><code class="language-lfe">;; A card looks like:
+;;   #M(slug           #&quot;gen-server&quot;
+;;      concept        #&quot;Generic Server&quot;
+;;      category       #&quot;behaviour&quot;
+;;      tier           #&quot;core&quot;
+;;      source         #&quot;Programming Erlang&quot;
+;;      source_slug    #&quot;programming-erlang&quot;
+;;      prerequisites  (#&quot;behaviour&quot; #&quot;callback-module&quot;)
+;;      extends        ()
+;;      related        (#&quot;otp-behaviours&quot;)
+;;      contrasts_with ())
+</code></pre>
+<p>Here is the entry point:</p>
+<pre><code class="language-lfe">(defmodule lfeerlcpt-parser
+  (export (parse-file 1)
+          (parse-string 1)))
+
+(defun parse-file (path)
+  (case (file:read_file path)
+    ((tuple &#39;ok bin) (parse-string bin))
+    ((tuple &#39;error reason)
+     (tuple &#39;error (tuple &#39;read-failed path reason)))))
+
+(defun parse-string (bin)
+  (let ((lines (binary:split bin #&quot;\n&quot; &#39;(global))))
+    (case (extract-frontmatter lines)
+      ((tuple &#39;ok fm-lines)
+       (let ((props (parse-fm-lines fm-lines)))
+         (build-card props)))
+      ((= (tuple &#39;error _) err)
+       err))))
+</code></pre>
+<p>A short tour of the LFE idioms in just those ten lines is worth doing, because they're going to repeat through the rest of the code:</p>
+<ul>
+<li><code>case</code> on tuples is the bread-and-butter LFE pattern for matching on Erlang return-shapes. <code>(tuple 'ok bin)</code> matches <code>{ok, Bin}</code>. The quote in <code>'ok</code> is important — without it, LFE would try to evaluate <code>ok</code> as a variable.</li>
+<li><code>let</code> introduces local bindings; the form is <code>(let ((var expr) ...) body)</code>. We use it instead of nested <code>case</code> when the binding is unconditional.</li>
+<li><code>binary:split</code> is just the Erlang stdlib function; LFE calls into Erlang modules with the <code>mod:fun</code> syntax and atoms naturally. The trailing <code>'(global)</code> is the options list.</li>
+<li>The <code>(= pattern name)</code> form is LFE's <em>alias pattern</em> — it matches <code>pattern</code> and binds the whole matched value to <code>name</code> as well. The Erlang equivalent is <code>Name = Pattern</code>; LFE puts the name on the right.</li>
+</ul>
+<p>Now <code>extract-frontmatter</code>. Cards begin with <code>---</code> on a line by itself, then the front matter, then a closing <code>---</code>. Tolerant version: also accept lines that <em>start with</em> <code>---</code> but have trailing characters. We pattern-match on the leading binary bytes:</p>
+<pre><code class="language-lfe">(defun extract-frontmatter
+  (((cons (binary &quot;---&quot; (_tail binary)) rest))
+   (collect-until-closing rest &#39;()))
+  ((_)
+   (tuple &#39;error &#39;no-opening-delimiter)))
+
+(defun collect-until-closing
+  ((() acc)
+   (tuple &#39;error (tuple &#39;no-closing-delimiter (length acc))))
+  (((cons (binary &quot;---&quot; (_tail binary)) _) acc)
+   (tuple &#39;ok (lists:reverse acc)))
+  (((cons line rest) acc)
+   (collect-until-closing rest (cons line acc))))
+</code></pre>
+<p>Two LFE features carry their full weight here:</p>
+<ul>
+<li><strong>Multi-clause <code>defun</code> with patterns.</strong> Each parenthesised group on the right is <code>(pattern body)</code>. The matcher picks the first clause whose pattern fits. This is the same as Erlang's <code>function/N</code> clauses, just written one level outward.</li>
+<li><strong>Binary patterns inside lists.</strong> <code>(cons (binary "---" (_tail binary)) rest)</code> matches a list whose head is a binary starting with the literal bytes <code>---</code> followed by arbitrary binary content, and whose tail is <code>rest</code>. This is LFE's binary-pattern syntax doing exactly what <code>&lt;&lt;"---", _/binary&gt;&gt;</code> does in Erlang. The <code>_tail</code> prefix is a wildcard — LFE doesn't bind a name starting with <code>_</code>, so we can keep the form symmetric without worrying about an unused-variable warning.</li>
+</ul>
+<p>The line classifier is where the dialect tolerance lives:</p>
+<pre><code class="language-lfe">(defun classify-line
+  ((#&quot;&quot;)             &#39;empty)
+  (((binary &quot;# ===&quot; (_rest binary))) &#39;section-header)
+  (((binary &quot;- &quot; (item-raw binary)))
+   (tuple &#39;list-item (unquote-bin (string:trim item-raw))))
+  ((line)
+   (case (binary:split line #&quot;: &quot;)
+     ((list key value)
+      (parse-kv (string:trim key) (string:trim value)))
+     ((list maybe-kv)
+      (case (binary:split maybe-kv #&quot;:&quot;)
+        ((list key #&quot;&quot;) (tuple &#39;kv key &#39;()))
+        (_ &#39;empty))))))
+</code></pre>
+<p>That last clause — falling through to a single colon with empty value, or giving up — is <em>exactly</em> the kind of place where tolerant parsers earn their keep. The card corpus has a handful of lines of the form <code>prerequisites:</code> with no value following, meaning the empty list; we want those to land as <code>(kv key ())</code> rather than as parse errors.</p>
+<p>I won't reproduce the rest of the parser inline; the <code>build-card</code> and small helpers (<code>unquote-bin</code>, <code>get-bin</code>, <code>get-list</code>) are direct translations of the Erlang originals and don't introduce any LFE idiom we haven't already met. The full file is in the example repo.</p>
+<p>The shape worth carrying forward into the next module is that a parsed card is a map, its values are binaries (for the scalar fields) or lists of binaries (for the relationships), and its keys are atoms.</p>
+<h2>4. Building the two-layer graph</h2>
+<p>The ingest module is the one that turns a list of cards into a <code>graffeo</code> graph. This is the module where most of the graph-construction idioms appear, so it's worth working through.</p>
+<p>The top-level entry point sets the architecture in plain sight:</p>
+<pre><code class="language-lfe">(defmodule lfeerlcpt-ingest
+  (export (build 1)
+          (build-from-dir 1)
+          (source-vertices 1)
+          (abstract-vertices 1)))
+
+(defun build (cards)
+  (let* ((sorted (lists:sort
+                  (lambda (a b)
+                    (=&lt; (mref a &#39;slug) (mref b &#39;slug)))
+                  cards))
+         (g0 (graffeo:new))
+         (g1 (add-source-layer sorted g0))
+         (g2 (add-abstract-layer sorted g1))
+         (g3 (add-membership sorted g2))
+         (g4 (add-source-edges sorted g3))
+         (g5 (add-abstract-edges sorted g4)))
+    (map &#39;graph g5
+         &#39;source_count (length sorted)
+         &#39;abstract_count (length
+                          (lists:usort
+                           (lc ((&lt;- c sorted)) (mref c &#39;slug)))))))
+</code></pre>
+<p>There is no cleverness in <code>build</code>; the value comes from saying <em>out loud</em> that the graph is constructed in five strictly ordered phases. <code>let*</code> lets each phase name its input by hand, which is more verbose than threading would be, but the trade is worth it: a beginning reader can stop at any line and know what's in the graph so far.</p>
+<p>The sort is for <strong>determinism</strong>. graffeo's value-tier backend is a map-of-maps, so insertion order can influence the order in which vertices are returned from <code>vertices/1</code>. If we want builds to be reproducible — and we do, because the example is gated by an oracle that compares results byte-for-byte against a Rust re-implementation — every nondeterministic dial gets locked down. Slug-sorting cards is the cheapest such dial.</p>
+<p>The source layer is a simple fold:</p>
+<pre><code class="language-lfe">(defun add-source-layer (cards g)
+  (lists:foldl
+   (lambda (card acc)
+     (graffeo:add_vertex acc (source-vertex card)))
+   g cards))
+
+(defun source-vertex (card)
+  (tuple (mref card &#39;source_slug) (mref card &#39;slug)))
+</code></pre>
+<p><code>lists:foldl</code> over a list of cards, threading the graph through, accumulating vertices. Two things to notice:</p>
+<ul>
+<li>We can pass <code>(lambda (card acc) ...)</code> straight to <code>lists:foldl</code> and the call works because <code>add_vertex/2</code> is <em>value-tier-pure</em> — it returns a new graph rather than mutating an opaque handle. This matters for reasoning, and it's why graffeo's default backend is the value tier in the first place. (graffeo also has a <code>digraph</code>-backed handle tier; the same algorithm code runs over both, which is graffeo's headline commitment: "one algorithm layer over many backends.")</li>
+<li>We don't worry about duplicate vertices. <code>graffeo:add_vertex</code> on an existing vertex is a no-op. Most idiomatic graph code on the BEAM relies on this: it lets you describe what <em>should be there</em> rather than carefully bookkeeping what <em>is</em> there.</li>
+</ul>
+<p>The abstract layer is the same shape, but folds over the deduplicated slug set:</p>
+<pre><code class="language-lfe">(defun add-abstract-layer (cards g)
+  (let ((slugs (lists:usort
+                (lc ((&lt;- c cards)) (mref c &#39;slug)))))
+    (lists:foldl
+     (lambda (slug acc) (graffeo:add_vertex acc slug))
+     g slugs)))
+</code></pre>
+<p>The 1,664 cards collapse to roughly 1,394 distinct slugs because some concepts (<code>gen-server</code>, <code>pattern-matching</code>) are documented in many books at once.</p>
+<p>Membership edges glue the layers together:</p>
+<pre><code class="language-lfe">(defun add-membership (cards g)
+  (lists:foldl
+   (lambda (card acc)
+     (let ((from (source-vertex card))
+           (to (mref card &#39;slug)))
+       (graffeo:add_edge acc from to (map &#39;label &#39;instance_of))))
+   g cards))
+</code></pre>
+<p><code>graffeo:add_edge/4</code> takes the graph, a "from" vertex, a "to" vertex, and an edge metadata map. The <code>'instance_of</code> label is our domain vocabulary; graffeo doesn't interpret it, but our queries will key on it later.</p>
+<p>The source-edge phase is the first non-trivial bit. For each source $s$, for each card $C$ in $s$, for each relationship type $T$, for each target slug $t$ listed under $T$ in $C$, we want to add an edge <code>(s, C.slug) → (s, t)</code> <em>if and only if</em> $t$ also has a card in $s$ — i.e., we only honour intra-source edges in the source layer. (The cross-source edges live on the abstract layer; we'll get there.)</p>
+<p>That's four nested loops, which sounds terrible, but the data is small enough that the time is dominated by the parsing, not the edge build. Three nested folds:</p>
+<pre><code class="language-lfe">(defun add-source-edges (cards g)
+  (let ((by-source (group-by-source cards)))
+    (maps:fold
+     (lambda (src src-cards g-acc)
+       (let ((all-slugs (sets:from_list
+                         (lc ((&lt;- c src-cards)) (mref c &#39;slug))
+                         &#39;(#(version 2)))))
+         (lists:foldl
+          (lambda (card g-acc2)
+            (add-card-source-edges src card all-slugs g-acc2))
+          g-acc src-cards)))
+     g by-source)))
+
+(defun add-card-source-edges (src card all-slugs g)
+  (let* ((from-slug (mref card &#39;slug))
+         (from (tuple src from-slug))
+         (rel-types (list (tuple &#39;prerequisites    (mref card &#39;prerequisites))
+                          (tuple &#39;extends          (mref card &#39;extends))
+                          (tuple &#39;related          (mref card &#39;related))
+                          (tuple &#39;contrasts_with   (mref card &#39;contrasts_with)))))
+    (lists:foldl
+     (lambda (type-and-targets g-acc)
+       (let (((tuple type targets) type-and-targets))
+         (lists:foldl
+          (lambda (target-slug g-acc2)
+            (case (sets:is_element target-slug all-slugs)
+              (&#39;true
+               (add-typed-edge g-acc2 from (tuple src target-slug)
+                               type src))
+              (&#39;false g-acc2)))
+          g-acc (lists:sort targets))))
+     g rel-types)))
+</code></pre>
+<p>This is a faithful port of the Erlang code, which means it is unapologetically nested. There are tidier formulations in LFE — you can flatten the rel-types into a single list comprehension over <code>(type . target)</code> pairs, for example — but the nested form has one virtue: each level of nesting corresponds to one level of the data hierarchy (source / card / relationship type / target slug), and a reader who understands the data can step through the loops without a sticky note.</p>
+<p><code>add-typed-edge</code> is where the edge metadata's <em>set semantics</em> live:</p>
+<pre><code class="language-lfe">(defun add-typed-edge (g from to type src)
+  (case (graffeo:edge_meta g from to)
+    ((tuple &#39;ok (map &#39;label (map &#39;types types &#39;asserted_by asserted-by)))
+     (let ((new-types (lists:usort (cons type types)))
+           (new-asserted (lists:usort (cons src asserted-by))))
+       (graffeo:add_edge g from to
+                         (map &#39;label (map &#39;types new-types
+                                          &#39;asserted_by new-asserted)))))
+    (&#39;error
+     (graffeo:add_edge g from to
+                       (map &#39;label (map &#39;types (list type)
+                                        &#39;asserted_by (list src)))))))
+</code></pre>
+<p>Two different books asserting the same edge with different relationship types should not produce two edges — graffeo is a <em>simple</em> directed graph (at most one edge per ordered pair). What you do instead is merge the metadata. Here, types and asserters are both sets, stored as sorted unique lists; merging is just <code>lists:usort</code> over the cons.</p>
+<p>This is where the model's two-layer nature pays off in a subtle way. On the <em>source</em> layer, an edge between <code>(s, x)</code> and <code>(s, y)</code> will only ever have <code>[s]</code> as its asserter list, because the source-edge phase confines itself to intra-source links. On the <em>abstract</em> layer, an edge $x \to y$ accumulates asserters from every book that drew it. So when you later ask "<em>how many books say <code>gen-server</code> extends <code>behaviour</code>?</em>", the answer is <code>(length asserted_by)</code> of the abstract edge — and that number is itself a kind of confidence.</p>
+<p>The abstract-edge phase has two pieces. First, <strong>project</strong> the source-layer edges upward — every $(s, x) \to (s, y)$ becomes an $x \to y$ candidate, and we merge metadata across all the candidates:</p>
+<pre><code class="language-lfe">(defun project-source-edges (g)
+  (let ((src-only (graffeo:filter_edges
+                   g
+                   (lambda (from to _meta)
+                     (andalso (is_tuple from) (is_tuple to))))))
+    (let ((contracted (graffeo:contract
+                       src-only
+                       (lambda (v)
+                         (let (((tuple _src slug) v)) slug))
+                       (lambda (a b) (merge-type-meta a b)))))
+      (merge-contracted-into g contracted))))
+</code></pre>
+<p>There are three graffeo operations doing real work here, and each is worth a moment.</p>
+<p><code>filter_edges/2</code> returns a subgraph (with the same vertices) keeping only edges that satisfy the predicate. Here we keep the edges whose both endpoints are tuples — i.e., the <em>source-only</em> edges, excluding membership and any pre-existing abstract edges. (At this stage there shouldn't be any pre-existing abstract edges, but the predicate is robust to having them.)</p>
+<p><code>contract/3</code> is the operation that does the actual upward projection: it takes a vertex-mapping function and a metadata-merge function, and quotients the graph by the equivalence relation induced by the mapping. Concretely, every vertex <code>(tuple _src slug)</code> is sent to <code>slug</code>, so all the source-layer copies of <code>gen-server</code> are collapsed into a single vertex <code>#"gen-server"</code>. Edges between collapsed vertices are unioned, and the metadata-merge function decides how to combine their metadata. This is <em>exactly</em> the <a href="https://en.wikipedia.org/wiki/Quotient_graph">quotient construction</a> from elementary graph theory, written one line.</p>
+<p><code>merge-contracted-into/2</code> then merges the contracted graph back into the main graph, accumulating metadata when an abstract edge already exists.</p>
+<p>The second piece adds <strong>cross-only</strong> edges — relationships a card asserts to a target that isn't in its own book, but which exists somewhere in the corpus. Those edges have no source-layer representative to project from, so we add them directly to the abstract layer. The code shape is parallel to <code>add-source-edges</code> and isn't worth reproducing line for line; what matters is that a target slug that exists in <em>no</em> book at all becomes what we'll call a <strong>ghost</strong> — we add it as an abstract vertex with no membership edges pointing in. We meet the ghosts again in the queries section.</p>
+<h2>5. The query catalog</h2>
+<p>This is the module where the graph theory will actually live. Every query in this section pairs a one-paragraph "what it computes" with several paragraphs of "why that's interesting and what the algorithm is doing under the hood." If you've read graph-theory tutorials before that started with definitions and ended with code, this one starts with code and ends with definitions; the order is deliberate.</p>
+<p>The module preamble and the four "projection" helpers (which we lean on heavily) come first:</p>
+<pre><code class="language-lfe">(defmodule lfeerlcpt-queries
+  (export (prerequisite-cycles 1)
+          (learning-order 1)
+          (related-components 1)
+          (semantic-components 1)
+          (top-concepts-by-degree 2)
+          (ghost-concepts 1)
+          (related-cheap 3)
+          (related-extended 3)
+          (gentlest-path 3)
+          (coverage-of 2)
+          (project-by-type 2)))
+
+(defun project-by-type (g type)
+  (graffeo:filter_edges
+   g
+   (lambda (from to meta)
+     (andalso (is_binary from)
+              (is_binary to)
+              (has-type? meta type)))))
+
+(defun project-abstract-relations (g)
+  (graffeo:filter_edges
+   g
+   (lambda (from to _meta)
+     (andalso (is_binary from) (is_binary to)))))
+
+(defun has-type? (meta type)
+  (case meta
+    ((map &#39;label (map &#39;types types))
+     (lists:member type types))
+    (_ &#39;false)))
+</code></pre>
+<p><code>project-by-type/2</code> returns the subgraph of the abstract layer carrying only edges of a single relationship type. <code>project-abstract-relations/1</code> returns the abstract layer carrying <em>all</em> relationship edges. The queries pick one or the other depending on what question they're asking.</p>
+<h3>5.1 What did we just load?</h3>
+<p>The simplest possible query: ask graffeo how big the graph is.</p>
+<pre><code class="language-">lfe&gt; (set r (lfeerlcpt-ingest:build-from-dir
+             &quot;../../workbench/ai-engineering/knowledge/erlang/concept-cards&quot;))
+lfe&gt; (set g (mref r &#39;graph))
+lfe&gt; (graffeo:no_vertices g)
+3061
+lfe&gt; (graffeo:no_edges g)
+14341
+</code></pre>
+<p>3,061 vertices breaks down as 1,664 source vertices + 1,397 abstract vertices, the latter being 1,394 <em>carded</em> abstract concepts plus 3 <em>ghost</em> concepts (referenced as prerequisites but never written up). We meet the ghosts in §5.7.</p>
+<p>Note: if you are getting zero cards and if this returns an empty list:</p>
+<pre><code class="language-lfe">lfe&gt; (filelib:wildcard &quot;../../workbench/ai-engineering/knowledge/erlang/concept-cards/*&quot;)
+()
+</code></pre>
+<p>The you might have forgotten to perform the following in the <code>erlang-concepts</code> directory:</p>
+<pre><code class="language-shell">make fetch-cards
+</code></pre>
+<p>The abstract-edge breakdown is worth pulling out, because it tells you something about the <em>texture</em> of how the corpus is annotated:</p>
+<table><thead><tr><th>type</th><th style="text-align: right">count</th><th>reading</th></tr></thead><tbody>
+<tr><td><code>related</code></td><td style="text-align: right">3917</td><td>"see also"</td></tr>
+<tr><td><code>prerequisites</code></td><td style="text-align: right">2158</td><td>"you need X first"</td></tr>
+<tr><td><code>contrasts_with</code></td><td style="text-align: right">591</td><td>"don't confuse X with Y"</td></tr>
+<tr><td><code>extends</code></td><td style="text-align: right">299</td><td>"X is a special case of Y"</td></tr>
+</tbody></table>
+<p>So <code>related</code> is half of all assertions, <code>prerequisites</code> is a quarter, and the structural types together (<code>contrasts_with</code> + <code>extends</code>) are 14%. The corpus is associatively rich and structurally sparse — exactly what you'd expect from material distilled from twelve different books each of which made its own decisions about what to formally lay out.</p>
+<p>The graph $G$ on disk is now a single graffeo value. Every query below operates on it.</p>
+<h3>5.2 Degree: who is the centre of OTP?</h3>
+<p>The simplest <strong>centrality</strong> measure in graph theory is also the one a working programmer already knows by another name: degree. In a directed graph, every vertex $v$ has an <em>out-degree</em> $d^+(v)$ (the number of edges leaving $v$) and an <em>in-degree</em> $d^-(v)$ (the number entering); the <em>total degree</em> is $d(v) = d^+(v) + d^-(v)$. graffeo's <code>top_k_by_degree/2</code> ranks vertices by total degree:</p>
+<pre><code class="language-lfe">(defun top-concepts-by-degree (g k)
+  (let ((ag (project-abstract-relations g)))
+    (graffeo:top_k_by_degree ag k)))
+</code></pre>
+<p>Run it on the abstract layer:</p>
+<pre><code class="language-">lfe&gt; (lfeerlcpt-queries:top-concepts-by-degree g 5)
+(#(#&quot;gen-server&quot; 118)
+ #(#&quot;pattern-matching&quot; 92)
+ #(#&quot;otp-application&quot; 86)
+ #(#&quot;message-passing&quot; 84)
+ #(#&quot;process&quot; 71))
+</code></pre>
+<p>Anyone who has shipped Erlang reading that list nods: <code>gen_server</code>, pattern matching, message passing, applications, supervisors. The graph has reconstructed the OTP <strong>syllabus</strong> from nothing but cross-references, with no human ranking anything by hand.</p>
+<p>Why does this crude measure already work? The answer is structural: in a knowledge graph distilled from many independent authors, ideas that <em>many other ideas</em> depend on are inevitably ones the authors think a learner has to internalise. Authors echo each other on the load-bearing pieces. So in a corpus that is honest about what relates to what, you get for free a <em>democratic vote</em> on what matters — counted by edge mass.</p>
+<p>There is a long bench of richer centralities — <strong>betweenness</strong> (how often a vertex sits on shortest paths between other pairs), <strong>closeness</strong> (the reciprocal of the average shortest-path distance to all other vertices), <strong>eigenvector</strong> centrality (a vertex is important if it's connected to other important vertices), <strong>PageRank</strong> (eigenvector with a damping term). Each fixes a specific weakness of degree: degree doesn't notice that a vertex with two well-placed neighbours can be more central than one with twenty peripheral ones; degree can't tell a <em>hub</em> from a <em>bridge</em>; degree is fooled by trivially-popular things. graffeo will grow some of these (PageRank is on the roadmap), but it's worth being honest about the trade: each of them costs $O(V \cdot E)$ or worse, and on a corpus like this the cheapest measure is already so accurate that the marginal information from running PageRank is small. Reach for the heavier measures when degree disagrees with your intuition, not before.</p>
+<h3>5.3 Neighbourhoods, and the radius dial</h3>
+<p>Degree counts; the neighbours themselves are more interesting. graffeo's <code>out_neighbours/2</code> and <code>in_neighbours/2</code> give you the immediate forward and backward neighbours:</p>
+<pre><code class="language-">lfe&gt; (graffeo:out_neighbours g #&quot;gen-server&quot;)
+(#&quot;behaviour&quot; #&quot;callback-module&quot; #&quot;client-server-model&quot;
+ #&quot;generic-server&quot; #&quot;message-passing&quot; #&quot;otp-behaviours&quot;
+ #&quot;process-state-loop&quot; ...)
+</code></pre>
+<p>These are the abstract-layer concepts <code>gen-server</code> <em>points at</em> — the concepts it depends on, extends, contrasts with, or is associatively related to (the four edge types all union here). To get the typed neighbourhood for a single relationship, project first:</p>
+<pre><code class="language-lfe">(defun out-neighbours-by-type (g v type)
+  (graffeo:out_neighbours (project-by-type g type) v))
+</code></pre>
+<p>The open neighbourhood $N^+(v) = \{u : (v, u) \in E\}$ and its closed counterpart $N^+[v] = N^+(v) \cup \{v\}$ are the most natural local measure of "what's near a vertex." But on a two-layer graph, "local" has <em>two</em> honest scales, and this is where the model really starts to earn its keep.</p>
+<p>The cheap (source-local) view stays inside one book:</p>
+<pre><code class="language-lfe">(defun related-cheap (g source-slug concept-slug)
+  (let* ((src-v (tuple source-slug concept-slug))
+         (nbrs (graffeo:out_neighbours g src-v))
+         (src-nbrs (lc ((&lt;- n nbrs)
+                       (andalso (is_tuple n)
+                                (=:= (element 1 n) source-slug)))
+                      n)))
+    (lists:usort
+     (lc ((&lt;- pair src-nbrs)
+          (let (((tuple _ target-slug) pair))
+            (case (graffeo:edge_meta g src-v (tuple source-slug target-slug))
+              ((tuple &#39;ok (map &#39;label (map &#39;types types)))
+               (lists:member &#39;related types))
+              (_ &#39;false))))
+         (element 2 pair)))))
+</code></pre>
+<p>The expensive (cross-book) view walks up through membership, sideways to other books' cards for the same concept, and gathers each book's local <code>related</code> neighbours:</p>
+<pre><code class="language-lfe">(defun related-extended (g source-slug concept-slug)
+  (let* ((local (related-cheap g source-slug concept-slug))
+         (in-nbrs (graffeo:in_neighbours g concept-slug))
+         (sibling-cards (lc ((&lt;- v in-nbrs)
+                             (andalso (is_tuple v)
+                                      (=/= (element 1 v) source-slug)
+                                      (=:= (element 2 v) concept-slug)))
+                            v))
+         (sibling-related (lists:flatmap
+                           (lambda (v)
+                             (let (((tuple sib-src _) v))
+                               (related-cheap g sib-src concept-slug)))
+                           sibling-cards)))
+    (lists:usort (lists:append local sibling-related))))
+</code></pre>
+<p>The smaller a concept is, the more dramatic the difference. <code>anonymous-variable</code> appears in two books; <em>Erlang/OTP in Action</em> links it only to "variable":</p>
+<pre><code class="language-">lfe&gt; (lfeerlcpt-queries:related-cheap g
+                                 #&quot;erlang-otp-action&quot;
+                                 #&quot;anonymous-variable&quot;)
+(#&quot;variable&quot;)
+lfe&gt; (lfeerlcpt-queries:related-extended g
+                                    #&quot;erlang-otp-action&quot;
+                                    #&quot;anonymous-variable&quot;)
+(#&quot;list&quot; #&quot;single-assignment-variable&quot; #&quot;tuple&quot;
+ #&quot;underscore-prefixed-variables&quot; #&quot;variable&quot;)
+</code></pre>
+<p>The extended query traverses <em>forward</em> along membership to the concept, then <em>backward</em> down to sibling cards. That backward walk is graffeo's first-class reverse traversal — graffeo gives you <code>in_neighbours</code> directly, no auxiliary "reverse graph" to construct, no $O(E)$ index inversion at query time. This is the kind of operation that, on a less considered API, becomes painful: in raw <code>digraph</code>, you'd build a reverse index yourself, and you'd remember to invalidate it after edits. The fact that graffeo treats the reverse direction as a peer of the forward direction is what makes the extended query writable in the eight lines above rather than fifty.</p>
+<p>The composite operation — <em>forward along type A, then backward along type A, then forward along type B</em> — is exactly a <a href="https://en.wikipedia.org/wiki/Relational_algebra#Joins_and_join-like_operators">relational join</a> projected through a graph. graph theory and relational algebra are the same subject seen from different angles; if you've ever written a SQL self-join, you've already done this. The graph view tends to be more compact when there are more than two joins in flight.</p>
+<h3>5.4 Is the corpus one body, or an archipelago?</h3>
+<p>Here is the first question that depends on a non-trivial graph-theoretic <em>theorem</em> rather than just a definition. The question is: <em>which concepts can you reach from which others, ignoring direction?</em></p>
+<p>The technical name for the answer is <strong>connected components</strong>. A connected component of an <em>undirected</em> graph is a maximal set of vertices such that for any two vertices $u, v$ in the set there is a path between them; in the directed setting we read every edge as undirected and the same definition applies. The components of a graph form a partition of the vertex set; equivalently, <em>"is in the same component as"</em> is an equivalence relation. (Reflexivity: trivially. Symmetry: paths can be reversed. Transitivity: paths can be concatenated.)</p>
+<p>graffeo computes the components in $O(V + E)$ via a single pass of breadth-first search (BFS):</p>
+<pre><code class="language-lfe">(defun related-components (g)
+  (let* ((rg (project-by-type g &#39;related))
+         (components (graffeo:components rg))
+         (sorted (lists:sort (lambda (a b)
+                               (&gt;= (length a) (length b)))
+                             components))
+         (giant-size (case sorted
+                       ((cons giant _) (length giant))
+                       (() 0))))
+    (tuple (length components) giant-size sorted)))
+</code></pre>
+<p>Ask it of the <code>related</code> projection:</p>
+<pre><code class="language-">lfe&gt; (set (tuple count giant _) (lfeerlcpt-queries:related-components g))
+lfe&gt; (tuple count giant)
+#(19 1151)
+</code></pre>
+<p><strong>Nineteen components, one of them a giant of 1,151 concepts.</strong> That giant is the connected core of Erlang knowledge: the long-running argument that the language is <em>one</em> thing with one canon. The eighteen smaller islands are intellectual neighbourhoods that happen not to "see also" the core.</p>
+<p>What are they? The largest satellite is 121 concepts of <strong>coding-style</strong> material — <code>avoid-case-catch</code>, <code>camelcase-variables</code>, <code>100-column-line-limit</code>, drawn mostly from the Inaka guidelines and the OTP programming rules. It floats free because style guides cite style guides; their authors didn't tend to write <code>related: gen-server</code> lines from inside style-guide cards. The next island is <strong>tracing and diagnostics</strong> — <code>recon-trace</code>, <code>match-specification</code>, <code>tracing-principles</code>, <code>dbg</code>. Then smaller pockets around distinct subdomains.</p>
+<p>This is a <em>finding</em>, not a parameter: the graph has automatically sorted the corpus into its natural neighbourhoods. If you handed someone a stack of 1,400 cards and asked them to draw the natural clusters, they wouldn't be done by the end of the week. The graph does it in $O(V + E)$.</p>
+<p>Now widen the relation. Run the same query on the <em>union</em> of all four edge types, not just <code>related</code>:</p>
+<pre><code class="language-lfe">(defun semantic-components (g)
+  (let* ((ag (project-abstract-relations g))
+         (components (graffeo:components ag))
+         (sorted (lists:sort (lambda (a b)
+                               (&gt;= (length a) (length b)))
+                             components))
+         (giant-size (case sorted
+                       ((cons giant _) (length giant))
+                       (() 0))))
+    (tuple (length components) giant-size sorted)))
+</code></pre>
+<pre><code class="language-">lfe&gt; (set (tuple c2 g2 _) (lfeerlcpt-queries:semantic-components g))
+lfe&gt; (tuple c2 g2)
+#(10 1212)
+</code></pre>
+<p>Nineteen components have fallen to <strong>ten</strong>; the giant has grown from 1,151 to 1,212. The delta isn't decoration — it's measurement. Nine islands were bridged once you let <code>prerequisites</code>, <code>extends</code>, and <code>contrasts_with</code> count, not just <code>related</code>. That tells you something important about how the corpus is annotated: the structural relationships do work that the associative ones don't. Many concepts that nobody bothered to mark as "see also" are nonetheless <em>needed</em> by something in the core.</p>
+<p>There's a beautiful corollary of how connected components are computed: the standard algorithm has the same structure as <strong>union-find</strong> (also called the <em>disjoint set forest</em>). Each vertex starts in its own component; each edge unions the components of its endpoints; the answer is the partition you end up with. With <em>path compression</em> and <em>union by rank</em>, the amortised cost per operation is effectively constant — formally, $O(\alpha(n))$ where $\alpha$ is the inverse Ackermann function, which is bounded by 4 for any input size you will ever actually meet. graffeo's <code>components/1</code> uses the BFS form rather than union-find, because BFS gives you each component as a <em>list</em> directly, which is what you want for downstream queries.</p>
+<p>The fact that the giant component dominates is itself a structural signature. In Erdős–Rényi random graphs, there is a sharp threshold at average degree 1 below which there is no giant and above which there is exactly one, taking up an asymptotic fraction of all vertices. Real-world graphs almost never look exactly like Erdős–Rényi — they tend to be much more clustered, with a heavier-tailed degree distribution — but the <em>giant-component-plus-small-islands</em> pattern is so universal across human-curated graphs that it's almost a tautology. What's interesting here isn't <em>that</em> there's a giant, but <em>what the islands are</em>.</p>
+<h3>5.5 Reachability: the whole shadow of a concept</h3>
+<p>Components ignore direction. Prerequisites do not — "you need X first" is an arrow. Following those arrows transitively answers: <em>everything you must understand before you can claim to understand this concept.</em> That's <strong>reachability</strong>, and it's a different question from connectivity.</p>
+<p>A vertex $v$ is <strong>reachable</strong> from a vertex $u$ in a directed graph if there is a directed path $u = w_0 \to w_1 \to \dots \to w_k = v$. The set of all vertices reachable from $u$ is the <em>forward transitive closure</em> of $\{u\}$; graffeo exposes it as <code>reachable/2</code>. Hand it the prerequisite projection and ask for the transitive closure of <code>gen-server</code>:</p>
+<pre><code class="language-">lfe&gt; (set pg (lfeerlcpt-queries:project-by-type g &#39;prerequisites))
+lfe&gt; (length (graffeo:reachable pg (list #&quot;gen-server&quot;)))
+57
+</code></pre>
+<p>Now do the same for <code>supervisor</code> and <code>supervision-tree</code>:</p>
+<pre><code class="language-">lfe&gt; (length (graffeo:reachable pg (list #&quot;supervisor&quot;)))
+57
+lfe&gt; (length (graffeo:reachable pg (list #&quot;supervision-tree&quot;)))
+57
+</code></pre>
+<p>Three different starting points, one identical prerequisite universe. That is <em>not</em> a coincidence and it is <em>not</em> a bug. To explain what is happening we need one more idea, but for now: the graph is telling you that these three concepts are mutually entangled tightly enough that whichever you start from, the prerequisite universe is the same. They are, in some technical sense, the same concept seen from three angles. To name that technical sense is the work of the next section.</p>
+<p>Reachability's algorithm under the hood is BFS or DFS — pick one — and the cost is $O(V + E)$ per starting set. On graphs much larger than ours, computing the <em>full transitive closure</em> (every pair $(u, v)$ such that $v$ is reachable from $u$) is the $O(V^3)$ Floyd–Warshall problem, which is one of those algorithms whose constant factors are nice enough to be practical out to a few thousand vertices and useless beyond. graffeo doesn't compute full TC; it computes the <em>forward closure of a given starting set</em>, which is what you actually want 95% of the time and which costs $O(V + E)$ regardless of how many other vertices you don't care about.</p>
+<p>A quick proof of the asymmetry between the "forward closure of one vertex" and "full TC": for a vertex $v$ with out-degree $0$, the forward closure of $\{v\}$ is $\{v\}$, computed in $O(1)$. Full TC has to discover this for every such vertex, of which there can be many. Conversely, if every vertex is reachable from every other vertex (a <em>strongly connected</em> graph), then the forward closure of any one vertex is already the entire vertex set — the cost is $O(V + E)$, but the answer is everything. Full TC in that case is $V^2$ pairs, all of them present. The work is bounded by the <em>answer size</em> in either case; for one-vertex closure the answer can be much smaller, and graffeo lets it be.</p>
+<h3>5.6 Cycles, SCCs, condensation, and the order that survives them</h3>
+<p>If "prerequisite" meant what it says, the prerequisite graph would be <em>acyclic</em>. There would be no path that starts at $X$, follows prerequisite arrows, and returns to $X$ — because that would say $X$ is a prerequisite of itself.</p>
+<p>Test it:</p>
+<pre><code class="language-lfe">(defun prerequisite-cycles (g)
+  (let* ((pg (project-by-type g &#39;prerequisites))
+         (is-cyclic (not (graffeo:is_acyclic pg)))
+         (cscs (graffeo:cyclic_strong_components pg))
+         (cycles (lc ((&lt;- c cscs) (&gt;= (length c) 2))
+                     (lists:sort c))))
+    (tuple is-cyclic (lists:sort cycles))))
+</code></pre>
+<pre><code class="language-">lfe&gt; (set (tuple is-cyclic cycles) (lfeerlcpt-queries:prerequisite-cycles g))
+lfe&gt; (tuple is-cyclic (length cycles))
+#(true 12)
+</code></pre>
+<p>Twelve <strong>strongly connected components</strong> of size greater than 1. Some of them are mutual pairs (<code>event-handler ⇄ gen-event-behavior</code>, <code>ct-test-case ⇄ ct-test-suite</code>). One is a ten-concept knot: <code>supervisor</code>, <code>gen-server</code>, <code>child-specification</code>, <code>behaviour</code>, <code>supervision-tree</code>, <code>worker-process</code>, and four others, all mutually entangled. <em>That</em> is why §5.5's three closures were identical — those three concepts live in this single SCC, so they share one forward closure by definition.</p>
+<p>We need to define a few things precisely.</p>
+<p>A <strong>strongly connected component</strong> of a directed graph $G$ is a maximal set of vertices $S \subseteq V$ such that for every pair $u, v \in S$ there is both a directed path from $u$ to $v$ <em>and</em> a directed path from $v$ to $u$. The SCCs partition $V$ (it's again an equivalence relation, by exactly the same three-step argument as before — reflexivity, symmetry now requiring directed paths in both directions, transitivity by concatenation).</p>
+<p>A directed graph is <strong>acyclic</strong> if and only if every SCC is a singleton. Proof: if every SCC is a singleton, no two distinct vertices are mutually reachable, so no directed path can return to its start (it would have to involve some other vertex by which the start could be reached); conversely, if any SCC has $\geq 2$ vertices, pick any two distinct $u, v \in S$, take a path $u \to v$ and a path $v \to u$, concatenate, and you have a cycle through $u$.</p>
+<p>The clever bit: even if $G$ has cycles, you can still extract a useful order from it by collapsing each SCC to a single super-vertex. The result is called the <strong>condensation</strong> of $G$, written $G^{\mathrm{SCC}}$ or $C(G)$. Its vertex set is the set of SCCs; its edges are <em>"there exists an edge from a vertex in $S$ to a vertex in $T$"</em>, for distinct SCCs $S$ and $T$.</p>
+<p>The theorem that makes condensation worth caring about: <strong>The condensation of any directed graph is a DAG (directed acyclic graph).</strong> Proof: suppose for contradiction that $C(G)$ contains a cycle $S_1 \to S_2 \to \dots \to S_k \to S_1$ on distinct SCCs. Pick representatives $v_i \in S_i$. Then there are paths $v_i \rightsquigarrow v_{i+1}$ in $G$ for each $i$ (by definition of an edge in $C(G)$), and within each $S_i$ there are paths between any two vertices. Concatenate: there's a path from $v_1$ to itself through $v_2, \dots, v_k$. So $v_1$ is in the same SCC as $v_2$, which contradicts $S_1$ and $S_2$ being distinct SCCs. $\square$</p>
+<p>That theorem is the load-bearing piece: any directed graph admits a canonical DAG built from its cycles, and any DAG admits a <strong>topological order</strong>. The order on the original graph that you get back is partial — within an SCC, no concept truly precedes another — but across SCCs it's total and consistent.</p>
+<p>graffeo wraps this up as:</p>
+<pre><code class="language-lfe">(defun learning-order (g)
+  (let* ((pg (project-by-type g &#39;prerequisites))
+         (condensed (graffeo:condensation pg)))
+    (graffeo:topsort condensed)))
+</code></pre>
+<pre><code class="language-">lfe&gt; (set (tuple &#39;ok order) (lfeerlcpt-queries:learning-order g))
+lfe&gt; (length order)
+1204
+</code></pre>
+<p>The 34 entangled concepts (the union of the twelve cyclic SCCs) have collapsed into 12 super-vertices, leaving a 1,204-node DAG that sorts cleanly. 1,204 + 34 − 12 ≠ 1,397 because the prerequisite projection drops the concepts that are <em>involved in no prerequisite relationship at all</em>; the topsort is over the active subgraph only.</p>
+<p>One precision point that always trips careful readers: in this corpus, the prerequisite edge runs <em>concept → prerequisite</em>. (A card for <code>gen-server</code> lists <code>behaviour</code> as a prerequisite, so the edge is <code>gen-server → behaviour</code>.) <code>graffeo:topsort/1</code> puts the tail of each edge before its head, so the returned <code>order</code> lists <code>gen-server</code> <em>before</em> <code>behaviour</code>. A learning sequence (foundations first) is that order reversed. The mathematics doesn't care which way you read a total order; you do.</p>
+<p>A word on the algorithm, because it's one of the most beautiful in classical algorithmics. Two correct algorithms for SCCs exist. <strong>Kosaraju's</strong> is the easier one to explain: run a DFS over $G$, push each vertex onto a stack when its DFS subtree is finished, then run a second DFS over the <em>transpose</em> $G^T$ (every edge reversed) in stack order, and each DFS tree from the second pass is one SCC. The reason this works is the lovely interaction between the DFS finishing-order on $G$ and the reachability structure on $G^T$ — vertices with the latest finishing time are in <em>sink</em> SCCs of $G$, which are <em>source</em> SCCs of $G^T$. The second pass discovers them one at a time without cross-contamination.</p>
+<p><strong>Tarjan's</strong> algorithm does it in one pass, using a stack and a low-link number to detect when a DFS subtree is fully enclosed within an SCC. It is more compact, has tighter constants, and has the lovely property that SCCs come out in reverse topological order. graffeo uses Tarjan's. Both are $O(V + E)$, which is asymptotically optimal — you can't find SCCs without looking at every edge at least once.</p>
+<p>Whether each cyclic SCC in our corpus is a real modelling defect (someone wrote the card poorly) or an honest statement that two ideas are <em>co-requisite</em> (you genuinely can't have one without the other) is a judgement call, and the graph doesn't make it for you. What the graph does is <strong>localise</strong> all twelve cycles for human adjudication, which is the hard part done.</p>
+<h3>5.7 Ghost concepts</h3>
+<p>A small but instructive query: which abstract concepts are <em>referenced</em> but have no card written for them?</p>
+<pre><code class="language-lfe">(defun ghost-concepts (g)
+  (let ((abs-vs (lfeerlcpt-ingest:abstract-vertices g)))
+    (lists:sort
+     (lc ((&lt;- slug abs-vs)
+          (let ((in-nbrs (graffeo:in_neighbours g slug)))
+            (not (lists:any (lambda (n) (is_tuple n)) in-nbrs))))
+         slug))))
+</code></pre>
+<p>A "ghost" is an abstract vertex with no incoming <em>tuple-shaped</em> edges — that is, no membership edge from a source card. It exists in the graph because <em>some other</em> card listed it as a prerequisite or related concept, but no book actually documents it.</p>
+<pre><code class="language-">lfe&gt; (lfeerlcpt-queries:ghost-concepts g)
+(#&quot;erlang-ports&quot; #&quot;os-monotonic-time&quot; #&quot;os-system-time&quot;)
+</code></pre>
+<p>Three of them. They are obvious gaps in the corpus — <code>os:system_time/0</code> is a standard library function that several cards depend on but nobody wrote a card for. This is a different kind of finding from anything we've seen so far: it's a <em>data quality</em> finding, surfaced as a structural property of the graph. "<em>Vertices with no incoming membership edges</em>" is the structural restatement of <em>"concepts I forgot to write up."</em> The graph has done the bookkeeping that a human reviewer would otherwise have to do by hand.</p>
+<h3>5.8 Weighted shortest paths: the minimum-surprise learning path</h3>
+<p>Everything we've done so far is structural — edges are present or absent. graffeo also carries weighted shortest paths (<code>dijkstra/2,3</code>, <code>astar/3,4</code>) with a pluggable cost function. That opens a qualitatively different question: not <em>can</em> you get from concept $X$ to concept $Y$, but what's the <em>gentlest</em> route — the path through the most-trusted relationships in the corpus.</p>
+<p>The cards assert no explicit numerical weights, so we have to design them out of what the corpus <em>does</em> tell us. Every abstract-layer edge carries an <code>asserted_by</code> set — the list of books that drew that relationship. An edge asserted by six books is consensus; an edge asserted by one is a single author's opinion. A natural cost function:</p>
+<p>$$w(u \to v) = \frac{1}{|\mathrm{asserted\_by}(u \to v)|}$$</p>
+<p>A well-asserted edge has a low cost; an idiosyncratic one has a high cost. Then a shortest path from "a concept I know" to "a concept I don't" minimises the total <em>idiosyncrasy</em> — it routes through the well-trodden middle of the corpus, the edges every author drew.</p>
+<p>This is also a beautifully self-contained cost function: it reads off the edge's own metadata and needs nothing else. That matters, because graffeo's <code>dijkstra</code> is specified to call its cost function as <code>cost(meta) -&gt; number</code> — only the metadata of the edge being relaxed, not the endpoints. If we wanted "cost from the target's properties" (e.g. coverage breadth of the destination vertex), we'd have to pre-bake those properties into edge metadata with a graph rewrite before running Dijkstra. The assertion-count cost avoids that detour.</p>
+<p>Here it is:</p>
+<pre><code class="language-lfe">(defun gentlest-path (g from-concept _to-concept)
+  (let* ((pg (project-by-type g &#39;prerequisites))
+         (cost (lambda (meta)
+                 (case meta
+                   ((map &#39;label (map &#39;asserted_by asserters))
+                    (/ 1.0 (length asserters)))
+                   (_ 1.0)))))
+    ;; Returns a map of target -&gt; #(distance predecessor).
+    ;; Caller looks up `_to-concept` to reconstruct the path.
+    (graffeo:dijkstra pg from-concept (map &#39;cost cost))))
+</code></pre>
+<p><code>graffeo:dijkstra/3</code> takes the graph, a source vertex, and an options map; <code>'cost</code> is a function <code>meta -&gt; non-negative number</code>. The result is a map of <code>target → {distance, predecessor}</code>, from which you can reconstruct the actual path.</p>
+<p>(For completeness: if you wanted the original "1 / coverage(target)" weighting, you'd write a <code>weight-by-coverage</code> helper that walks every edge of the prerequisite projection, looks up the <em>target's</em> in-degree from source-layer cards, and re-adds the edge with a <code>weight</code> field set on the meta. Then graffeo's <code>default_cost</code> — which reads <code>weight</code> if present — picks it up automatically. The exercise is left to the curious reader; <code>coverage-of</code> from below gives you the per-target number.)</p>
+<pre><code class="language-lfe">(defun coverage-of (g slug)
+  (let ((in-nbrs (graffeo:in_neighbours g slug)))
+    (length
+     (lists:usort
+      (lc ((&lt;- v in-nbrs) (is_tuple v))
+          (element 1 v))))))
+</code></pre>
+<p><code>coverage-of</code> isn't called by <code>gentlest-path</code> itself, but it's exported because it's the natural building block for the alternative weighting — and a useful query in its own right ("how widely is this concept documented?").</p>
+<p>Why <strong>Dijkstra</strong> for this and not BFS? BFS gives you shortest paths <em>measured in number of edges</em>; Dijkstra gives you shortest paths <em>measured in total weight</em>, provided every edge weight is non-negative. The two coincide if every edge weight is 1. The non-negativity precondition is essential — Dijkstra's correctness proof leans on the fact that the first time a vertex is finalised, its tentative distance cannot be improved by going through a <em>further-away</em> vertex, which would have to add non-negative cost. With negative edges (which our weights don't have, but it's worth knowing why) you need Bellman–Ford, which is $O(V \cdot E)$ instead of Dijkstra's $O((V + E) \log V)$ with a binary heap.</p>
+<p>For one-to-one queries (you have a specific source and a specific destination), <strong>A</strong><em>improves on Dijkstra by directing the search using a heuristic estimate of the remaining distance. graffeo's <code>astar/4</code> takes both a <code>'cost</code> and a <code>'heuristic</code> option, the latter being a function <code>target -&gt; non-negative number</code> that estimates the remaining cost from <code>target</code> to the goal. If the heuristic is <em>admissible</em> (never overestimates the true remaining cost) and <em>consistent</em> (the triangle inequality holds), A</em> finds the optimal path while expanding far fewer vertices than Dijkstra. For our learning-path use, a useful admissible heuristic is the <strong>graph-theoretic distance</strong> (edge count) from <code>target</code> to the goal, scaled by the <em>minimum</em> edge cost in the graph — that gives a lower bound on the remaining weighted cost.</p>
+<p>A real run, asking for the gentlest path from <code>pattern-matching</code> (well-known) to <code>recon-trace</code> (deep diagnostics territory):</p>
+<pre><code class="language-">lfe&gt; (set result (lfeerlcpt-queries:gentlest-path g
+                                                  #&quot;pattern-matching&quot;
+                                                  #&quot;recon-trace&quot;))
+;; reconstruct the path from `result` (a map of target -&gt; {dist, pred})
+#(#M(#&quot;atom&quot; 0.6666666666666666 #&quot;erlang-term&quot; 0.8333333333333333
+     #&quot;list&quot; 0.3333333333333333 #&quot;pattern-matching&quot; 0
+     #&quot;single-assignment&quot; 1.0 #&quot;single-assignment-variable&quot; 1.0
+     #&quot;term&quot; 1.0 #&quot;tuple&quot; 0.3333333333333333 #&quot;variable&quot; 1.0
+     #&quot;variables&quot; 2.0)
+  #M(#&quot;atom&quot; #&quot;tuple&quot; #&quot;erlang-term&quot; #&quot;list&quot;
+     #&quot;list&quot; #&quot;pattern-matching&quot;
+     #&quot;single-assignment&quot; #&quot;pattern-matching&quot;
+     #&quot;single-assignment-variable&quot; #&quot;pattern-matching&quot;
+     #&quot;term&quot; #&quot;pattern-matching&quot; #&quot;tuple&quot; #&quot;pattern-matching&quot;
+     #&quot;variable&quot; #&quot;pattern-matching&quot;
+     #&quot;variables&quot; #&quot;single-assignment&quot;))
+</code></pre>
+<p>You'll find a short route weighted toward edges many books agreed on — well-trodden stepping stones. Compare with an unweighted shortest path (BFS-distance, edge-count optimal), and you'll often find a <em>longer</em> route — measured in edges — but a <em>gentler</em> one — measured in consensus mass. The point of the weighting is to spend more hops on familiar ground to land softer at the end.</p>
+<p>This kind of pluggable cost function — bring your own metric, graffeo runs the search — is what makes the library suitable as a substrate for downstream domain reasoning. Curriculum design, dependency-aware build ordering, message routing in a known-topology cluster, even queuing-theoretic models on top of process graphs: all of them are shortest-path queries on top of a weight function that the domain author writes.</p>
+<h2>6. The runner</h2>
+<p>The runner ties the catalog into a single CLI entry point:</p>
+<pre><code class="language-lfe">(defmodule lfeerlcpt
+  (export (main 1)
+          (cards-dir 0)))
+
+(defun cards-dir ()
+  &quot;../../workbench/ai-engineering/knowledge/erlang/concept-cards&quot;)
+
+(defun main (_args)
+  (let* ((base (cards-dir))
+         (_ (io:format &quot;=== Erlang Concepts Knowledge Graph (LFE) ===~n~n&quot;))
+         (_ (io:format &quot;Building graph from ~s ...~n&quot; (list base)))
+         (result (lfeerlcpt-ingest:build-from-dir base))
+         (g (mref result &#39;graph)))
+    (print-summary g result)
+    (print-prerequisite-cycles g)
+    (print-learning-order g)
+    (print-related-components g)
+    (print-semantic-components g)
+    (print-top-concepts g)
+    (print-ghost-concepts g)
+    (print-tunable-relatedness g)
+    &#39;ok))
+</code></pre>
+<p>Each <code>print-*</code> function is a thin display wrapper over a query — the same shape as the Erlang runner, line for line.</p>
+<p>To drive the whole catalog from the shell, we need one tiny thing. <code>rebar3 lfe run</code> is built on top of <code>lfescript</code>, which expects a <strong>script-style</strong> LFE file: a top-level <code>(defun main (args) ...)</code> with <em>no</em> <code>(defmodule ...)</code> wrapper. Our <code>lfeerlcpt.lfe</code> is a proper module (so it can be called from anywhere in the project), which means it can't be fed straight to <code>lfescript</code>. The fix is a one-line shim:</p>
+<pre><code class="language-lfe">;; scripts/run-lfe-example.lfe
+(defun main (args)
+  (lfeerlcpt:main args))
+</code></pre>
+<p>That's the whole script — no module, no exports, just a top-level <code>main/1</code> that delegates to the real runner. Now this works:</p>
+<pre><code class="language-shell">rebar3 lfe run --main scripts/run-lfe-example.lfe
+</code></pre>
+<p>If you'd rather drop the <code>--main</code> flag, set the script as the project's default main once in <code>rebar.config</code>:</p>
+<pre><code class="language-erlang">{lfe, [{main, &quot;scripts/run-lfe-example.lfe&quot;}]}.
+</code></pre>
+<p>And then <code>rebar3 lfe run</code> works on its own.</p>
+<p>From the REPL — no script needed — the call is direct:</p>
+<pre><code class="language-">lfe&gt; (lfeerlcpt:main &#39;())
+</code></pre>
+<p>The example's <code>make example</code> target still runs the Erlang version. If you want a shortcut for the LFE version, add to your <code>Makefile</code>:</p>
+<pre><code class="language-makefile">example-lfe: fetch-cards compile
+ @rebar3 lfe run --main scripts/run-lfe-example.lfe
+</code></pre>
+<h2>7. Exercises</h2>
+<p>Now that the catalog is in your hands, here are five exercises in increasing depth. The first three are direct queries you can run today; the last two are genuinely open.</p>
+<ol>
+<li>
+<p><strong>Most central within one book.</strong> Restrict the abstract layer to just the cards in <em>Learn You Some Erlang</em>, run <code>top_k_by_degree</code>, and compare against the OTP Design Principles. Are LYSE's central concepts the same as OTPDP's, or do they differ? <em>Hint:</em> <code>graffeo:subgraph/2</code> lets you build a sub-view from a vertex list.</p>
+</li>
+<li>
+<p><strong>Lonely concepts.</strong> Of the 1,394 carded concepts, 1,213 appear in exactly one book. Find the ones that are <em>also</em> graph leaves (out-degree zero in the abstract layer) — the genuinely isolated ideas. These are candidates for either consolidation or removal.</p>
+</li>
+<li>
+<p><strong>The ghosts.</strong> <code>ghost-concepts/1</code> returns three. For each, look at the cards that <em>referenced</em> it and decide: should the corpus add a card for it, or is the reference a misnomer that should be rewritten?</p>
+</li>
+<li>
+<p><strong>Longest chain.</strong> In the <em>condensed</em> prerequisite graph, find the longest directed path. The length of that path is the deepest prerequisite stack in all of Erlang/OTP. <em>Hint:</em> on a DAG, longest path can be computed in $O(V + E)$ by dynamic programming over the reverse topological order. (On a general graph it's NP-hard. Condensation buys you the DAG.)</p>
+</li>
+<li>
+<p><strong>Bridges and articulation points.</strong> A <strong>bridge</strong> is an edge whose removal disconnects a connected component; an <strong>articulation point</strong> is a vertex with the same property. The classical algorithm finds them in one DFS pass, using low-link numbers analogous to Tarjan's SCC algorithm. graffeo doesn't ship this yet — but you have everything you need to write it. <em>Hint:</em> look at the small island components (§5.4) and see if any of them are held together by single vertices that, if removed, would split the island. Those are the concepts whose removal would most damage the connectivity of the local subgraph; they're worth knowing.</p>
+</li>
+</ol>
+<h2>8. Where to go next</h2>
+<p>The graph algorithms we used — <code>components</code>, <code>cyclic_strong_components</code>, <code>condensation</code>, <code>topsort</code>, <code>top_k_by_degree</code>, <code>out_neighbours</code>/<code>in_neighbours</code>, <code>reachable</code>, <code>filter_edges</code>, <code>contract</code>, <code>dijkstra</code> — are the graffeo public surface. Every one is written against the read-half <em>behaviour</em> <code>graffeo_backend</code>, which means the same algorithm code runs over the value tier (the default, map-of-maps, immutable), the handle tier (<code>digraph</code>/ETS, mutable), and the forthcoming <code>dets</code> on-disk tier. Your queries above will run unchanged when you swap backends. This example is in fact the acceptance harness for the <code>dets</code> backend; the test is that all three backends return identical answers on the same corpus.</p>
+<p>If you want to keep teaching yourself graph theory, three suggestions:</p>
+<ul>
+<li>
+<p>Read <strong>the <a href="https://en.wikipedia.org/wiki/Robert_Tarjan">Tarjan papers</a></strong> on SCCs and on articulation points. They were short and full of insight when they were published in the 1970s; they still are. The interplay between DFS finishing order and low-link numbers is one of the small handful of genuinely beautiful results in algorithmics.</p>
+</li>
+<li>
+<p>Pick up <strong><a href="https://global.oup.com/academic/product/networks-9780198805090">Newman's <em>Networks</em> (2nd ed., 2018)</a></strong> for the empirical, network-science end of graph theory — degree distributions, clustering coefficient, modularity, community detection. Most of what's in Newman applies directly to the kind of corpus-derived graph we built here.</p>
+</li>
+<li>
+<p>For the theorem-and-proof end, <strong><a href="https://diestel-graph-theory.com/">Diestel's <em>Graph Theory</em></a></strong> is the standard graduate text, with the lovely property of being free online from the author. The chapters on connectivity, flows, and matchings are particularly worth the time.</p>
+</li>
+</ul>
+<p>And if you want to keep using graffeo, the <a href="https://github.com/erlsci/graffeo">project README</a> lists the rest of the API — <code>bfs</code>, <code>degree_centrality</code>, <code>astar</code>, <code>is_tree</code>, <code>is_arborescence</code>, <code>loop_vertices</code>, <code>get_short_path</code> — most of which we didn't touch in this tour. The shape is the same: a function on the graph, a clear definition behind it, a place in the literature you can chase if you want the math.</p>
+<p>The corpus we used is real, the questions are real, and the answers are reproducible. The next graph you build will be different — perhaps a process-supervision graph, perhaps a node-distribution graph, perhaps a cluster-topology graph for a queue system you're writing — but the patterns transfer. <em>Filter to project a subgraph; reach across a layer with a join; condense to escape cycles; topsort to read an order; weight to ask for the gentlest path.</em> Those five moves cover most of what working programmers ever need from graph theory, and graffeo gives you each of them in a line or two of LFE.</p>
+<h2>Appendix A: the rest of the parser</h2>
+<p>The body of the post showed <code>parse-file</code>, <code>parse-string</code>, <code>extract-frontmatter</code>, <code>collect-until-closing</code>, and <code>classify-line</code>. To make the file compile, here are the helpers I waved at earlier — they're direct translations of the Erlang originals and don't introduce any LFE idiom we haven't already met.</p>
+<pre><code class="language-lfe">(defun parse-kv
+  ((key #&quot;[]&quot;) (tuple &#39;kv key &#39;()))
+  ((key value) (tuple &#39;kv key (unquote-bin value))))
+
+(defun unquote-bin
+  (((binary &quot;\&quot;&quot; (rest binary)))
+   (case (binary:last rest)
+     (34 (binary:part rest 0 (- (byte_size rest) 1)))
+     (_ rest)))
+  ((bin) bin))
+
+(defun parse-fm-lines (lines)
+  (parse-fm-lines lines &#39;undefined (map)))
+
+(defun parse-fm-lines
+  ((() _current-key acc) acc)
+  (((cons line rest) current-key acc)
+   (let ((trimmed (string:trim line)))
+     (case (classify-line trimmed)
+       (&#39;empty (parse-fm-lines rest current-key acc))
+       (&#39;section-header (parse-fm-lines rest current-key acc))
+       ((tuple &#39;list-item value)
+        (case current-key
+          (&#39;undefined (parse-fm-lines rest current-key acc))
+          (key
+           (let* ((existing (maps:get key acc &#39;()))
+                  (new-list (case (is_list existing)
+                              (&#39;true (lists:append existing (list value)))
+                              (&#39;false (list value)))))
+             (parse-fm-lines rest key (mset acc key new-list))))))
+       ((tuple &#39;kv key value)
+        (parse-fm-lines rest key (mset acc key value)))))))
+
+(defun build-card (props)
+  (let ((required (list #&quot;slug&quot; #&quot;concept&quot; #&quot;category&quot;
+                        #&quot;tier&quot; #&quot;source&quot; #&quot;source_slug&quot;)))
+    (case (check-required required props)
+      (&#39;ok
+       (tuple &#39;ok
+              (map &#39;slug           (get-bin #&quot;slug&quot; props)
+                   &#39;concept        (get-bin #&quot;concept&quot; props)
+                   &#39;category       (get-bin #&quot;category&quot; props)
+                   &#39;tier           (get-bin #&quot;tier&quot; props)
+                   &#39;source         (get-bin #&quot;source&quot; props)
+                   &#39;source_slug    (get-bin #&quot;source_slug&quot; props)
+                   &#39;prerequisites  (get-list #&quot;prerequisites&quot; props)
+                   &#39;extends        (get-list #&quot;extends&quot; props)
+                   &#39;related        (get-list #&quot;related&quot; props)
+                   &#39;contrasts_with (get-list #&quot;contrasts_with&quot; props))))
+      ((= (tuple &#39;error _) err) err))))
+
+(defun check-required
+  ((() _props) &#39;ok)
+  (((cons key rest) props)
+   (case (maps:is_key key props)
+     (&#39;true (check-required rest props))
+     (&#39;false (tuple &#39;error (tuple &#39;missing-field key))))))
+
+(defun get-bin (key props)
+  (let ((v (maps:get key props #&quot;&quot;)))
+    (case v
+      (b (when (is_binary b)) b)
+      (l (when (is_list l)) (iolist_to_binary (lists:join #&quot;, &quot; l)))
+      (_ #&quot;&quot;))))
+
+(defun get-list (key props)
+  (let ((v (maps:get key props &#39;())))
+    (case v
+      (l (when (is_list l)) l)
+      (b (when (andalso (is_binary b) (=/= b #&quot;&quot;))) (list b))
+      (_ &#39;()))))
+</code></pre>
+<h2>Appendix B: the rest of the ingest</h2>
+<p>§4 showed <code>build</code>, <code>add-source-layer</code>, <code>add-abstract-layer</code>, <code>add-membership</code>, <code>add-source-edges</code>, <code>add-card-source-edges</code>, <code>add-typed-edge</code>, and <code>project-source-edges</code>. The remaining helpers — the cross-only edge pass, the metadata merge, and the public reader functions — are below.</p>
+<pre><code class="language-lfe">(defun group-by-source (cards)
+  (lists:foldl
+   (lambda (card acc)
+     (let ((src (mref card &#39;source_slug)))
+       (maps:update_with
+        src
+        (lambda (existing) (lists:append existing (list card)))
+        (list card)
+        acc)))
+   (map)
+   cards))
+
+(defun merge-type-meta
+  (((map &#39;label (map &#39;types t1 &#39;asserted_by a1))
+    (map &#39;label (map &#39;types t2 &#39;asserted_by a2)))
+   (map &#39;label (map &#39;types (lists:usort (lists:append t1 t2))
+                    &#39;asserted_by (lists:usort (lists:append a1 a2)))))
+  ((_acc new) new))
+
+(defun merge-contracted-into (g contracted)
+  (let ((cvs (graffeo:vertices contracted)))
+    (lists:foldl
+     (lambda (from g-acc)
+       (let ((out-nbrs (graffeo:out_neighbours contracted from)))
+         (lists:foldl
+          (lambda (to g-acc2)
+            (case (graffeo:edge_meta contracted from to)
+              ((tuple &#39;ok meta)
+               (case (graffeo:edge_meta g-acc2 from to)
+                 ((tuple &#39;ok ex-meta)
+                  (graffeo:add_edge g-acc2 from to
+                                    (merge-type-meta ex-meta meta)))
+                 (&#39;error (graffeo:add_edge g-acc2 from to meta))))
+              (&#39;error g-acc2)))
+          g-acc out-nbrs)))
+     g cvs)))
+
+(defun add-abstract-edges (cards g)
+  (let ((g1 (project-source-edges g)))
+    (add-cross-only-edges cards g1)))
+
+(defun add-cross-only-edges (cards g)
+  (let ((cards-by-source (group-by-source cards))
+        (all-card-slugs (sets:from_list
+                         (lc ((&lt;- c cards)) (mref c &#39;slug))
+                         &#39;(#(version 2)))))
+    (lists:foldl
+     (lambda (card g-acc)
+       (let* ((src (mref card &#39;source_slug))
+              (src-cards (maps:get src cards-by-source))
+              (local-slugs (sets:from_list
+                            (lc ((&lt;- c src-cards)) (mref c &#39;slug))
+                            &#39;(#(version 2)))))
+         (add-card-cross-edges card local-slugs all-card-slugs g-acc)))
+     g cards)))
+
+(defun add-card-cross-edges (card local-slugs all-card-slugs g)
+  (let* ((from-slug (mref card &#39;slug))
+         (src (mref card &#39;source_slug))
+         (rel-types (list (tuple &#39;prerequisites
+                                 (mref card &#39;prerequisites))
+                          (tuple &#39;extends
+                                 (mref card &#39;extends))
+                          (tuple &#39;related
+                                 (mref card &#39;related))
+                          (tuple &#39;contrasts_with
+                                 (mref card &#39;contrasts_with)))))
+    (lists:foldl
+     (lambda (type-and-targets g-acc)
+       (let (((tuple type targets) type-and-targets))
+         (lists:foldl
+          (lambda (target-slug g-acc2)
+            (let ((is-local (sets:is_element target-slug local-slugs))
+                  (is-self  (=:= target-slug from-slug)))
+              (case (orelse is-self is-local)
+                (&#39;true g-acc2)
+                (&#39;false
+                 (case (sets:is_element target-slug all-card-slugs)
+                   (&#39;true
+                    (add-typed-edge g-acc2 from-slug target-slug
+                                    type src))
+                   (&#39;false
+                    (ensure-ghost-vertex g-acc2 target-slug
+                                         from-slug type src)))))))
+          g-acc (lists:sort targets))))
+     g rel-types)))
+
+(defun ensure-ghost-vertex (g target-slug from-slug type src)
+  (let ((g1 (case (lists:member target-slug (graffeo:vertices g))
+              (&#39;true g)
+              (&#39;false (graffeo:add_vertex g target-slug)))))
+    (add-typed-edge g1 from-slug target-slug type src)))
+
+(defun source-vertices (g)
+  (lc ((&lt;- v (graffeo:vertices g)) (is_tuple v)) v))
+
+(defun abstract-vertices (g)
+  (lc ((&lt;- v (graffeo:vertices g)) (is_binary v)) v))
+
+(defun build-from-dir (base-dir)
+  (let* ((dirs (filelib:wildcard (++ base-dir &quot;/*&quot;)))
+         (files (lists:sort
+                 (lists:flatmap
+                  (lambda (dir) (filelib:wildcard (++ dir &quot;/*.md&quot;)))
+                  dirs)))
+         (cards (lists:map
+                 (lambda (f)
+                   (let (((tuple &#39;ok c) (lfeerlcpt-parser:parse-file f)))
+                     c))
+                 files)))
+    (build cards)))
+</code></pre>
+<p>(If you named your modules differently — <code>lfec-*</code> rather than <code>lfeerlcpt-*</code>, say — adjust the <code>lfeerlcpt-parser:parse-file</code> call inside <code>build-from-dir</code> to match.)</p>
+<h2>Sources</h2>
+<ul>
+<li>The original example: <a href="https://github.com/erlsci/graffeo/tree/main/examples/erlang-concepts"><code>graffeo/examples/erlang-concepts</code></a> and its <a href="https://github.com/erlsci/graffeo/blob/main/examples/erlang-concepts/README.md">Erlang README</a>, which this post expands and rewrites in LFE.</li>
+<li>The corpus: <a href="https://github.com/billosys/ai-engineering"><code>billosys/ai-engineering</code></a>, the Erlang concept-card knowledge base.</li>
+<li>graffeo itself: <a href="https://github.com/erlsci/graffeo"><code>erlsci/graffeo</code></a>.</li>
+<li>LFE: <a href="https://lfe.io">lfe.io</a>, and the <a href="https://github.com/lfe-rebar3/rebar3_lfe"><code>rebar3_lfe</code></a> plugin used throughout.</li>
+</ul>
+
+      </div>
+
+      
+      
+      
+      
+      <aside class="author-card">
+        
+        
+        <img class="author-card__avatar" src="/assets/images/authors/oubiwann.png" alt="Duncan McGreggor" loading="lazy" width="64" height="64">
+        
+        <div class="author-card__body">
+          <p class="author-card__name">Duncan McGreggor</p>
+          <p class="author-card__bio">Founder of Billo Systems. Distributed-systems engineer, Rust coder, core contributor to LFE, and creator of the Lykn language. Writes here about correctness under contention, Erlang/OTP, and the infrastructure of resilient systems.</p>
+          <div class="author-card__links"><a href="https://github.com/oubiwann">GitHub</a><a href="https://linkedin.com/in/oubiwann">LinkedIn</a><a href="https://mastodon.social/@oubiwann">Mastodon</a></div>
+        </div>
+      </aside>
+      
+
+      
+      
+      
+      
+      
+      
+      <nav class="post-nav">
+        
+          <a href="/articles/2026/06/lykn-a-lisp-born-from-lfe/"><span class="post-nav__label">&larr; Older</span><span class="post-nav__title">Lykn: A Lisp Born from LFE</span></a>
+        
+        
+          <a href="/articles/2026/06/bringing-types-to-lfe/" style="text-align: right;"><span class="post-nav__label">Newer &rarr;</span><span class="post-nav__title">Bringing Types to LFE: Lessons from Haskell, the Typed Lisps, and Gleam</span></a>
+        
+      </nav>
+    </article>
+  </main>
+
+  
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand-col">
+        <img class="footer-logo" src="/assets/images/logo-v4.3.1-long-light.png" alt="Billo Systems">
+        <p class="footer-tagline">Custom-built distributed infrastructure for teams that demand resilience, performance, and clarity.</p>
+      </div>
+      <div>
+        <h4 class="footer-heading">Solutions</h4>
+        <ul class="footer-links">
+          <li><a href="#">Real-time Inference</a></li>
+          <li><a href="#">Distributed Services</a></li>
+          <li><a href="#">Bespoke Solutions</a></li>
+          <li><a href="#">Platform Migration</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">Resources</h4>
+        <ul class="footer-links">
+          <li><a href="/articles/">Engineering Blog</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">Open Source</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:dm@billo.systems">dm@billo.systems</a></li>
+          <li><a href="#">Press &amp; Enquiries</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="https://linkedin.com/in/oubiwann">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <span class="footer-copy">&copy; 2026 Billo Systems, L.L.C. All rights reserved.</span>
+      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('billo-theme', next);
+    });
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function (e) {
+      if (!localStorage.getItem('billo-theme')) root.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+    });
+  })();
+</script>
+
+
+  
+  <script src="/assets/js/prism.js" defer></script>
+
+  
+  <script src="/assets/katex/katex.min.js" defer></script>
+  <script src="/assets/katex/auto-render.min.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMathInElement(document.querySelector(".prose") || document.body, {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false }
+        ],
+        ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"],
+        throwOnError: false
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Billo Systems — Articles</title>
+  <link href="https://billo.systems/atom.xml" rel="self"/>
+  <link href="https://billo.systems/articles/"/>
+  <id>https://billo.systems/articles/</id>
+  <subtitle>Careful engineering at serious scale.</subtitle>
+  <updated>2026-06-18T09:00:00Z</updated>
+  
+  
+  
+  <entry>
+    <title>Supervision Trees Are a Philosophy, Not a Feature</title>
+    <link href="https://billo.systems/articles/2026/06/supervision-trees/"/>
+    <id>https://billo.systems/articles/2026/06/supervision-trees/</id>
+    <published>2026-06-18T09:00:00Z</published>
+    <updated>2026-06-18T09:00:00Z</updated>
+    <category term="erlang"/><category term="otp"/>
+    <summary>Let-it-crash is not carelessness. It&#39;s a theory of where responsibility lives — enforced by the runtime rather than by anyone&#39;s good intentions.</summary>
+    <author><name>Duncan McGreggor</name></author>
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Bringing Types to LFE: Lessons from Haskell, the Typed Lisps, and Gleam</title>
+    <link href="https://billo.systems/articles/2026/06/bringing-types-to-lfe/"/>
+    <id>https://billo.systems/articles/2026/06/bringing-types-to-lfe/</id>
+    <published>2026-06-14T10:08:00Z</published>
+    <updated>2026-06-14T10:08:00Z</updated>
+    <category term="lfe"/><category term="types"/><category term="type-systems"/><category term="gradual-typing"/><category term="lykn"/><category term="gleam"/><category term="haskell"/><category term="rust"/><category term="racket"/><category term="coalton"/><category term="clojure"/>
+    <summary>Why we started building a gradual type system for Lisp Flavoured Erlang — a tour through how Haskell, Go, Rust, Typed Racket, Coalton, and Typed Clojure each spell the same small idea, the ergonomic quibbles that pushed us, and the strategic moves we borrowed from Gleam.</summary>
+    <author><name>Duncan McGreggor</name></author>
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Graph Theory in LFE: A Knowledge Graph of Erlang Itself</title>
+    <link href="https://billo.systems/articles/2026/06/graph-theory-in-lfe-graffeo-erlang-knowledge/"/>
+    <id>https://billo.systems/articles/2026/06/graph-theory-in-lfe-graffeo-erlang-knowledge/</id>
+    <published>2026-06-06T10:08:00Z</published>
+    <updated>2026-06-06T10:08:00Z</updated>
+    <category term="graph-theory"/><category term="erlang"/><category term="otp"/><category term="knowledge-graph"/><category term="dijkstra"/><category term="mathematics"/><category term="libraries"/>
+    <summary>A deep, hands-on tour of graph theory in LFE — built on a real corpus of 1,664 Erlang concept cards, driven by the graffeo library, and unfolded slowly enough to teach the mathematics underneath each query.</summary>
+    <author><name>Duncan McGreggor</name></author>
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Lykn: A Lisp Born from LFE</title>
+    <link href="https://billo.systems/articles/2026/06/lykn-a-lisp-born-from-lfe/"/>
+    <id>https://billo.systems/articles/2026/06/lykn-a-lisp-born-from-lfe/</id>
+    <published>2026-06-05T18:00:00Z</published>
+    <updated>2026-06-05T18:00:00Z</updated>
+    <category term="lfe"/><category term="lykn"/><category term="lisp"/><category term="javascript"/><category term="languages"/><category term="release"/>
+    <summary>How fourteen years with Lisp Flavoured Erlang led to a new language — and how that language came home to power lfe.io.</summary>
+    <author><name>Duncan McGreggor</name></author>
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Nine Nines and the Cost of the Last One</title>
+    <link href="https://billo.systems/articles/2026/05/nine-nines/"/>
+    <id>https://billo.systems/articles/2026/05/nine-nines/</id>
+    <published>2026-05-09T09:00:00Z</published>
+    <updated>2026-05-09T09:00:00Z</updated>
+    <category term="reliability"/><category term="distributed-systems"/>
+    <summary>Every additional nine is one decimal point away and an order of magnitude harder. The question is never whether you can afford it, but who pays.</summary>
+    <author><name>Duncan McGreggor</name></author>
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Vector Databases Are Just Indexes With Better Manners</title>
+    <link href="https://billo.systems/articles/2026/04/vector-databases/"/>
+    <id>https://billo.systems/articles/2026/04/vector-databases/</id>
+    <published>2026-04-21T09:00:00Z</published>
+    <updated>2026-04-21T09:00:00Z</updated>
+    <category term="ai"/><category term="infrastructure"/>
+    <summary>Strip the marketing and a vector store is an index that has made peace with being approximately right. That peace is the whole engineering problem.</summary>
+    <author><name>Duncan McGreggor</name></author>
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Consensus Without Ceremony: Raft in Anger</title>
+    <link href="https://billo.systems/articles/2025/12/raft-in-anger/"/>
+    <id>https://billo.systems/articles/2025/12/raft-in-anger/</id>
+    <published>2025-12-15T09:00:00Z</published>
+    <updated>2025-12-15T09:00:00Z</updated>
+    <category term="consensus"/><category term="distributed-systems"/>
+    <summary>The paper is elegant; production is not. Here is what leader election actually does when the network is having a genuinely bad day.</summary>
+    <author><name>Duncan McGreggor</name></author>
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Scientific Python on the BEAM</title>
+    <link href="https://billo.systems/articles/2014/12/scientific-python-on-the-beam/"/>
+    <id>https://billo.systems/articles/2014/12/scientific-python-on-the-beam/</id>
+    <published>2014-12-31T22:00:00Z</published>
+    <updated>2014-12-31T22:00:00Z</updated>
+    <category term="lfe"/><category term="erlang"/><category term="python"/><category term="scientific-computing"/>
+    <summary>The matplotlib book left me wondering how much of the scientific-Python world I could pull onto the Erlang VM. The answer became two projects, a discovery I didn&#39;t plan, and line charts drawn in the terminal.</summary>
+    <author><name>Duncan McGreggor</name></author>
+  </entry>
+  
+  
+  
+  <entry>
+    <title>ErlPort: Using Python from Erlang/LFE</title>
+    <link href="https://billo.systems/articles/2014/12/erlport-using-python-from-erlang-lfe/"/>
+    <id>https://billo.systems/articles/2014/12/erlport-using-python-from-erlang-lfe/</id>
+    <published>2014-12-03T01:08:00Z</published>
+    <updated>2014-12-03T01:08:00Z</updated>
+    <category term="howtos"/><category term="erlport"/><category term="python"/><category term="interop"/><category term="lfe"/><category term="libraries"/>
+    <summary>A Quick Introduction to ErlPort via LFE</summary>
+    <author><name>Duncan McGreggor</name></author>
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Mastering matplotlib: The First Month</title>
+    <link href="https://billo.systems/articles/2014/11/mastering-matplotlib/"/>
+    <id>https://billo.systems/articles/2014/11/mastering-matplotlib/</id>
+    <published>2014-11-30T00:33:00Z</published>
+    <updated>2014-11-30T00:33:00Z</updated>
+    <category term="python"/><category term="matplotlib"/><category term="data-visualization"/><category term="technical-writing"/>
+    <summary>A cold email, a move to the Midwest, and a month spent deciding that &quot;mastering&quot; means going down to the architecture — the layers, the event loops, the module graph itself.</summary>
+    <author><name>Duncan McGreggor</name></author>
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Company Site is Live!</title>
+    <link href="https://billo.systems/articles/2014/11/company-site-is-live/"/>
+    <id>https://billo.systems/articles/2014/11/company-site-is-live/</id>
+    <published>2014-11-17T11:03:00Z</published>
+    <updated>2014-11-17T11:03:00Z</updated>
+    <category term="announcements"/><category term="design"/><category term="graphics"/><category term="web"/>
+    <summary>Announcing the launch of the original Billo Systems company site — a note on the build, the tools that made it painless, and the drafts still to come.</summary>
+    <author><name>Duncan McGreggor</name></author>
+  </entry>
+  
+</feed>
