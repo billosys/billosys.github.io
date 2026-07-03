@@ -9,6 +9,7 @@
 
   {% comment %} All fonts self-hosted via /secondary.css (@font-face in
      _sass/_fonts.scss) — no Google Fonts, no runtime CDN. {% endcomment %}
+  {% include 'favicon.liquid' %}
   <link rel="stylesheet" href="/secondary.css">
 
   <meta property="og:title" content="{{ page.title | default: site.title }}">
