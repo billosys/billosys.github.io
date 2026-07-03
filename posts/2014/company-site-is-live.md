@@ -1,7 +1,7 @@
 ---
 title: Company Site is Live!
 description: Announcing the launch of the original Billo Systems company site — a note on the build, the tools that made it painless, and the drafts still to come.
-published_date: 2014-11-17 11:03:00 -0800
+published_date: 2014-11-17 11:03:00 -0600
 tags:
   - announcements
   - design
