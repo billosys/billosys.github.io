@@ -79,6 +79,36 @@ data:
   </figure>
   ```
 
+## Math (KaTeX)
+
+Set `data.math: true` in a post's frontmatter to load **KaTeX** on that post
+(and only that post — `blog-post.liquid` guards on the flag, so posts without it
+pay nothing). Write LaTeX inline with `$…$` and display with `$$…$$`; KaTeX
+renders it in the browser on load.
+
+KaTeX is **vendored, not CDN-loaded** (matches the site's no-CDN policy):
+`scripts/fetch-katex.sh` downloads a pinned release into `assets/katex/`
+(CSS + JS + auto-render + woff2 fonts). Re-run it to refresh or bump the
+version; commit the result.
+
+⚠ **Backslash-before-punctuation must be doubled.** Cobalt's markdown
+(pulldown-cmark, not configurable on 0.20.2) runs *before* KaTeX and strips the
+backslash from any `\` + ASCII-punctuation escape — so `\{`, `\}`, `\;`, `\,`,
+`\_`, `\|`, `\%`, `\#`, `\&` reach KaTeX as bare `{`, `}`, `;`, … and render
+wrong. Backslash-before-*letter* (`\to`, `\frac`, `\mathrm`, `\in`, …) is safe.
+Double the punctuation ones in source so one backslash survives:
+
+```latex
+$$\\{(s,c) \to c \\;:\\; \text{card}(s,c)\\}$$   ← authored as \\{  \\;  \\}
+$\mathrm{asserted\\_by}$                          ← authored as \\_
+```
+
+Verify a post's math renders by extracting the `$…$` spans from the built HTML
+and running them through `katex.renderToString(expr, {throwOnError:true})` — a
+clean pass means the browser will render them. (Trade-off: the doubled
+backslashes are Cobalt-specific and won't render on GitHub's markdown preview;
+if source portability matters, a build-time preprocessor is the alternative.)
+
 ## Verify against your Cobalt version ⚠
 
 Two things shift between Cobalt releases and can't be confirmed without a

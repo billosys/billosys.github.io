@@ -15,10 +15,17 @@
       <figure class="code-figure"> … </figure> for filename/lang chrome.
     · <aside class="sidenote"> inline in prose floats to the margin.
 {% endcomment %}
+{% comment %} KaTeX math is opt-in per post via `data.math: true`. A bare
+   page.data.math throws "Unknown index" on Cobalt 0.20.2 when a post omits the
+   key, so read it via safe map-iteration (same guard as reading-time above). {% endcomment %}
+{% assign _math = false %}
+{% for _kv in page.data %}{% if _kv[0] == "math" %}{% assign _math = _kv[1] %}{% endif %}{% endfor %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
 {% include 'blog-head.liquid' %}
+{% if _math %}{% comment %} Vendored KaTeX stylesheet (scripts/fetch-katex.sh); math posts only, no CDN. {% endcomment %}
+<link rel="stylesheet" href="/assets/katex/katex.min.css">{% endif %}
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
@@ -101,5 +108,25 @@
   {% comment %} Client-side syntax highlighting (Cobalt's is disabled — see
      _cobalt.yml). Self-hosted Prism; colours from --code-* tokens. Posts only. {% endcomment %}
   <script src="/assets/js/prism.js" defer></script>
+{% if _math %}
+  {% comment %} Vendored KaTeX (math posts only, no CDN). The deferred library +
+     auto-render extension run after parse but before DOMContentLoaded, so the
+     init below finds renderMathInElement ready. Scanned scope is the article
+     prose; code/pre are ignored so `$` in code samples stays literal. {% endcomment %}
+  <script src="/assets/katex/katex.min.js" defer></script>
+  <script src="/assets/katex/auto-render.min.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMathInElement(document.querySelector(".prose") || document.body, {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false }
+        ],
+        ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"],
+        throwOnError: false
+      });
+    });
+  </script>
+{% endif %}
 </body>
 </html>
