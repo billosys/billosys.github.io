@@ -64,7 +64,11 @@
       {% for a in site.data.authors %}{% if a[0] == _author %}{% assign author = a[1] %}{% endif %}{% endfor %}
       {% if author %}
       <aside class="author-card">
-        {% if author.github_user %}
+        {% comment %} Prefer the vendored local avatar (scripts/fetch-avatars.sh sets
+           author.avatar); fall back to the GitHub CDN only until an author is vendored. {% endcomment %}
+        {% if author.avatar %}
+        <img class="author-card__avatar" src="{{ author.avatar }}" alt="{{ author.name }}" loading="lazy" width="64" height="64">
+        {% elsif author.github_user %}
         <img class="author-card__avatar" src="https://avatars.githubusercontent.com/{{ author.github_user }}?s=128" alt="{{ author.name }}" loading="lazy" width="64" height="64">
         {% endif %}
         <div class="author-card__body">
