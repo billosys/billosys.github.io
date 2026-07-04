@@ -62,6 +62,19 @@
   
   
   <entry>
+    <title>AI Recap, Part 1: How Neural Networks Survived Their Second Winter</title>
+    <link href="https://billo.systems/articles/2026/05/ai-recap-1-neural-networks-second-winter/"/>
+    <id>https://billo.systems/articles/2026/05/ai-recap-1-neural-networks-second-winter/</id>
+    <published>2026-05-19T09:00:00Z</published>
+    <updated>2026-05-19T09:00:00Z</updated>
+    <category term="ai"/><category term="neural-networks"/><category term="history"/>
+    <summary>I left the field when neural networks were a failed research program. I came back to find they had won everything. Part 1 of a catch-up, two decades deep.</summary>
+    <author><name>Duncan McGreggor</name></author>
+  </entry>
+  
+  
+  
+  <entry>
     <title>Nine Nines and the Cost of the Last One</title>
     <link href="https://billo.systems/articles/2026/05/nine-nines/"/>
     <id>https://billo.systems/articles/2026/05/nine-nines/</id>
@@ -101,6 +114,19 @@
   
   
   <entry>
+    <title>Translating SICP into LFE</title>
+    <link href="https://billo.systems/articles/2015/01/translating-sicp-into-lfe/"/>
+    <id>https://billo.systems/articles/2015/01/translating-sicp-into-lfe/</id>
+    <published>2015-01-28T21:12:00Z</published>
+    <updated>2015-01-28T21:12:00Z</updated>
+    <category term="lfe"/><category term="sicp"/><category term="lisp"/><category term="books"/>
+    <summary>The Wizard Book is getting an LFE edition — why I&#39;m porting Abelson and Sussman across, a paragraph at a time, what has to change on the way (procedures, for one), and what must never change.</summary>
+    <author><name>Duncan McGreggor</name></author>
+  </entry>
+  
+  
+  
+  <entry>
     <title>Scientific Python on the BEAM</title>
     <link href="https://billo.systems/articles/2014/12/scientific-python-on-the-beam/"/>
     <id>https://billo.systems/articles/2014/12/scientific-python-on-the-beam/</id>
@@ -132,7 +158,7 @@
     <id>https://billo.systems/articles/2014/11/mastering-matplotlib/</id>
     <published>2014-11-30T00:33:00Z</published>
     <updated>2014-11-30T00:33:00Z</updated>
-    <category term="python"/><category term="matplotlib"/><category term="data-visualization"/><category term="technical-writing"/>
+    <category term="python"/><category term="matplotlib"/><category term="data-visualization"/><category term="technical-writing"/><category term="scientific-computing"/>
     <summary>A cold email, a move to the Midwest, and a month spent deciding that &quot;mastering&quot; means going down to the architecture — the layers, the event loops, the module graph itself.</summary>
     <author><name>Duncan McGreggor</name></author>
   </entry>

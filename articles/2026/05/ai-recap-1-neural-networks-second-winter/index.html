@@ -1,0 +1,339 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>AI Recap, Part 1: How Neural Networks Survived Their Second Winter — Billo Systems</title>
+<meta name="description" content="I left the field when neural networks were a failed research program. I came back to find they had won everything. Part 1 of a catch-up, two decades deep.">
+
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#1a2415" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f0f3e9" media="(prefers-color-scheme: light)">
+
+
+<script>
+  (function () {
+    var stored = localStorage.getItem('billo-theme');
+    var theme = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
+
+
+<link rel="preload" href="/assets/fonts/literata-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/brygada-1918-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+
+
+<link rel="icon" href="/assets/icons/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="/assets/icons/site.webmanifest">
+
+<link rel="stylesheet" href="/blog.css">
+<link rel="alternate" type="application/rss+xml" title="Billo Systems — Articles" href="/rss.xml">
+<link rel="alternate" type="application/atom+xml" title="Billo Systems — Articles" href="/atom.xml">
+
+<meta property="og:title" content="AI Recap, Part 1: How Neural Networks Survived Their Second Winter">
+<meta property="og:description" content="I left the field when neural networks were a failed research program. I came back to find they had won everything. Part 1 of a catch-up, two decades deep.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Billo Systems">
+<link rel="canonical" href="https://billo.systems/articles/2026/05/ai-recap-1-neural-networks-second-winter/">
+
+
+<link rel="stylesheet" href="/assets/katex/katex.min.css">
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  
+  
+
+<header class="blog-nav">
+  <nav class="blog-nav__inner" aria-label="Primary">
+    <a href="/" class="blog-brand" aria-label="Billo Systems — Articles">
+      
+      <img class="blog-brand__logo" src="/assets/images/logo-v4.3.1-long.png" alt="Billo Systems">
+      <span class="blog-brand__label">Articles</span>
+    </a>
+    <div class="blog-nav__links">
+      <a href="/articles/" class="blog-nav__link is-current">Latest</a>
+      <a href="/archive/" class="blog-nav__link">Archive</a>
+      <a href="/tags/" class="blog-nav__link">Tags</a>
+      <a href="/search/" class="blog-nav__link">Search</a>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark theme">
+        <span class="theme-toggle__icon theme-toggle__moon">&#9790;</span>
+        <span class="theme-toggle__icon theme-toggle__sun">&#9788;</span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+
+  <main id="main" class="blog-wrap">
+    
+    <article data-pagefind-body>
+      <a href="/articles/" class="article-back">&larr; Articles</a>
+
+      <header class="article-header">
+        
+        <div class="tag-chips">
+          <a href="/tags/ai/" class="tag-chip">ai</a><a href="/tags/neural-networks/" class="tag-chip">neural-networks</a><a href="/tags/history/" class="tag-chip">history</a>
+        </div>
+        
+        <h1 class="article-title">AI Recap, Part 1: How Neural Networks Survived Their Second Winter</h1>
+        <p class="article-dek">I left the field when neural networks were a failed research program. I came back to find they had won everything. Part 1 of a catch-up, two decades deep.</p>
+        <div class="article-meta">
+          <span>Duncan McGreggor</span>
+          <span class="sep">&middot;</span>
+          <span>May 19, 2026</span>
+          
+          
+          
+          
+          <span class="sep">&middot;</span><span>17 min read</span>
+        </div>
+      </header>
+
+      
+      
+
+      <div class="prose">
+        <p>In 1996, a friend gave me his copy of Peter Norvig's <em>Artificial Intelligence, A Modern Approach</em>. For 30 years it has been within arm's reach. There was a day when I could work problems from the book by heart, but by the late 2000s my attention had turned away from AI and towards distributed systems. As of the winter of 2024/2025, I have been pretty deep in daily use of LLMs. Early on, I began running into their limitations, and began a slow, steady slog through working around those issues via a nearly continuous cycle of quickfix → deeper analysis → improvements → research → expanded solutions for greater gains. As that cycle continued, I found myself reading more and more current papers, coming up with solutions that only the most recent experiments were exploring.</p>
+<aside class="sidenote">About 15 years after receiving the <em>AIMA</em> gift, <em>il Pythonisto</em> Alex Martelli introduced me to Peter Norvig at a private Google event (which Alex had essentially snuck me into). Our conversation was short and full of generalities, due to the secrecy of his AI-related work at the time, but one that I cherish to this day.
+</aside>
+<p>A few weeks ago I reached the point where I needed to brush up on my differential geometry and then suddenly stopped, exclaiming to myself "How the <em>hell</em> did we end up here? I mean, last I studied AI I was writing code that performed backpropogation in neural networks. The field has <em>really</em> moved on, and I'm just getting caught in the undertow, here!"</p>
+<p>I had <em>no idea</em> why <em>any of this works</em>.</p>
+<p>So I did what any of us would do: a lot of reading. The information I collected was so invaluable and enlightening, that it seemed criminal to not share. I've tried breaking up the long nights of reading and analysis into nearly-digestible chunks. At the very least, you can throw an LLM at these entries and ask for synopses.</p>
+<p>The lay of the land is roughly this:</p>
+<ul>
+<li>5 posts that cover the chronological developments</li>
+<li>1 post that provides an overview of the mathematics most commonly used in AI</li>
+<li>8 side-bar posts</li>
+</ul>
+<p>Yeah, I know.</p>
+<p>Let's dive in.</p>
+<h2>The winter that wasn't quite</h2>
+<p>The story I carried around for twenty years was "AI winter": the field froze, nothing happened, and then suddenly — ChatGPT. That story is wrong in a specific and instructive way.</p>
+<aside class="sidenote">In that "nothing happened" I am generously including my experiences with "deep learning" - all of which was tainted by bad marketing that I never really got past.
+</aside>
+<p>Research didn't stop in the 1990s and 2000s. Funding was patchy but never gone; results accumulated steadily. What actually collapsed was the <em>connectionist</em> program — the particular bet that the way to build intelligent systems was to train large neural networks on data. That bet looked lost. And it looked lost for three distinct kinds of reason.</p>
+<p><strong>The theoretical.</strong> Minsky and Papert's <em>Perceptrons</em> (1969) had cast a shadow that outlived its actual content. The book proved that single-layer perceptrons couldn't represent XOR — and even though multilayer networks plus backpropagation (popularized by Rumelhart, Hinton &amp; Williams in 1986) had long since answered that objection, the best I could tell the field never developed a satisfying account of <em>why</em> deep networks should work or <em>when</em> they would generalize. Meanwhile Vapnik and Chervonenkis were building statistical learning theory, which was everything neural nets weren't: rigorous, provable, and pointing toward methods with clean convex optimisation and generalization bounds you could actually state.</p>
+<aside class="sidenote">"Convex optimisation" is minimizing a bowl-shaped
+function over a region with no dents; it guarantees every local minimum <em>is</em> the global one. Neural network losses are the
+opposite: their loss landscapes are lumpy and non-convex, full of local dips.</aside>
+<p><strong>The practical.</strong> Training a deep network in 1995 was a nightmare. Like, an actual technical nightmare. Gradients vanished or exploded as they propagated through the layers. The loss landscapes were non-convex, riddled with plateaus and saddle points. Training a non-trivial network took weeks on hardware that cost more than a house, and it frequently diverged for reasons nobody could diagnose.</p>
+<p><strong>The sociological.</strong> Two consecutive AI winters had made "neural network" a tainted phrase. Hinton has talked openly about adopting the name "deep learning" partly so that his group's papers would stop being auto-rejected by reviewers who had learned to bounce anything with "neural" in the title. The rebrand was camouflage.</p>
+<h2>The gradient that vanished</h2>
+<p>Let's make the practical problem concrete, because everything in this series — LSTMs, ReLU, residual connections, even some of the transformer's design — is downstream of this one piece of arithmetic.</p>
+<p>The classic neuron of that era used the sigmoid activation</p>
+<p>$$\sigma(z) = \frac{1}{1 + e^{-z}}$$</p>
+<p>a smooth S-shaped squash of the neuron's weighted input into the interval $(0, 1)$. It's the differentiable stand-in for the old hard threshold — "fire if you're over the line" — and the differentiability is where the win came from. Backpropagation is nothing more than the chain rule riding gradients backward through the network, and a hard step function has no gradient to ride.</p>
+<p>But look at the derivative:</p>
+<p>$$\sigma'(z) = \sigma(z)(1 - \sigma(z))$$</p>
+<p>Its maximum value, at $z = 0$, is $0.25$. Everywhere else it's smaller, and out in the tails — where a neuron is confidently "on" or confidently "off" — it's essentially zero.</p>
+<p>Now backpropagate through a deep stack. The chain rule multiplies one of these derivatives in at every layer, so through $L$ layers your gradient picks up a factor of at most $(1/4)^L$ from the activations alone, before the weight matrices have their say. For a 20-layer network, even in the <em>best</em> case:</p>
+<p>$$\left(\frac{1}{4}\right)^{20} \approx 10^{-12}$$</p>
+<p>Your input-layer weights receive one trillionth of the error signal. They are, for all practical purposes, frozen. That's the vanishing gradient problem in one line of exponential arithmetic — and exploding gradients are the mirror image, when the weight matrices happen to make the products grow instead. Sepp Hochreiter gave the first rigorous analysis of this in his 1991 diploma thesis (in German; the formulation is reproduced in the 1997 LSTM paper he wrote with Schmidhuber), and Bengio, Simard &amp; Frasconi proved the general form in 1994.</p>
+<p>So. Check it out. The very softness that made these neurons trainable — the smooth, differentiable threshold — is what made them <em>untrainable in depth</em>, because smoothness in the tails means silence in the gradient. The field had built a ladder whose rungs got exponentially weaker as it got taller. Nobody was going to get very far climbing that.</p>
+<h2>The Alternatives</h2>
+<p>To understand why neural nets went to the margins, you just need to remember how <em>good</em> the alternatives were.</p>
+<p><strong>Support vector machines</strong> (Cortes &amp; Vapnik, 1995) were the reigning paradigm, and the core idea is aesthetically lovely: find the hyperplane that maximally separates two classes, and if your data isn't linearly separable, project it into a higher-dimensional space using a kernel function that computes inner products <em>in that space</em> without ever materializing the points there. With the RBF kernel, the space is implicitly infinite-dimensional. The optimization is convex — you find the global optimum, reliably, every time — and statistical learning theory hands you generalization bounds at the door.</p>
+<aside class="sidenote">The "RBF kernel" is a similarity measure based on distance — nearby points score near 1, distant ones near 0, falling off like a Gaussian bell. (Also called the Gaussian kernel; stands for <em>radial basis function</em>).</aside>
+<p><strong>Graphical models</strong> — Pearl, Jordan, Koller, Lauritzen, and the full apparatus of Bayes nets, Markov random fields, belief propagation, variational inference, MCMC — offered something even more seductive: you wrote down a generative story about your data as conditional independencies, and then <em>inferred</em> the hidden structure. Deeply principled, quietly beautiful, and brilliant in the domains where the graph structure cooperated.</p>
+<aside class="sidenote">"MCMC" (Markov chain Monte Carlo): when you can't compute a distribution directly, wander through it with a random process rigged so you visit each region in proportion to its probability. The samples become your answer.</aside>
+<p><strong>Boosting</strong> (Schapire &amp; Freund in the 90s, then Friedman's gradient boosting in 2001) delivered the surprising result that many weak learners, iteratively reweighted, compose into a strong one. Boosted decision trees became the workhorse for tabular data — and remain so.</p>
+<p>The unifying aesthetic of all three: <em>understand your model</em>. Write down the math. Prove things. Let the model's structure encode your understanding of the problem, and put the domain expertise into carefully engineered features that a clean, shallow, well-characterized optimizer consumes. Neural networks tended toward the negation of every clause in that sentence — black boxes you trained by gradient descent ... and then hoped for the best.</p>
+<h2>The holdouts</h2>
+<p>While most of the field was elsewhere, a small group kept working the connectionist program. Three names anchor the story: <strong>Geoffrey Hinton</strong> in Toronto, <strong>Yoshua Bengio</strong> in Montreal, and <strong>Yann LeCun</strong> at Bell Labs and then NYU. The three of them ended up sharing the 2018 Turing Award for what came of it, and they're routinely called the godfathers of deep learning — partly respect, partly an acknowledgment that they kept the program on life support through its least fashionable decade and a half.</p>
+<p>Each of them were doing something that would become a pillar of the modern stack.</p>
+<p><strong>LeCun: convolutional networks.</strong> The idea — exploit the spatial structure of images with local connectivity and shared weights, so the network slides small learned filters across the image instead of wiring every pixel to every neuron — goes back to his 1989 paper on handwritten digit recognition. By 1998 the LeNet-5 architecture was deployed in production, reading US bank checks at industrial scale.</p>
+<aside class="sidenote">
+It's interesting that through this entire wilderness period, there was a convolutional network quietly doing industrial-scale work on real money ...
+</aside>
+<p><strong>Bengio: language models and embeddings.</strong> His 2003 paper "A Neural Probabilistic Language Model" introduced distributed word embeddings — each word a dense vector in a continuous space, semantic similarity as geometric proximity. In 2003 this looked like a curiosity. A decade later it exploded as word2vec, and the idea that <em>meaning lives in the geometry of a learned vector space</em> is now so foundational that the rest of these articles I'm writing are unwritable without it.</p>
+<p><strong>Hinton: unsupervised pretraining.</strong> Hinton spent the era deep in Boltzmann machines and their tractable cousin, the restricted Boltzmann machine. The 2006 breakthrough (Hinton, Osindero &amp; Teh, "A Fast Learning Algorithm for Deep Belief Nets") was a two-phase trick: greedily pretrain a deep network layer by layer, unsupervised, using RBMs to initialize the weights into a good region of the loss landscape. <em>Then</em> run backprop, which now actually works because it isn't starting from the middle of nowhere.</p>
+<aside class="sidenote">
+Boltzmann machine: a generative network of binary units that learns a distribution by assigning low "energy" (high probability) to patterns like its training data. Borrowed from statistical physics.
+</aside>
+<p>With this, his group trained networks several layers deep — where a single hidden layer had been the practical ceiling — to results that beat shallow methods, the first time anyone had made real depth pay in roughly fifteen years, and started winning speech and digit-recognition benchmarks. Modern networks don't use RBM pretraining at all.</p>
+<aside class="sidenote">
+"RBM": the tractable ("restricted") Boltzmann machine. Cut the intra-layer connections, leave only visible↔hidden, and the equilibrium-sampling nightmare collapses into a cheap parallel step.
+</aside>
+<p>The trick turned out to be unnecessary once ReLU, careful initialization, batch normalization, residual connections, and big GPUs arrived. Its lasting contribution was psychological. The 2006 paper was a permission slip: depth is achievable, you may now try. Sometimes a field is blocked less by the absence of a technique than by the absence of an existence proof.</p>
+<aside class="sidenote">
+ReLU ("rectified linear unit"): replaces the old S-shaped activations whose flat tails throttled the gradient. Its gradient is 1 for anything positive, so it doesn't vanish down a deep stack the way sigmoid does.
+</aside>
+<h2>What actually changed: four layers of luck and stubbornness</h2>
+<p>The wilderness ended abruptly. In 2012, a convolutional network called AlexNet — Krizhevsky, Sutskever &amp; Hinton — won the ImageNet competition by roughly ten percentage points of top-5 error over the runner-up. In a benchmark competition where year-over-year progress was measured in a point or two, that margin was unheard of. The field didn't debate the result for long; it reorganized around it.</p>
+<p>So what changed? Not the theory — there was no dramatic theoretical advance in 2012. Four things stacked, and the stack is the story.</p>
+<p><strong>One: ImageNet existed.</strong> Fei-Fei Li's group at Stanford spent 2007–2009 curating 14 million labeled images across some 22,000 categories — a dataset absurdly larger than anything the field was used to. (AlexNet trained on the competition's 1.2-million-image, 1,000-class subset — still vastly larger than anything before it.) Deep networks don't outperform shallow methods on small data; they need scale to show their advantage. Without ImageNet there is no AlexNet, for the plain reason that there wouldn't have been enough data to train it.</p>
+<p><strong>Two: GPUs happened.</strong> Krizhevsky famously trained AlexNet on two consumer NVIDIA GTX 580 graphics cards. A GPU offers thousands of slow, parallel arithmetic units where a CPU offers a handful of fast sequential ones — an architecture designed to render game pixels in parallel that happens to be exactly the right shape for the dense matrix multiplications that dominate neural network training. The speedup over CPUs ran around 50x: training that previously took months now took days. Earlier work (Raina, Madhavan &amp; Ng in 2009; Cireşan and colleagues in 2010) had pioneered the approach, but AlexNet made it undeniable.</p>
+<aside class="sidenote">The whole modern AI industry rests on this historical accident. NVIDIA designed a chip for video games; the chip turned out to be the perfect substrate for deep learning; the market cap followed. Nobody planned it.</aside>
+<p><strong>Three: ReLU.</strong> AlexNet swapped the sigmoid for the rectified linear unit, $\mathrm{ReLU}(z) = \max(0, z)$. This looks like a triviality ... since he derivative of ReLU is either $0$ or $1$. Sigmoids shrink the gradient by a factor of at least four per layer, compounding to $10^{-12}$ over twenty layers. ReLU's factor is <em>one</em>. The gradient passes through active units undiminished, and the vanishing-gradient wall — the thing that made depth practically impossible — largely dissolves. ReLU wasn't even new; it had lived in neuroscience-inspired models for decades. What was new was combining it with depth at scale and discovering that the ugly, non-smooth, half-dead function simply <em>won</em>.</p>
+<p><strong>Four: dropout.</strong> During training, randomly zero out half the activations in a layer on every forward pass. That's the whole technique. It forces the network to learn redundant, robust representations — no single neuron can be load-bearing if it might be absent. AlexNet used it in 2012; the formal paper (Srivastava, Hinton, Krizhevsky, Sutskever &amp; Salakhutdinov) followed in 2014.</p>
+<p>Spit-take: ReLU is <code>max(0, z)</code>; dropout is "turn off half the neurons at random."</p>
+<p>These are <em>not</em> elegant theory, found instead by trial and error, indistinguishable from hacks. And mindnumbingly, they are among the most important innovations of the era — more important, in practical effect, than almost anything the theoretically beautiful tradition produced in the same window. It's a pattern that pops up again and again in the research and recent history of the field: dumb-looking tricks that matter enormously (layer normalization, learning-rate warmup, residual connections, weight decay in its AdamW form).</p>
+<p>Betting against the ugly thing that empirically wins has been a losing wager for thirteen years now.</p>
+<h2>The philosophical hinge: from features to representations</h2>
+<p>Everything above is mechanism. The deepest change AlexNet brought was conceptual, and it's the one that took me longest to metabolize, because it inverts the sensibility I was trained in.</p>
+<p>In the kernel era, feature engineering was where the intelligence lived. The human expert, armed with domain knowledge, designed the features; the model — shallow, well-understood — merely learned a decision boundary on top of them. The division of labor was explicit: humans understand, machines optimize.</p>
+<p>Deep learning collapsed that division (and I bailed). A deep network learns its own features, layer by layer, end to end, from nothing but the loss signal. Inspect a trained convolutional network and you find the early layers have become edge and color detectors, the middle layers texture and part detectors, the later layers object and face detectors. <em>Nobody designed any of that.</em> It emerged from gradient descent — a representational hierarchy that no human specified, sitting inside an artifact humans built.</p>
+<p>The practical consequence arrived fast: transfer learning started working in a way it never had. Train a big network on ImageNet, chop off the final classification layer, and the remaining trunk is a general-purpose visual feature extractor — features learned for "what's in this photo" turn out to be useful for "where is the tumor in this radiograph." If that move sounds familiar, it should: it is the seed of the pretrain-then-fine-tune paradigm that, transplanted into language, becomes the entire foundation of the LLM era. (Hang tight — we'll get there in Part 3.)</p>
+<p>The conceptual bit underneath that is a stunner: a network's learned representations <em>became objects of study in their own right</em> — separate from the input data, separate from the output predictions. When we get to mechanistic interpretability in Part 5, we'll see an entire research field that is, in essence, the "natural science" (really) of these unauthored representations. That field only makes sense after 2012 — not because nothing was learned inside the box before then (Bengio's embeddings and Hinton's RBMs were learning things no human specified), but because before 2012 almost nobody treated what was inside the box as worth studying in its own right.</p>
+<h2>Three things to internalise</h2>
+<p>I keep coming back to these lessons from this time period:</p>
+<p><strong>The field's intellectual habits flipped, permanently.</strong> Before 2012: understand your model, prove things, then deploy. After 2012: run the experiment at scale, observe what works, explain later — maybe. The nearest things the modern field has to theory (scaling laws, loss-landscape analysis, mechanistic interpretability) are largely <em>post-hoc</em>: empirical phenomena first, explanation trailing. If you come from a tradition where the proof precedes the practice, this will itch. Badly. Like, <em>really</em> badly.</p>
+<p><strong>Hardware is destiny.</strong> Every major capability advance since 2012 rides a hardware advance: GPUs, then TPUs and their descendants, then all of it at cluster scale. The science is now inseparable from the engineering of large compute systems, and many of the papers we'll meet later are, in a real sense, co-authored by their compute budgets. Also, trade wars are a <em>phenomenally bad idea</em>.</p>
+<p><strong>The winners were quite unexpected.</strong> Boltzmann machines are not the basis of modern AI. Neither deep belief nets, kernel methods, nor classical graphical models. The smart money of 2005, all of it, lost. The architecture that eventually won is a shockingly simple stack of attention operations, feed-forward layers, residual connections, and normalization. Humility about predicting <em>which</em> idea wins is a really good idea.</p>
+<h2>A reading map for this period</h2>
+<p>If you want to catch up at full depth rather than my compressed retelling, here's the order I'd read in:</p>
+<ul>
+<li>
+<p><strong>Norvig, <em>Artificial Intelligence, A Modern Approach</em></strong> — the first edition I keep at my desk, just to remind myself everything I'd freakin' forgotten.</p>
+</li>
+<li>
+<p><strong>Bengio, "Learning Deep Architectures for AI," <em>FTML</em> 2(1) (2009)</strong> — the pre-revolution snapshot, written by one of its architects, before AlexNet vindicated everything. Reading it with hindsight is its own education.</p>
+</li>
+<li>
+<p><strong>Krizhevsky, Sutskever &amp; Hinton, "ImageNet Classification with Deep Convolutional Neural Networks" (2012)</strong> — the AlexNet paper itself. Short, clear, and you can feel the authors being slightly amazed at their own results.</p>
+</li>
+<li>
+<p><strong>Schmidhuber, "Deep Learning in Neural Networks: An Overview," <em>Neural Networks</em> 61 (2015)</strong> — the exhaustive alternative history, from a researcher with long-running priority disputes against the Hinton/Bengio/LeCun narrative. Read it <em>because</em> it's contentious; credit assignment in this field is a live dispute, and you deserve both tellings.</p>
+</li>
+<li>
+<p><strong>LeCun, Bengio &amp; Hinton, "Deep Learning," <em>Nature</em> 521 (2015)</strong> — the three godfathers' own short review; the best single source for the philosophical framing.</p>
+</li>
+<li>
+<p><strong>Goodfellow, Bengio &amp; Courville, <em>Deep Learning</em> (2016)</strong> — free at deeplearningbook.org. Part I refreshes the math; Parts II–III are the textbook treatment of the field as of 2016, which is precisely the right altitude for someone bridging from a 1990s background.</p>
+</li>
+</ul>
+<h2>Where we go from here</h2>
+<p>So. That's Part 1. A program declared dead for want of theory, hardware, and fashion; kept alive by three groups who refused the verdict; and resurrected by a dataset, a video-game chip, and two tricks too ugly to publish proudly. The next post picks up at AlexNet and walks the deep learning era proper — 2012 to 2017: convolutional networks eating computer vision, the RNN/LSTM/seq2seq lineage in language, word embeddings, the first appearance of attention, and the unglamorous engineering substrate that made everything after possible. Along the way I'll be publishing companion pieces on the questions that muddled over while reading — the first, on the sigmoid function itself and whether the vanishing gradient was really the kiss of death for the old neural networks (it wasn't), follows shortly.</p>
+
+      </div>
+
+      
+      
+      
+      
+      <aside class="author-card">
+        
+        
+        <img class="author-card__avatar" src="/assets/images/authors/oubiwann.png" alt="Duncan McGreggor" loading="lazy" width="64" height="64">
+        
+        <div class="author-card__body">
+          <p class="author-card__name">Duncan McGreggor</p>
+          <p class="author-card__bio">Founder of Billo Systems. Distributed-systems engineer, Rust coder, core contributor to LFE, and creator of the Lykn language. Writes here about correctness under contention, Erlang/OTP, and the infrastructure of resilient systems.</p>
+          <div class="author-card__links"><a href="https://github.com/oubiwann">GitHub</a><a href="https://linkedin.com/in/oubiwann">LinkedIn</a><a href="https://mastodon.social/@oubiwann">Mastodon</a></div>
+        </div>
+      </aside>
+      
+
+      
+      
+      
+      
+      
+      
+      <nav class="post-nav">
+        
+          <a href="/articles/2026/05/nine-nines/"><span class="post-nav__label">&larr; Older</span><span class="post-nav__title">Nine Nines and the Cost of the Last One</span></a>
+        
+        
+          <a href="/articles/2026/06/lykn-a-lisp-born-from-lfe/" style="text-align: right;"><span class="post-nav__label">Newer &rarr;</span><span class="post-nav__title">Lykn: A Lisp Born from LFE</span></a>
+        
+      </nav>
+    </article>
+  </main>
+
+  
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand-col">
+        <img class="footer-logo" src="/assets/images/logo-v4.3.1-long-light.png" alt="Billo Systems">
+        <p class="footer-tagline">Custom-built distributed infrastructure for teams that demand resilience, performance, and clarity.</p>
+      </div>
+      <div>
+        <h4 class="footer-heading">Solutions</h4>
+        <ul class="footer-links">
+          <li><a href="#">Real-time Inference</a></li>
+          <li><a href="#">Distributed Services</a></li>
+          <li><a href="#">Bespoke Solutions</a></li>
+          <li><a href="#">Platform Migration</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">Resources</h4>
+        <ul class="footer-links">
+          <li><a href="/articles/">Engineering Blog</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">Open Source</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:dm@billo.systems">dm@billo.systems</a></li>
+          <li><a href="#">Press &amp; Enquiries</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="https://linkedin.com/in/oubiwann">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <span class="footer-copy">&copy; 2026 Billo Systems, L.L.C. All rights reserved.</span>
+      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('billo-theme', next);
+    });
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function (e) {
+      if (!localStorage.getItem('billo-theme')) root.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+    });
+  })();
+</script>
+
+
+  
+  <script src="/assets/js/prism.js" defer></script>
+
+  
+  <script src="/assets/katex/katex.min.js" defer></script>
+  <script src="/assets/katex/auto-render.min.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMathInElement(document.querySelector(".prose") || document.body, {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false }
+        ],
+        ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"],
+        throwOnError: false
+      });
+    });
+  </script>
+
+</body>
+</html>
