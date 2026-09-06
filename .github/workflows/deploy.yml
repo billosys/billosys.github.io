@@ -23,11 +23,13 @@ jobs:
       - name: Install Cobalt
         run: |
           curl -LSfs https://raw.githubusercontent.com/crate-ci/gh-install/master/v1/install.sh \
-            | sh -s -- --git cobalt-org/cobalt.rs --crate cobalt --tag v0.19.7
+            | sh -s -- --git cobalt-org/cobalt.rs --crate cobalt --tag v0.20.4
           echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
 
       - name: Build site
-        run: cobalt build --destination _site
+        run: |
+          cobalt --version
+          cobalt build --destination _site
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
