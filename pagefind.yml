@@ -1,6 +1,7 @@
 # Pagefind search config. Run as a post-build step (reads this file from the
-# project root) by scripts/deploy.sh (deploy) and scripts/preview.sh (local):
+# project root) by GitHub Actions (deploy) and scripts/preview.sh (local):
 #   pagefind --site site
+# CI builds into _site and passes `--site _site` explicitly.
 # pagefind is a standalone tool — not a Cobalt change or a custom CLI. It writes
 # site/pagefind/* (JS, CSS, wasm, index), which /search/ loads. Indexing is
 # scoped to posts by `data-pagefind-body` on the post <article> (blog-post.liquid);

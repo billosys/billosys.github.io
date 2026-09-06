@@ -26,10 +26,19 @@ jobs:
             | sh -s -- --git cobalt-org/cobalt.rs --crate cobalt --tag v0.20.4
           echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
 
+      - name: Install Pagefind
+        run: |
+          PAGEFIND_BIN_DIR="$HOME/.local/bin" ./scripts/install-pagefind.sh
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
       - name: Build site
         run: |
           cobalt --version
           cobalt build --destination _site
+          pagefind --site _site
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
-# Deploy billo.systems to GitHub Pages.
+# Legacy branch deploy for billo.systems.
 #
 # Writes the build output into ./site/, which is a git worktree
 # attached to the orphan `site` branch. GitHub Pages serves from
-# that branch.
+# that branch only when Pages is configured for legacy branch publishing.
+# The current production path is `.github/workflows/deploy.yml`.
 #
 # Usage:
 #   ./scripts/deploy.sh

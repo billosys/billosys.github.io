@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
-# One-time setup: create the orphan `site` branch and a worktree
+# Legacy setup: create the orphan `site` branch and a worktree
 # at ./site/ that points at it. Run this once per clone.
 #
 # After this succeeds:
 #   - `./site/` is checked out to the `site` branch
 #   - That branch has a single placeholder commit
 #   - GitHub Pages repo setting should be: deploy from `site` branch
+#
+# The current production path uses `.github/workflows/deploy.yml` instead.
 #
 # Safety: refuses to run with a dirty working tree, because the
 # orphan-branch dance below will lose uncommitted work.

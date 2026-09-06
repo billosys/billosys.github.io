@@ -4,7 +4,7 @@
 
 # ───────── Build options ─────────
 source: "."
-destination: site              # The `site/` worktree, branch `site`, GH Pages deploys from it.
+destination: site              # Local preview output; CI overrides this with `_site`.
 template_extensions:
   - md
   - liquid

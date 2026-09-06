@@ -37,7 +37,7 @@ help:
 	@echo "  $(YELLOW)make serve$(RESET)            - Build + index + local preview WITH search (port $(PORT))"
 	@echo "  $(YELLOW)make run$(RESET)              - Alias for 'make serve'"
 	@echo "  $(YELLOW)make clean$(RESET)            - Clear the ./$(PUBLISH_DIR)/ build output"
-	@echo "  $(YELLOW)make deploy$(RESET)           - Build + Pagefind index, commit + push the 'site' branch"
+	@echo "  $(YELLOW)make deploy$(RESET)           - Trigger the GitHub Actions Pages deployment workflow"
 	@echo ""
 	@echo "$(GREEN)Assets & setup (self-hosted, no CDN):$(RESET)"
 	@echo "  $(YELLOW)make vendor$(RESET)           - Fetch all vendored assets (fonts, KaTeX, avatars)"
@@ -90,8 +90,10 @@ clean:
 
 .PHONY: deploy
 deploy:
-	@echo "$(BLUE)Deploying to the 'site' branch...$(RESET)"
-	@./scripts/deploy.sh
+	@command -v gh >/dev/null 2>&1 || { echo "$(RED)error: gh not found (needed to trigger GitHub Actions manually)$(RESET)"; exit 1; }
+	@echo "$(BLUE)Triggering the GitHub Actions Pages deployment workflow...$(RESET)"
+	@gh workflow run deploy.yml --ref main
+	@echo "$(GREEN)✓ Workflow dispatched$(RESET)"
 
 #############################################################################
 ###   ASSETS & SETUP   ######################################################
@@ -203,4 +205,5 @@ check-tools:
 	@command -v pagefind >/dev/null 2>&1 && echo "$(GREEN)  ✓ pagefind found$(RESET)" || echo "$(RED)  ✗ pagefind not found (install: make install-pagefind)$(RESET)"
 	@command -v curl     >/dev/null 2>&1 && echo "$(GREEN)  ✓ curl found$(RESET)"     || echo "$(RED)  ✗ curl not found (needed by the fetch-*.sh scripts)$(RESET)"
 	@command -v python3  >/dev/null 2>&1 && echo "$(GREEN)  ✓ python3 found$(RESET)"  || echo "$(RED)  ✗ python3 not found (needed by fetch-avatars.sh)$(RESET)"
+	@command -v gh       >/dev/null 2>&1 && echo "$(GREEN)  ✓ gh found$(RESET)"       || echo "$(YELLOW)  ⊙ gh not found (optional, for make deploy)$(RESET)"
 	@command -v aspell   >/dev/null 2>&1 && echo "$(GREEN)  ✓ aspell found$(RESET)"   || echo "$(YELLOW)  ⊙ aspell not found (optional, for spell-check)$(RESET)"
